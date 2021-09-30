@@ -11,6 +11,7 @@
         <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <PublicSign>false</PublicSign>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
