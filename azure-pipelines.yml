@@ -53,6 +53,14 @@ steps:
   inputs:
     pollingTimeoutSec: '300'
 
+- task: MSBuild@1
+  inputs:
+    solution: |
+      **/*.csproj
+      !**/*.test*.csproj
+    configuration: 'release'
+    msbuildArguments: '-t:restore -t:pack'
+
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: $(build.artifactstagingdirectory)
