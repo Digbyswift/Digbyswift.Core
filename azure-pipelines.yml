@@ -56,4 +56,5 @@ steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: $(build.artifactstagingdirectory)
+    publishLocation: pipeline
     artifactName: Nupkg
