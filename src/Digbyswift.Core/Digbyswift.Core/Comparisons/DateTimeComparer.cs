@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Digbyswift.Core.Constants;
 
-namespace Digbyswift.Core.Collections
+namespace Digbyswift.Core.Comparisons
 {
     /// <summary>
     /// Based on https://stackoverflow.com/a/48036924/549820
@@ -10,7 +11,7 @@ namespace Digbyswift.Core.Collections
     {
         public enum Precision
         {
-            Years = 0,
+            Years = NumericConstants.Zero,
             Months,
             Days,
             Hours,
@@ -40,20 +41,20 @@ namespace Digbyswift.Core.Collections
 
         public bool AreEqual(DateTime x, DateTime y)
         {
-            return Compare(x, y) == 0;
+            return Compare(x, y) == NumericConstants.Zero;
         }
 
         private static DateTime AssembleValue(DateTime input, Precision precision)
         {
             var p = (int)precision;
-            var i = 1;
+            var i = NumericConstants.One;
             return new DateTime(input.Year,
-                p >= i++ ? input.Month : 1,
-                p >= i++ ? input.Day : 1,
-                p >= i++ ? input.Hour : 0,
-                p >= i++ ? input.Minute : 0,
-                p >= i++ ? input.Second : 0,
-                p >= i++ ? input.Millisecond : 0);
+                p >= i++ ? input.Month : NumericConstants.One,
+                p >= i++ ? input.Day : NumericConstants.One,
+                p >= i++ ? input.Hour : NumericConstants.Zero,
+                p >= i++ ? input.Minute : NumericConstants.Zero,
+                p >= i++ ? input.Second : NumericConstants.Zero,
+                p >= i++ ? input.Millisecond : NumericConstants.Zero);
         }
     }
 }

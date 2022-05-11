@@ -1,4 +1,5 @@
 ﻿using System;
+using Digbyswift.Core.Constants;
 using Newtonsoft.Json;
 
 namespace Digbyswift.Core.Serialization
@@ -7,12 +8,12 @@ namespace Digbyswift.Core.Serialization
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteValue(((bool)value) ? 1 : 0);
+            writer.WriteValue(((bool)value) ? NumericConstants.One : NumericConstants.Zero);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return reader.Value.ToString() == "1";
+            return reader.Value.ToString() == StringConstants.One;
         }
 
         public override bool CanConvert(Type objectType)

@@ -12,9 +12,9 @@ namespace Digbyswift.Core.Models
 
         public static Func<DateTime> LocalToday = () => DateTime.Now.Date;
 
-		internal static void Freeze(DateTime? frozenDate = null)
+		public static void Freeze(DateTime? frozenDate = null)
 		{
-			DateTime workingDate = frozenDate ?? new DateTime(UtcNow().Ticks, DateTimeKind.Utc);
+			var workingDate = frozenDate ?? new DateTime(UtcNow().Ticks, DateTimeKind.Utc);
 
             UtcNow = () => workingDate;
             UtcToday = () => workingDate.Date;
