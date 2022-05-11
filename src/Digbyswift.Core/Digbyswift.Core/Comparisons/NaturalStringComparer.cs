@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace Digbyswift.Core.Collections
+namespace Digbyswift.Core.Comparisons
 {
 #if NET462
     [SuppressUnmanagedCodeSecurity]

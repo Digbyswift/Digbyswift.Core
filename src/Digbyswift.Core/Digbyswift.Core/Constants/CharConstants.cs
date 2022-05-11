@@ -18,5 +18,11 @@
         public const char Underscore = '_';
         public const char At = '@';
         public const char QuestionMark = '?';
+        public const char Percent = '%';
+        public const char Dollar = '$';
+        public const char Exclamation = '!';
+        public const char Equal = '=';
+        public const char Tilde = '~';
+        public const char Space = ' ';
     }
 }
