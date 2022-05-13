@@ -9,27 +9,16 @@
         <PackageProjectUrl>https://github.com/digbyswift/Digbyswift.Core</PackageProjectUrl>
         <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <AssemblyVersion>1.0.2</AssemblyVersion>
-        <PublicSign>false</PublicSign>
-        <PackageVersion>1.0.2</PackageVersion>
         <PackageTags>c#</PackageTags>
-        <FileVersion>1.0.2</FileVersion>
+        <AssemblyVersion>1.0.4</AssemblyVersion>
+        <PackageVersion>1.0.4</PackageVersion>
+        <FileVersion>1.0.4</FileVersion>
+        <LangVersion>8</LangVersion>
         <PackageIcon>package-icon.png</PackageIcon>
         <PackageIconUrl>package-icon.png</PackageIconUrl>
-        <AssemblyOriginatorKeyFile>..\..\..\build\code-signing-2021.snk</AssemblyOriginatorKeyFile>
-        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <ItemGroup>
       <None Include="../../../package-icon.png" Pack="true" PackagePath="" />
-      <None Include="..\..\..\build\assembly-signing-key-2021.snk">
-        <Link>assembly-signing-key-2021.snk</Link>
-      </None>
-      <None Include="..\..\..\build\code-signing-2021.pfx">
-        <Link>code-signing-2021.pfx</Link>
-      </None>
-      <None Include="..\..\..\build\code-signing-2021.snk">
-        <Link>code-signing-2021.snk</Link>
-      </None>
     </ItemGroup>
     <ItemGroup>
       <None Include="../../../LICENSE" Pack="true" PackagePath="" />
