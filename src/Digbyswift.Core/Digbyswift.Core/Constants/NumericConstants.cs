@@ -1,6 +1,6 @@
 ﻿namespace Digbyswift.Core.Constants
 {
-    public class NumericConstants
+    public static class NumericConstants
     {
         public const int Zero = 0;
         public const int One = 1;
