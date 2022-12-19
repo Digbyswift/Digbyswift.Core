@@ -4,7 +4,7 @@ using System.Security;
 
 namespace Digbyswift.Core.Comparisons
 {
-#if NET462
+#if NET48
     [SuppressUnmanagedCodeSecurity]
     internal static class SafeNativeMethods
     {

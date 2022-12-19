@@ -2,23 +2,23 @@
 {
     public static class AppEnvironment
     {
-        public const string Local = "Local";
-        public const string LocalCms = "LocalCms";
+        public static readonly string Local = "Local";
+        public static readonly string LocalCms = "LocalCms";
 
-        public const string Staging = "Staging";
-        public const string StagingDeploy = "StagingDeploy";
-        public const string StagingCms = "StagingCms";
-        public const string StagingCmsDeploy = "StagingCmsDeploy";
+        public static readonly string Staging = "Staging";
+        public static readonly string StagingDeploy = "StagingDeploy";
+        public static readonly string StagingCms = "StagingCms";
+        public static readonly string StagingCmsDeploy = "StagingCmsDeploy";
         
-        public const string UAT = "UAT";
-        public const string UATDeploy = "UATDeploy";
-        public const string UATCms = "UATCms";
-        public const string UATCmsDeploy = "UATCmsDeploy";
+        public static readonly string UAT = "UAT";
+        public static readonly string UATDeploy = "UATDeploy";
+        public static readonly string UATCms = "UATCms";
+        public static readonly string UATCmsDeploy = "UATCmsDeploy";
         
-        public const string Production = "Production";
-        public const string ProductionDeploy = "ProductionDeploy";
-        public const string ProductionCms = "ProductionCms";
-        public const string ProductionCmsDeploy = "ProductionCmsDeploy";
+        public static readonly string Production = "Production";
+        public static readonly string ProductionDeploy = "ProductionDeploy";
+        public static readonly string ProductionCms = "ProductionCms";
+        public static readonly string ProductionCmsDeploy = "ProductionCmsDeploy";
     }
     
 }
