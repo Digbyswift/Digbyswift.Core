@@ -28,6 +28,9 @@ public static class Patterns
 
 		internal static readonly string FileExtension = @"\.([a-zA-Z0-9]+)$";
 
+		internal static readonly string Guid = @"^([a-f\d]{4}(?:[a-f\d]{4}-?){4}[a-f\d]{12}|\{[a-f\d]{4}(?:[a-f\d]{4}-?){4}[a-f\d]{12}\})$";
+			
+	
 		public static class Dates
 		{
 			/// <summary>
@@ -84,5 +87,7 @@ public static class Patterns
 		public static readonly string IPv4 = Exact.IPv4.Trim('^', '$');
 		
 		public static readonly string IPv6 = Exact.IPv6.Trim('^', '$');
+		
+		public static readonly string Guid = Exact.Guid.Trim('^', '$');
 	}
 }

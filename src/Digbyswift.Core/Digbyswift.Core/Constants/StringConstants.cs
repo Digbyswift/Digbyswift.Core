@@ -15,6 +15,7 @@
         public static readonly string Period = ".";
         public static readonly string Hash = "#";
         public static readonly string Hyphen = "-";
+        public static readonly string Plus = "+";
         public static readonly string Underscore = "_";
         public static readonly string At = "@";
         public static readonly string QuestionMark = "?";
@@ -24,6 +25,16 @@
         public static readonly string Equal = "=";
         public static readonly string Tilde = "~";
         public static readonly string Space = " ";
+
+        public static readonly string ParenthesesLeft = "(";
+        public static readonly string ParenthesesRight = ")";
+        public static readonly string SquareBracketLeft = "[";
+        public static readonly string SquareBracketRight = "]";
+        public static readonly string CurlyBracketLeft = "{";
+        public static readonly string CurlyBracketRight = "}";
+
+        public static readonly string LineFeed = "\n";
+        public static readonly string CarriageReturn = "\r";
 
         public static readonly string Zero = "0";
         public static readonly string One = "1";

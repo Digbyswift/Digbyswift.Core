@@ -15,6 +15,7 @@
         public const char Period = '.';
         public const char Hash = '#';
         public const char Hyphen = '-';
+        public const char Plus = '+';
         public const char Underscore = '_';
         public const char At = '@';
         public const char QuestionMark = '?';
@@ -24,5 +25,15 @@
         public const char Equal = '=';
         public const char Tilde = '~';
         public const char Space = ' ';
+
+        public const char ParenthesesLeft = '(';
+        public const char ParenthesesRight = ')';
+        public const char SquareBracketLeft = '[';
+        public const char SquareBracketRight = ']';
+        public const char CurlyBracketLeft = '{';
+        public const char CurlyBracketRight = '}';
+        
+        public const char LineFeed = '\n';
+        public const char CarriageReturn = '\r';
     }
 }
