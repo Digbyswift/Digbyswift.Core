@@ -2,41 +2,44 @@
 {
     public static class StringConstants
     {
-        public static readonly string ForwardSlash = "/";
-        public static readonly string BackSlash = "\\";
-        public static readonly string SemiColon = ";";
-        public static readonly string Colon = ":";
-        public static readonly string Comma = ",";
-        public static readonly string SingleQuote = "\'";
-        public static readonly string DoubleQuote = "\"";
-        public static readonly string Pipe = "|";
-        public static readonly string Ampersand = "&";
-        public static readonly string Star = "*";
-        public static readonly string Period = ".";
-        public static readonly string Hash = "#";
-        public static readonly string Hyphen = "-";
-        public static readonly string Plus = "+";
-        public static readonly string Underscore = "_";
-        public static readonly string At = "@";
-        public static readonly string QuestionMark = "?";
-        public static readonly string Percent = "%";
-        public static readonly string Dollar = "$";
-        public static readonly string Exclamation = "!";
-        public static readonly string Equal = "=";
-        public static readonly string Tilde = "~";
-        public static readonly string Space = " ";
+        public const string ForwardSlash = "/";
+        public const string BackSlash = "\\";
+        public const string SemiColon = ";";
+        public const string Colon = ":";
+        public const string Comma = ",";
+        public const string SingleQuote = "\'";
+        public const string DoubleQuote = "\"";
+        public const string Pipe = "|";
+        public const string Ampersand = "&";
+        public const string Star = "*";
+        public const string Period = ".";
+        public const string Hash = "#";
+        public const string Hyphen = "-";
+        public const string Plus = "+";
+        public const string Underscore = "_";
+        public const string At = "@";
+        public const string QuestionMark = "?";
+        public const string Percent = "%";
+        public const string Dollar = "$";
+        public const string Exclamation = "!";
+        public const string Equal = "=";
+        public const string Tilde = "~";
+        public const string Space = " ";
 
-        public static readonly string ParenthesesLeft = "(";
-        public static readonly string ParenthesesRight = ")";
-        public static readonly string SquareBracketLeft = "[";
-        public static readonly string SquareBracketRight = "]";
-        public static readonly string CurlyBracketLeft = "{";
-        public static readonly string CurlyBracketRight = "}";
+        public const string ParenthesesLeft = "(";
+        public const string ParenthesesRight = ")";
+        public const string SquareBracketLeft = "[";
+        public const string SquareBracketRight = "]";
+        public const string CurlyBracketLeft = "{";
+        public const string CurlyBracketRight = "}";
 
-        public static readonly string LineFeed = "\n";
-        public static readonly string CarriageReturn = "\r";
+        public const string LineFeed = "\n";
+        public const string CarriageReturn = "\r";
 
-        public static readonly string Zero = "0";
-        public static readonly string One = "1";
+        public const string Zero = "0";
+        public const string One = "1";
+        
+        public const string Yes = "Yes";
+        public const string No = "No";
     }
 }

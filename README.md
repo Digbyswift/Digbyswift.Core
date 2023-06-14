@@ -2,7 +2,7 @@
 
 [![NuGet version (Digbyswift.Core)](https://img.shields.io/nuget/v/Digbyswift.Core.svg)](https://www.nuget.org/packages/Digbyswift.Core/)
 
-A library of general-use classes and extensions for everyday coding. Mainly for our own internal use and the support of our other projects and packages.
+A library of general-use classes and extensions for everyday coding.
 
 This includes:
 

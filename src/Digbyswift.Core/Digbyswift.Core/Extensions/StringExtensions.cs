@@ -9,10 +9,39 @@ namespace Digbyswift.Core.Extensions
 {
     public static class StringExtensions
     {
-        private static readonly char[] GrammarCharacters = {',', ';', ':', '!', '\'', '\"', '\\', '/', '(', ')'};
-        private static readonly char[] ReservedRegexChars = { '[', '\\', '^', '$', '.', '|', '*', '+', '?', '(', ')' };
+        private static readonly char[] DefaultSeparators = { CharConstants.Space };
+
+        private static readonly char[] GrammarCharacters =
+        {
+            CharConstants.Comma,
+            CharConstants.SemiColon,
+            CharConstants.Colon,
+            CharConstants.Exclamation,
+            CharConstants.SingleQuote,
+            CharConstants.DoubleQuote,
+            CharConstants.BackSlash,
+            CharConstants.ForwardSlash,
+            CharConstants.ParenthesesLeft,
+            CharConstants.ParenthesesRight
+        };
+        
+        private static readonly char[] ReservedRegexChars =
+        {
+            CharConstants.SquareBracketLeft,
+            CharConstants.BackSlash,
+            CharConstants.Hat,
+            CharConstants.Dollar,
+            CharConstants.Period,
+            CharConstants.Pipe,
+            CharConstants.Star,
+            CharConstants.Plus,
+            CharConstants.QuestionMark,
+            CharConstants.ParenthesesLeft,
+            CharConstants.ParenthesesRight
+        };
+        
         private static readonly Regex WhiteSpaceRegex = new(@"\s+");
-        private static readonly Regex UrlFriendlyCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase);
+        private static readonly Regex NonWordCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase);
         private static readonly Regex SingleQuoteRegex = new(@"([’']+)");
 
         public static bool EqualsIgnoreCase(this string value, string toCheck)
@@ -83,30 +112,29 @@ namespace Digbyswift.Core.Extensions
         }
 
         /// <summary>
-        /// Replaces repeated whitespace characters with a single ' ' character
+        /// Replaces repeated whitespace characters with a single space character
         /// </summary>
         public static string TrimWithin(this string value)
         {
             return new Regex(@"\s+").Replace(value, StringConstants.Space).Trim();
         }
 
+        /// <summary>
+        /// Returns null if only whitespace is left after trimming
+        /// </summary>
         public static string? TrimToNull(this string value)
         {
-            if (String.IsNullOrWhiteSpace(value))
-                return null;
-
-            return value.Trim();
+            return TrimToDefault(value);
         }
 
+        /// <summary>
+        /// Returns null or a default value if only whitespace is left after trimming
+        /// </summary>
         public static string? TrimToDefault(this string value, string? defaultValue = null)
         {
-            if (String.IsNullOrWhiteSpace(value))
-                return defaultValue;
-
-            return value.Trim();
+            var trimmedValue = value.Trim();
+            return trimmedValue == String.Empty ? defaultValue : trimmedValue;
         }
-        
-        private static readonly char[] DefaultSeparators = { CharConstants.Space };
         
         /// <summary>
         /// Performs a split, removes empty entries and then trims the remaining
@@ -120,12 +148,17 @@ namespace Digbyswift.Core.Extensions
                 : new List<string>();
         }
                 
+        /// <summary>
+        /// Removes all whitespace within a string
+        /// </summary>
         public static string RemoveWhitespace(this string value)
         {
-            if (WhiteSpaceRegex.IsMatch(value))
+            if (String.IsNullOrWhiteSpace(value))
                 return String.Empty;
-
-            return WhiteSpaceRegex.Replace(value, String.Empty).Trim();
+            
+            return WhiteSpaceRegex.IsMatch(value)
+                ? WhiteSpaceRegex.Replace(value, String.Empty).Trim()
+                : value;
         }
 
         public static string StripMarkup(this string input)
@@ -141,9 +174,8 @@ namespace Digbyswift.Core.Extensions
         /// </summary>
         public static string ReplaceExcess(this string value, char characterToReplace, char characterToReplaceWith)
         {
-            var regexPattern = $"{(ReservedRegexChars.Contains(characterToReplace) ? StringConstants.BackSlash : null)}{characterToReplace.ToString()}+";
-            var reExcessHyphens = new Regex(regexPattern);
-            return reExcessHyphens.Replace(value, characterToReplaceWith.ToString());
+            var regexPattern = $"{(ReservedRegexChars.Contains(characterToReplace) ? StringConstants.BackSlash : null)}{characterToReplace}{{2,}}";
+            return Regex.Replace(value, regexPattern, characterToReplaceWith.ToString());
         }
         
         public static string Base64Encode(this string plainText)
@@ -192,10 +224,14 @@ namespace Digbyswift.Core.Extensions
             return value.Substring(value.Length - numberOfVisibleCharacter, numberOfVisibleCharacter).PadLeft(value.Length, CharConstants.Star);
         }
 
-        public static string? ToUrlFriendly(this string value)
+        public static string ToUrlFriendly(this string value)
         {
-            if (String.IsNullOrWhiteSpace(value))
+#if NET48
+            if (value == null)
                 return null;
+#endif
+            if (String.IsNullOrWhiteSpace(value))
+                return String.Empty;
 
             string workingString = value.ToLower();
 
@@ -206,21 +242,21 @@ namespace Digbyswift.Core.Extensions
             workingString = workingString.TrimWithin();
 
             // Replace non URL-friendly characters
-            workingString = UrlFriendlyCharactersRegex.Replace(workingString, StringConstants.Hyphen);
+            workingString = NonWordCharactersRegex.Replace(workingString, StringConstants.Hyphen);
 
             return workingString.ReplaceExcess(CharConstants.Hyphen, CharConstants.Hyphen).Trim(CharConstants.Hyphen);
         }
 
-        public static bool ToBool(this string value)
+        /// <summary>
+        /// Converts a string value to a bool. If the string isn't a valid bool, it
+        /// will return the default value or false if one is not specified. 
+        /// </summary>
+        public static bool ToBool(this string value, bool? defaultValue)
         {
-            var result = false;
-
-            if (Boolean.TryParse(value, out var actualResult))
-            {
-                result = actualResult;
-            }
-
-            return result;
+            if (Boolean.TryParse(value, out var actualResult) && actualResult)
+                return true;
+            
+            return defaultValue ?? false;
         }
 
         public static T ToEnum<T>(this string enumDescription)

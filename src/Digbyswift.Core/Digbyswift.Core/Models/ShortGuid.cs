@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Digbyswift.Core.Constants;
 using Regex = Digbyswift.Core.RegularExpressions.Regex;
 
@@ -50,9 +49,15 @@ public readonly struct ShortGuid
         if (Regex.IsGuid.Value.IsMatch(value))
         {
             var workingValue = value
+#if NET5_0_OR_GREATER
+                .AsSpan()
+                .TrimStart(CharConstants.CurlyBracketLeft)
+                .TrimEnd(CharConstants.CurlyBracketRight)
+                .ToString()
+#else
                 .Trim(CharConstants.CurlyBracketLeft, CharConstants.CurlyBracketRight)
+#endif            
                 .Replace(StringConstants.Hyphen, String.Empty);
-            
             return new ShortGuid(Guid.Parse(workingValue));
         }
 

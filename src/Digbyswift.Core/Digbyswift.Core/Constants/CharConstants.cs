@@ -17,6 +17,7 @@
         public const char Hyphen = '-';
         public const char Plus = '+';
         public const char Underscore = '_';
+        public const char Hat = '^';
         public const char At = '@';
         public const char QuestionMark = '?';
         public const char Percent = '%';
