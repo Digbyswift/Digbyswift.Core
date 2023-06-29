@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
+using Digbyswift.Core.Constants;
 
 namespace Digbyswift.Core.Extensions.ThirdParty
 {
@@ -40,9 +41,9 @@ namespace Digbyswift.Core.Extensions.ThirdParty
             {
                 var videoId = fullYouTubeVideoUrl.ExtractYouTubeVideoId();
                 var query = ParseYoutubeQueryString(fullYouTubeVideoUrl);
-                query.Set("rel", "0");
-                query.Set("modestbranding", "1");
-                query.Set("controls", "0");
+                query.Set("rel", StringConstants.Zero);
+                query.Set("modestbranding", StringConstants.One);
+                query.Set("controls", StringConstants.Zero);
                 return $"https://www.youtube-nocookie.com/embed/{videoId}/?{query}";
             }
 
@@ -64,9 +65,9 @@ namespace Digbyswift.Core.Extensions.ThirdParty
             if (String.IsNullOrWhiteSpace(youtubeUri?.Query))
                 return nvc;
             
-            foreach (var item in youtubeUri!.Query.Replace("?", "").SplitAndTrim('&'))
+            foreach (var item in youtubeUri!.Query.Replace(StringConstants.QuestionMark, String.Empty).SplitAndTrim(CharConstants.Ampersand))
             {
-                var itemParts = item.SplitAndTrim('=');
+                var itemParts = item.SplitAndTrim(CharConstants.Equal);
                 if (itemParts.Count != 2)
                     continue;
                 

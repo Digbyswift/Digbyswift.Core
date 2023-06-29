@@ -178,6 +178,24 @@ namespace Digbyswift.Core.Extensions
             return Regex.Replace(value, regexPattern, characterToReplaceWith.ToString());
         }
         
+        /// <summary>
+        /// Removes non-word characters (equivalent to the regex \W) and trims excess whitespace.
+        /// </summary>
+        public static string RemoveNonWordCharacters(this string value)
+        {
+#if NET48
+            if (value == null)
+                return null;
+#endif
+            if (String.IsNullOrWhiteSpace(value))
+                return String.Empty;
+
+            // Replace non URL-friendly characters
+            var workingString = NonWordCharactersRegex.Replace(value, String.Empty);
+
+            return workingString.TrimWithin();
+        }
+
         public static string Base64Encode(this string plainText)
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
