@@ -1,60 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using Digbyswift.Core.Constants;
 
 namespace Digbyswift.Core.Comparisons
 {
+    public enum DateTimeComparePrecision : long
+    {
+        Millisecond  = TimeSpan.TicksPerMillisecond,
+        Second = TimeSpan.TicksPerSecond,
+        Minute = TimeSpan.TicksPerMinute,
+        Hour = TimeSpan.TicksPerHour,
+        Day = TimeSpan.TicksPerDay,
+    }
+
     /// <summary>
-    /// Based on https://stackoverflow.com/a/48036924/549820
+    /// Based on https://stackoverflow.com/a/71321411/549820
     /// </summary>
     public class DateTimeComparer : Comparer<DateTime>
     {
-        public enum Precision
+        internal readonly DateTimeComparePrecision Precision;
+
+        public DateTimeComparer(DateTimeComparePrecision precision)
         {
-            Years = NumericConstants.Zero,
-            Months,
-            Days,
-            Hours,
-            Minutes,
-            Seconds,
-            Milliseconds,
-            Ticks
+            Precision = precision;
         }
 
-        private readonly Precision _precision;
-
-        public DateTimeComparer(Precision precision = Precision.Ticks)
+        public override int Compare(DateTime d1, DateTime d2)
         {
-            _precision = precision;
+            var day1 = (d1.Ticks - (d1.Ticks % (long)Precision));
+            var day2 = (d2.Ticks - (d2.Ticks % (long)Precision));
+
+            if (day2 > day1) 
+                return -1;            
+
+            if (day2 < day1)            
+                return 1;            
+
+            return 0;
         }
 
-        public override int Compare(DateTime x, DateTime y)
+        public bool AreEqual(DateTime d1, DateTime d2)
         {
-            if (_precision == Precision.Ticks)
-                return x.CompareTo(y);
-
-            var xx = AssembleValue(x, _precision);
-            var yy = AssembleValue(y, _precision);
-
-            return xx.CompareTo(yy);
-        }
-
-        public bool AreEqual(DateTime x, DateTime y)
-        {
-            return Compare(x, y) == NumericConstants.Zero;
-        }
-
-        private static DateTime AssembleValue(DateTime input, Precision precision)
-        {
-            var p = (int)precision;
-            var i = NumericConstants.One;
-            return new DateTime(input.Year,
-                p >= i++ ? input.Month : NumericConstants.One,
-                p >= i++ ? input.Day : NumericConstants.One,
-                p >= i++ ? input.Hour : NumericConstants.Zero,
-                p >= i++ ? input.Minute : NumericConstants.Zero,
-                p >= i++ ? input.Second : NumericConstants.Zero,
-                p >= i++ ? input.Millisecond : NumericConstants.Zero);
+            return Compare(d1, d2) == 0;
         }
     }
 }
