@@ -11,9 +11,9 @@
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>c# extensions utility</PackageTags>
-        <AssemblyVersion>2.0.3</AssemblyVersion>
-        <PackageVersion>2.0.3</PackageVersion>
-        <FileVersion>2.0.3</FileVersion>
+        <AssemblyVersion>2.1.0</AssemblyVersion>
+        <PackageVersion>2.1.0</PackageVersion>
+        <FileVersion>2.1.0</FileVersion>
         <LangVersion>default</LangVersion>
         <PackageIcon>package-icon.png</PackageIcon>
         <PackageIconUrl>package-icon.png</PackageIconUrl>
