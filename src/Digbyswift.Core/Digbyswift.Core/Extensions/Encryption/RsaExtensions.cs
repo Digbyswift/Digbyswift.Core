@@ -2,68 +2,67 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Digbyswift.Core.Extensions.Encryption
+namespace Digbyswift.Core.Extensions.Encryption;
+
+public static class RsaExtensions
 {
-    public static class RsaExtensions
+    /// <summary>
+    /// Most basic RSA encryption with no public/private key
+    /// </summary>
+    public static string RSAEncrypt(this string text)
     {
-        /// <summary>
-        /// Most basic RSA encryption with no public/private key
-        /// </summary>
-        public static string RSAEncrypt(this string text)
+        var bytesToEncrypt = Encoding.UTF8.GetBytes(text);
+
+        using (var rsaProvider = new RSACryptoServiceProvider())
         {
-            var bytesToEncrypt = Encoding.UTF8.GetBytes(text);
+            rsaProvider.ImportParameters(rsaProvider.ExportParameters(false));
 
-            using (var rsaProvider = new RSACryptoServiceProvider())
-            {
-                rsaProvider.ImportParameters(rsaProvider.ExportParameters(false));
-
-                return Convert.ToBase64String(rsaProvider.Encrypt(bytesToEncrypt, false));
-            }
+            return Convert.ToBase64String(rsaProvider.Encrypt(bytesToEncrypt, false));
         }
+    }
 
-        /// <summary>
-        /// RSA encryption requiring a 2048 bit public/private key 
-        /// </summary>
-        public static string RSAEncrypt(this string text, string publicKeyXml)
+    /// <summary>
+    /// RSA encryption requiring a 2048 bit public/private key 
+    /// </summary>
+    public static string RSAEncrypt(this string text, string publicKeyXml)
+    {
+        var bytesToEncrypt = Encoding.UTF8.GetBytes(text);
+
+        using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(2048))
         {
-            var bytesToEncrypt = Encoding.UTF8.GetBytes(text);
-
-            using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(2048))
-            {
-                rsaProvider.PersistKeyInCsp = false;
-                rsaProvider.FromXmlString(publicKeyXml);
-                return Convert.ToBase64String(rsaProvider.Encrypt(bytesToEncrypt, true));
-            }
+            rsaProvider.PersistKeyInCsp = false;
+            rsaProvider.FromXmlString(publicKeyXml);
+            return Convert.ToBase64String(rsaProvider.Encrypt(bytesToEncrypt, true));
         }
+    }
 
-        /// <summary>
-        /// Most basic RSA decryption with no public/private key
-        /// </summary>
-        public static string RSADecrypt(this string encryptedText)
+    /// <summary>
+    /// Most basic RSA decryption with no public/private key
+    /// </summary>
+    public static string RSADecrypt(this string encryptedText)
+    {
+        var encryptedBytes = Convert.FromBase64String(encryptedText);
+
+        using (var rsaProvider = new RSACryptoServiceProvider())
         {
-            var encryptedBytes = Convert.FromBase64String(encryptedText);
+            rsaProvider.ImportParameters(rsaProvider.ExportParameters(true));
 
-            using (var rsaProvider = new RSACryptoServiceProvider())
-            {
-                rsaProvider.ImportParameters(rsaProvider.ExportParameters(true));
-
-                return Encoding.UTF8.GetString(rsaProvider.Decrypt(encryptedBytes, false));
-            }
+            return Encoding.UTF8.GetString(rsaProvider.Decrypt(encryptedBytes, false));
         }
+    }
 
-        /// <summary>
-        /// RSA decryption requiring a 2048 bit public/private key 
-        /// </summary>
-        public static string RSADecrypt(this string encryptedText, string privateKeyXml)
+    /// <summary>
+    /// RSA decryption requiring a 2048 bit public/private key 
+    /// </summary>
+    public static string RSADecrypt(this string encryptedText, string privateKeyXml)
+    {
+        var encryptedBytes = Convert.FromBase64String(encryptedText);
+
+        using (var rsaProvider = new RSACryptoServiceProvider(2048))
         {
-            var encryptedBytes = Convert.FromBase64String(encryptedText);
-
-            using (var rsaProvider = new RSACryptoServiceProvider(2048))
-            {
-                rsaProvider.PersistKeyInCsp = false;
-                rsaProvider.FromXmlString(privateKeyXml);
-                return Encoding.UTF8.GetString(rsaProvider.Decrypt(encryptedBytes, true));
-            }
+            rsaProvider.PersistKeyInCsp = false;
+            rsaProvider.FromXmlString(privateKeyXml);
+            return Encoding.UTF8.GetString(rsaProvider.Decrypt(encryptedBytes, true));
         }
     }
 }

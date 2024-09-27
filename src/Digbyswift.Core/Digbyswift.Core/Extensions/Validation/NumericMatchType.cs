@@ -1,9 +1,8 @@
-namespace Digbyswift.Core.Extensions.Validation
+namespace Digbyswift.Core.Extensions.Validation;
+
+public enum NumericMatchType
 {
-    public enum NumericMatchType
-    {
-        Any,
-        Integer,
-        Decimal
-    }
+    Any,
+    Integer,
+    Decimal
 }

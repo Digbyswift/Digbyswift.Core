@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace Digbyswift.Core.Exceptions
+namespace Digbyswift.Core.Exceptions;
+
+public class ArgumentEmptyException : ArgumentException
 {
-    public class ArgumentEmptyException : ArgumentException
+    public ArgumentEmptyException(string paramName) : base("Cannot be empty", paramName)
     {
-        public ArgumentEmptyException(string paramName) : base("Cannot be empty", paramName)
-        {
-        }
     }
 }

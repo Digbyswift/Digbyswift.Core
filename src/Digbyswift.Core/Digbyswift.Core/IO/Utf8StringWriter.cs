@@ -1,10 +1,9 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace Digbyswift.Core.IO
+namespace Digbyswift.Core.IO;
+
+public class UTF8StringWriter : StringWriter
 {
-    public class UTF8StringWriter : StringWriter
-    {
-        public override Encoding Encoding => Encoding.UTF8;
-    }
+    public override Encoding Encoding => Encoding.UTF8;
 }
