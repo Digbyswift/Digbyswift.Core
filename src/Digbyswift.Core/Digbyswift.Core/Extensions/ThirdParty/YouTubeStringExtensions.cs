@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Digbyswift.Core.Constants;
 
@@ -67,8 +68,8 @@ namespace Digbyswift.Core.Extensions.ThirdParty
             
             foreach (var item in youtubeUri!.Query.Replace(StringConstants.QuestionMark, String.Empty).SplitAndTrim(CharConstants.Ampersand))
             {
-                var itemParts = item.SplitAndTrim(CharConstants.Equal);
-                if (itemParts.Count != 2)
+                var itemParts = item.SplitAndTrim(CharConstants.Equal).ToArray();
+                if (itemParts.Length != 2)
                     continue;
                 
                 nvc.Add(itemParts[0], itemParts[1]);

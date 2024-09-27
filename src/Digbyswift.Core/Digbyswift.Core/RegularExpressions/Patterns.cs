@@ -31,7 +31,11 @@ public static class Patterns
 
 		internal const string Guid = @"^([a-f\d]{4}(?:[a-f\d]{4}-?){4}[a-f\d]{12}|\{[a-f\d]{4}(?:[a-f\d]{4}-?){4}[a-f\d]{12}\})$";
 			
-	
+		internal const string IsoRegionalLanguage = @"^[a-z]{2}\-[a-z]{2}$";
+
+		internal const string HexColour = "^#(?:[0-9a-fA-F]{3}){1,2}$";
+
+
 		public static class Dates
 		{
 			/// <summary>
@@ -80,8 +84,8 @@ public static class Patterns
 		public static readonly string WholeNumber = Exact.WholeNumber.Trim(CharConstants.Hat, CharConstants.Dollar);
 
 		public static readonly string Url = Exact.Url.Trim(CharConstants.Hat, CharConstants.Dollar);
-		
-		public static readonly string Markup = "<.*?>";
+
+		public const string Markup = "<.*?>";
 
 		public static readonly string AlphaNumeric = Exact.AlphaNumeric.Trim(CharConstants.Hat, CharConstants.Dollar);
 		
@@ -90,5 +94,9 @@ public static class Patterns
 		public static readonly string IPv6 = Exact.IPv6.Trim(CharConstants.Hat, CharConstants.Dollar);
 		
 		public static readonly string Guid = Exact.Guid.Trim(CharConstants.Hat, CharConstants.Dollar);
+		
+		public static readonly string IsoRegionalLanguage = Exact.IsoRegionalLanguage.Trim(CharConstants.Hat, CharConstants.Dollar);
+		
+		public static readonly string HexColour = Exact.HexColour.Trim(CharConstants.Hat, CharConstants.Dollar);
 	}
 }

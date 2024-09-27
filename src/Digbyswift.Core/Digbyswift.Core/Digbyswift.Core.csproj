@@ -17,8 +17,13 @@
         <LangVersion>default</LangVersion>
         <PackageIcon>package-icon.png</PackageIcon>
         <PackageIconUrl>package-icon.png</PackageIconUrl>
-        <Nullable>enable</Nullable>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'net48' ">
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(TargetFramework)' != 'net48' ">
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
         <None Include="../../../package-icon.png" Pack="true" PackagePath="" />
@@ -29,7 +34,7 @@
     <ItemGroup>
         <None Include="../../../README.md" Pack="true" PackagePath="" />
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
         <PackageReference Include="BouncyCastle" Version="1.8.9" />
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">

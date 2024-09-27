@@ -5,51 +5,47 @@ namespace Digbyswift.Core.Extensions
 {
     public static class DictionaryExtensions
     {
-        public static void Set<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        public static IDictionary<TKey, TValue> Set<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {
-            if (dictionary.ContainsKey(key))
-            {
-                dictionary[key] = value;
-            }
-            else
-            {
-                dictionary.Add(key, value);
-            }
+            dictionary[key] = value;
+
+            return dictionary;
         }
 
         public static bool ContainsKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {
-            if (!dictionary.ContainsKey(key))
-                return false;
-
-            return dictionary[key]!.Equals(value);
+            return dictionary.TryGetValue(key, out var workingValue) && workingValue!.Equals(value);
         }
 
         public static bool ContainsKeyAndValue<TKey>(this IDictionary<TKey, string> dictionary, TKey key, string value, StringComparison stringComparison = StringComparison.CurrentCulture)
         {
-            if (!dictionary.ContainsKey(key))
-                return false;
-
-            return dictionary[key].Equals(value, stringComparison);
+            return dictionary.TryGetValue(key, out var workingValue) && workingValue.Equals(value, stringComparison);
         }
 
-        public static TValue GetOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+#if !NET6_0_OR_GREATER
+        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
             where TKey : notnull
         {
-            if (!dictionary.ContainsKey(key))
-                return defaultValue;
-
-            return dictionary[key];
+            return dictionary.TryGetValue(key, out var workingValue) ? workingValue : defaultValue;
         }
+#endif
 
-        public static TValue? GetOrNull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+#if NET48
+        public static TValue GetValueOrNull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
             where TKey : notnull
-            where TValue : class?        
+            where TValue : class
         {
-            if (!dictionary.ContainsKey(key))
-                return null;
-
-            return dictionary[key];
+            return dictionary.TryGetValue(key, out var workingValue) ? workingValue : null;
         }
+#endif
+
+#if NETSTANDARD2_0
+        public static TValue? GetValueOrNull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+            where TKey : notnull
+            where TValue : class
+        {
+            return dictionary.TryGetValue(key, out var workingValue) ? workingValue : null;
+        }
+#endif
     }
 }

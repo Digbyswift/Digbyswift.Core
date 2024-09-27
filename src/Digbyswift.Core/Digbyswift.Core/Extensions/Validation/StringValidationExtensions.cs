@@ -1,6 +1,7 @@
 ﻿using System;
-using Digbyswift.Core.RegularExpressions;
+using Digbyswift.Core.Constants;
 using Newtonsoft.Json.Linq;
+using Regex = Digbyswift.Core.RegularExpressions.Regex;
 
 namespace Digbyswift.Core.Extensions.Validation
 {
@@ -136,11 +137,27 @@ namespace Digbyswift.Core.Extensions.Validation
             return Regex.ContainsMarkup.Value.IsMatch(value);
         }
 
-        public static bool HasExtension(this string value)
+        public static bool HasFileExtension(this string value)
         {
             return Regex.HasFileExtension.Value.IsMatch(value);
         }
 
+        /// <summary>
+        /// Matches the format xx-xx, e.g. en-gb or fr-fr.
+        /// </summary>
+        public static bool IsIsoRegionalLanguage(this string value)
+        {
+            return Regex.IsIsoRegionalLanguage.Value.IsMatch(value);
+        }
+
+        /// <summary>
+        /// Determines if a string is valid JSON by running the following checks:
+        /// <list type="bullet">
+        /// <item>Is null or whitespace?</item>
+        /// <item>Starts and ends with {} or []?</item>
+        /// <item>JToken.Parse?</item>
+        /// </list> 
+        /// </summary>
         public static bool IsJson(this string value)
         {
             if (String.IsNullOrWhiteSpace(value))
@@ -148,11 +165,8 @@ namespace Digbyswift.Core.Extensions.Validation
 
             var workingValue = value.Trim();
 
-            if (!(workingValue.StartsWith("{") && workingValue.EndsWith("}")) ||
-                !(workingValue.StartsWith("[") && !workingValue.EndsWith("]")))
-            {
+            if (!(workingValue.StartsWith("{") && workingValue.EndsWith("}")) && !(workingValue.StartsWith("[") && workingValue.EndsWith("]")))
                 return false;
-            }
 
             try
             {
@@ -163,7 +177,15 @@ namespace Digbyswift.Core.Extensions.Validation
             {
                 return false;
             }
-        } 
+        }
+
+        /// <summary>
+        /// Determines if a string has the format #XXX or #XXXXXX where X is a hexadecimal character.
+        /// </summary>
+        public static bool IsHexColor(this string value)
+        {
+            return Regex.IsHexColour.Value.IsMatch(value);
+        }
 
 	}
 }

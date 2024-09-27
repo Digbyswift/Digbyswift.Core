@@ -91,22 +91,32 @@ public readonly struct ShortGuid
 
     public override string ToString() => _value;
     public override int GetHashCode() => _guid.GetHashCode();
+
+#if NET48
+    public override bool Equals(object obj)
+    {
+        return obj switch
+        {
+            null => false,
+            ShortGuid otherShortGuid => _guid.Equals(otherShortGuid._guid),
+            Guid otherGuid => _guid.Equals(otherGuid),
+            string otherString => _guid.Equals(Parse(otherString)._guid),
+            _ => false
+        };
+    }
+#else
     public override bool Equals(object? obj)
     {
-        if (obj == null)
-            return false;
-        
-        if (obj is ShortGuid otherShortGuid)
-            return _guid.Equals(otherShortGuid._guid);
-        
-        if (obj is Guid otherGuid)
-            return _guid.Equals(otherGuid);
-        
-        if (obj is string otherString)
-            return _guid.Equals(Parse(otherString)._guid);
-        
-        return false;
+        return obj switch
+        {
+            null => false,
+            ShortGuid otherShortGuid => _guid.Equals(otherShortGuid._guid),
+            Guid otherGuid => _guid.Equals(otherGuid),
+            string otherString => _guid.Equals(Parse(otherString)._guid),
+            _ => false
+        };
     }
+#endif
 
     #endregion
 

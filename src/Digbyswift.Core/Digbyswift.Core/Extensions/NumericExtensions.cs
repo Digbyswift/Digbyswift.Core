@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Digbyswift.Core.Constants;
 
 namespace Digbyswift.Core.Extensions
@@ -15,6 +16,9 @@ namespace Digbyswift.Core.Extensions
             return NumericConstants.Zero <= Math.Abs(value) && Math.Abs(value) < Double.Epsilon;
         }
 
+        /// <summary>
+        /// Determines whether an int is even or not. Zero is considered even (when 0 is divided by 2, the result is 0).
+        /// </summary>
         public static bool IsEven(this int value)
         {
             if (value == NumericConstants.Zero)
@@ -47,5 +51,48 @@ namespace Digbyswift.Core.Extensions
             return (proportion / total) * NumericConstants.Hundred;
         }
 
+        /// <summary>
+        /// Determines the equality of two values based on decimal precision.
+        /// </summary>
+        /// <example>
+        /// <para>123 and 123.5 are equal to zero places but not 1 decimal place.</para>
+        /// <para>123.534 and 123.578 are equal to zero and one place but not 2 decimal places.</para>
+        /// </example>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static bool Equals(this double value, double compareTo, double decimalPlaces)
+        {
+            if (decimalPlaces < 0)
+                throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "Decimal places must be non-negative");
+            
+            var redundancy = 1 / Math.Pow(10, decimalPlaces);
+
+            return Math.Abs(value - compareTo) <= redundancy;
+        }
+
+        /// <summary>
+        /// <para>Takes a double and truncates the decimal part.</para>
+        /// <para>This should not be used in calculations unless the precision of output is
+        /// not critical. This is because since the storage of a double is non-precise and
+        /// so usage in a calculation will result in inaccurate results.</para> 
+        /// </summary>
+        /// <example>Truncating 123.889078 to 2 decimal places will return 123.88</example>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static double Truncate(this double value, int decimalPlaces)
+        {
+            if (decimalPlaces < 0)
+                throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "Decimal places must be non-negative");
+
+            var numberParts = value.ToString(CultureInfo.InvariantCulture).Split(CharConstants.Period);
+            if (numberParts.Length == 1)
+                return value;
+
+            var existingDecimalPlaces = numberParts[1].Length;
+            if (decimalPlaces >= existingDecimalPlaces)
+                return value;
+
+            var divisor = (int)Math.Pow(10, decimalPlaces);
+
+            return Math.Truncate(value * divisor) / divisor;
+        }
     }
 }

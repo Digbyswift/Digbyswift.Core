@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     ".NETFramework,Version=v4.8": {
+      "BouncyCastle": {
+        "type": "Direct",
+        "requested": "[1.8.9, )",
+        "resolved": "1.8.9",
+        "contentHash": "axnBgvdD5n+FnEG6efk/tfKuMFru7R/EoISH9zjh319yb3HD24TEHSAbNN/lTRT2ulOGRxDgOsCjkuk08iwWPg=="
+      },
       "Newtonsoft.Json": {
         "type": "Direct",
         "requested": "[11.0.2, )",

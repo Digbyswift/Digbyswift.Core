@@ -23,6 +23,10 @@ namespace Digbyswift.Core.Extensions
 
             return instance;
         }
-
+        
+        public static bool Any<T>(this List<T> list)
+        {
+            return list.Count > 0;
+        }
     }
 }

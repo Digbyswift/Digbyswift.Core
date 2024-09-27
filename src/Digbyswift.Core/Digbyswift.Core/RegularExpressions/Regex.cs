@@ -27,6 +27,10 @@ public static class Regex
 	public static readonly Lazy<SysRegex> HasFileExtension = new(() => new SysRegex(Patterns.Exact.FileExtension, RegexOptions.IgnoreCase));
 
 	public static readonly Lazy<SysRegex> IsGuid = new(() => new SysRegex(Patterns.Exact.Guid, RegexOptions.IgnoreCase));
+	
+	public static readonly Lazy<SysRegex> IsIsoRegionalLanguage = new(() => new SysRegex(Patterns.Exact.IsoRegionalLanguage, RegexOptions.IgnoreCase));
+
+	public static readonly Lazy<SysRegex> IsHexColour = new(() => new SysRegex(Patterns.Exact.HexColour, RegexOptions.IgnoreCase));
 
 	
 	public static readonly Lazy<SysRegex> ContainsEmail = new(() => new SysRegex(Patterns.Global.Email, RegexOptions.IgnoreCase));
@@ -46,4 +50,8 @@ public static class Regex
 	public static readonly Lazy<SysRegex> ContainsMarkup = new(() => new SysRegex(Patterns.Global.Markup, RegexOptions.IgnoreCase));
 
 	public static readonly Lazy<SysRegex> ContainsGuid = new(() => new SysRegex(Patterns.Global.Guid, RegexOptions.IgnoreCase));
+	
+	public static readonly Lazy<SysRegex> ContainsIsoRegionalLanguage = new(() => new SysRegex(Patterns.Global.IsoRegionalLanguage, RegexOptions.IgnoreCase));
+	
+	public static readonly Lazy<SysRegex> ContainsHexColour = new(() => new SysRegex(Patterns.Global.HexColour, RegexOptions.IgnoreCase));
 }
