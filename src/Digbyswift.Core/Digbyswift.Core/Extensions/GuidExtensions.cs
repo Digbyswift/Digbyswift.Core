@@ -7,11 +7,11 @@ public static class GuidExtensions
 {
     public static string[] Segments(this Guid value)
     {
-        return value.ToString().Split(CharConstants.Hyphen);
+        return value.ToString("D").Split(CharConstants.Hyphen);
     }
 
     public static string FirstSegment(this Guid value)
     {
-        return value.ToString().Substring(0, 8);
+        return value.Segments()[0];
     }
 }

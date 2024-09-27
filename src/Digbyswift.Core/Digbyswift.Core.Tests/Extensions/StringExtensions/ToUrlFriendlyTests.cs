@@ -2,11 +2,11 @@
 using Digbyswift.Core.Extensions;
 using NUnit.Framework;
 
-namespace Digbyswift.Core.Tests.Extensions.StringExtensions
+namespace Digbyswift.Core.Tests.Extensions.StringExtensions;
+
+[TestFixture]
+public class ToUrlFriendlyTests
 {
-    [TestFixture]
-    public class ToUrlFriendlyTests
-    {
     
 #if NET48
         [Test]
@@ -20,15 +20,13 @@ namespace Digbyswift.Core.Tests.Extensions.StringExtensions
         }
 #endif
         
-        [Test]
-        public void ToUrlFriendly_ReturnsEmptyString_WhenTheInputIsEmpty()
-        {
-            // Act
-            var result = String.Empty.ToUrlFriendly();
+    [Test]
+    public void ToUrlFriendly_ReturnsEmptyString_WhenTheInputIsEmpty()
+    {
+        // Act
+        var result = String.Empty.ToUrlFriendly();
             
-            // Assert
-            Assert.That(result, Is.EqualTo(String.Empty));
-        }
-    }    
+        // Assert
+        Assert.That(result, Is.EqualTo(String.Empty));
+    }
 }
-
