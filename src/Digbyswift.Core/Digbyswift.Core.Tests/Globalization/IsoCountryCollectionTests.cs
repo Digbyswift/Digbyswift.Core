@@ -24,6 +24,6 @@ public class IsoCountryCollectionTests
     public void Items_IsReadonly()
     {
         // Assert
-        Assert.That(IsoCountryCollection.Items, Is.TypeOf<IReadOnlyCollection<IsoCountry>>());
+        Assert.That(IsoCountryCollection.Items, Is.InstanceOf<IReadOnlyCollection<IsoCountry>>());
     }
 }
