@@ -3,7 +3,7 @@
     <LangVersion>default</LangVersion>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <CodeAnalysisRuleSet>./StyleCopAnalyzers.Custom.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../StyleCopAnalyzers.Custom.ruleset</CodeAnalysisRuleSet>
     <Authors>Digbyswift Ltd</Authors>
     <Copyright>Copyright © Digbyswift Ltd</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>

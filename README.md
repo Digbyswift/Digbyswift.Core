@@ -10,6 +10,10 @@ This includes:
 ## Models
 
 - `Pair<TKey, TValue>`
+- `Option`
+- `Option<T>`
+- `Result<T>`
+- `Result<T, TEnum>`
 - `SystemTime`
 - `ShortGuid` (Based upon the work of https://github.com/damon-e-drake/short-guid)
 
@@ -19,6 +23,7 @@ This includes:
 - `StringConstants`, e.g. `"@"`, `"."`
 - `NumericConstants`
 - `MimeTypeConstants`
+- `FileExtensions`
 - `AppEnvironments`
 
 ## Regular expressions
@@ -29,10 +34,13 @@ This includes:
 - Numeric
 - WholeNumber
 - Url
+- Guid
 - Markup
 - IPv4
 - IPv6
 - FileExtension
+- IsoRegionalLanguage
+- HexColour
 - Dates
     - Universal format
     - UK format
@@ -63,10 +71,12 @@ This includes:
 - `CountIsGe(int count)`
 - `CountIsLt(int count)`
 - `CountIsLe(int count)`
+- `SkipLast()`
 
 ### List
 
 - `Crop(int toSize)`
+- `Any()`
 
 ### Dictionary
 
@@ -91,6 +101,7 @@ This includes:
 - `ContainsIgnoreCase(string toCheck)`
 - `RemoveWhitespace()`
 - `ToBool()`
+- `CapitalizeWords()`
 - `Truncate(int length)`
 - `Truncate(int length, string suffix)`
 - `TruncateAtWord(int length)`
@@ -111,6 +122,9 @@ This includes:
 
 - `IsEmail()`
 - `IsUrl()`
+- `IsGuid()`
+- `IsHexColour()`
+- `IsIsoRegionalLanguage()`
 - `IsIPv4()`
 - `IsIPv6()`
 - `IsWholeNumber()`
@@ -122,6 +136,8 @@ This includes:
 - `HasFileExtension()`
 - `ContainsEmail()`
 - `ContainsUrl()`
+- `ContainsGuid()`
+- `ContainsHexColour()`
 - `ContainsIPv4()`
 - `ContainsIPv6()`
 - `ContainsUkTelephone()`
@@ -142,6 +158,17 @@ This includes:
 - `GetDaysUntil()`
 - `GetAgeNextBirthday()`
 - `GetAge()`
+- `IsBefore()`
+- `IsAfter()`
+- `SubtractDays()`
+- `SubtractMonths()`
+- `SubtractYears()`
+- `AsKind()`
+
+### Guid
+
+- `Segments()`
+- `FirstSegment()`
 
 ### Numeric
 
@@ -150,6 +177,8 @@ This includes:
 - `AsPercentageOf(int total)`
 - `AsPercentageOf(decimal total)`
 - `AsPercentageOf(double total)`
+- `Equals(double compareTo, double decimalPlaces)`
+- `Truncate(int decimalPlaces)`
 
 ### Encryption
 
@@ -157,6 +186,16 @@ This includes:
 - `RSAEncrypt(string publicKeyXml)`
 - `RSADecrypt()`
 - `RSADecrypt(string privateKeyXml)`
+
+### StringBuilder
+
+- `TrimEnd(char? character = null)`
+- `EnsureTrailingCharacter(char character)`
+
+### Assembly
+
+- `GetTypesAssignableFrom<T>()`
+- `GetTypesAssignableFrom(Type compareType)`
 
 ### Third-party
 

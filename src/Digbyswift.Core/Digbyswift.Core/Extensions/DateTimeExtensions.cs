@@ -27,7 +27,7 @@ public static class DateTimeExtensions
         return ageNextBirthday;
     }
 
-    public static int GetCurrentAge(this DateTime dob)
+    public static int GetAge(this DateTime dob)
     {
         if (dob >= SystemTime.LocalToday)
             return NumericConstants.Zero;
