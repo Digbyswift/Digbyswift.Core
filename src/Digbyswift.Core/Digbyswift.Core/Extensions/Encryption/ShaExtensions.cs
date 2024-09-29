@@ -7,7 +7,6 @@ namespace Digbyswift.Core.Extensions.Encryption;
 
 public static class ShaExtensions
 {
-    // ReSharper disable once InconsistentNaming
     public static string ToSHA1Hash(this string text)
     {
         using (var algorithm = SHA1.Create())
@@ -16,7 +15,6 @@ public static class ShaExtensions
         }
     }
 
-    // ReSharper disable once InconsistentNaming
     public static string ToSHA256Hash(this string text)
     {
         using (var algorithm = SHA256.Create())
@@ -31,8 +29,7 @@ public static class ShaExtensions
         var result = algorithm.Hash;
         if (result == null)
             throw new ArgumentException("Unable to create hash", nameof(text));
-            
+
         return String.Join(String.Empty, result.Select(x => x.ToString("x2")));
     }
-        
 }

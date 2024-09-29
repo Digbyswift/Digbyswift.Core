@@ -22,19 +22,19 @@ public static class TwitterStringExtensions
         var matches = TweetUrlRegex.Matches(value);
         if (matches.Count != 1 && matches[0].Groups.Count != 4)
             return null;
-            
+
         var id = matches[0].Groups[3].Value;
         return id;
     }
 #else
-        public static string? ExtractIdFromTweetUrl(this string value)
-        {
-            var matches = TweetUrlRegex.Matches(value);
-            if (matches.Count != 1 && matches[0].Groups.Count != 4)
-                return null;
-            
-            var id = matches[0].Groups[3].Value;
-            return id;
-        }
+    public static string? ExtractIdFromTweetUrl(this string value)
+    {
+        var matches = TweetUrlRegex.Matches(value);
+        if (matches.Count != 1 && matches[0].Groups.Count != 4)
+            return null;
+
+        var id = matches[0].Groups[3].Value;
+        return id;
+    }
 #endif
 }

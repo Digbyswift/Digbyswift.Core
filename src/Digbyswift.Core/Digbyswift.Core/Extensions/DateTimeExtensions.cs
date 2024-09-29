@@ -8,12 +8,12 @@ public static class DateTimeExtensions
 {
     public static int GetDaysUntil(this DateTime dateTime)
     {
-        return (dateTime - SystemTime.LocalToday()).Days;
+        return (dateTime - SystemTime.LocalNow.Date).Days;
     }
-        
+
     public static int GetAgeNextBirthday(this DateTime dob)
     {
-        var today = SystemTime.LocalToday();
+        var today = SystemTime.LocalToday;
         if (dob >= today)
             return 0;
 
@@ -29,12 +29,12 @@ public static class DateTimeExtensions
 
     public static int GetCurrentAge(this DateTime dob)
     {
-        if (dob >= SystemTime.LocalToday())
+        if (dob >= SystemTime.LocalToday)
             return NumericConstants.Zero;
 
         return GetAgeNextBirthday(dob) - NumericConstants.One;
     }
-        
+
     public static bool IsBefore(this DateTime dateTime, DateTime otherDate)
     {
         return dateTime < otherDate;
@@ -60,4 +60,8 @@ public static class DateTimeExtensions
         return years == 0 ? dateTime : dateTime.AddYears(-1 * years);
     }
 
+    public static DateTime AsKind(this DateTime dateTime, DateTimeKind kind)
+    {
+        return new DateTime(dateTime.Ticks, kind);
+    }
 }

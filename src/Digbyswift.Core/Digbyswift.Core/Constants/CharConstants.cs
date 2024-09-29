@@ -33,7 +33,7 @@ public static class CharConstants
     public const char SquareBracketRight = ']';
     public const char CurlyBracketLeft = '{';
     public const char CurlyBracketRight = '}';
-        
+
     public const char LineFeed = '\n';
     public const char CarriageReturn = '\r';
 }

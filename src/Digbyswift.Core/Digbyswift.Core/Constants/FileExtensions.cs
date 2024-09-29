@@ -1,4 +1,5 @@
-﻿namespace Digbyswift.Core.Constants;
+﻿// ReSharper disable InconsistentNaming
+namespace Digbyswift.Core.Constants;
 
 public static class FileExtensions
 {
@@ -68,7 +69,7 @@ public static class FileExtensions
     // Fonts
     public const string Eot = ".eot";
     public const string Otf = ".otf";
-    public const string Ttf= ".ttf";
+    public const string Ttf = ".ttf";
     public const string Woff = ".woff";
     public const string Woff2 = ".woff2";
 

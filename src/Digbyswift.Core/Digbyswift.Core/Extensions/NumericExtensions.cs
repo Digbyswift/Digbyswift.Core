@@ -13,7 +13,7 @@ public static class NumericExtensions
     /// </summary>
     public static bool IsZero(this double value)
     {
-        return NumericConstants.Zero <= Math.Abs(value) && Math.Abs(value) < Double.Epsilon;
+        return Math.Abs(value) >= NumericConstants.Zero && Math.Abs(value) < Double.Epsilon;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static class NumericExtensions
 
     public static float AsPercentageOf(this int proportion, int total)
     {
-        if(proportion == NumericConstants.Zero || total == NumericConstants.Zero)
+        if (proportion == NumericConstants.Zero || total == NumericConstants.Zero)
             return NumericConstants.Zero;
 
         return (proportion / (float)total) * NumericConstants.Hundred;
@@ -63,7 +63,7 @@ public static class NumericExtensions
     {
         if (decimalPlaces < 0)
             throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "Decimal places must be non-negative");
-            
+
         var redundancy = 1 / Math.Pow(10, decimalPlaces);
 
         return Math.Abs(value - compareTo) <= redundancy;
@@ -73,9 +73,9 @@ public static class NumericExtensions
     /// <para>Takes a double and truncates the decimal part.</para>
     /// <para>This should not be used in calculations unless the precision of output is
     /// not critical. This is because since the storage of a double is non-precise and
-    /// so usage in a calculation will result in inaccurate results.</para> 
+    /// so usage in a calculation will result in inaccurate results.</para>
     /// </summary>
-    /// <example>Truncating 123.889078 to 2 decimal places will return 123.88</example>
+    /// <example>Truncating 123.889078 to 2 decimal places will return 123.88.</example>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static double Truncate(this double value, int decimalPlaces)
     {

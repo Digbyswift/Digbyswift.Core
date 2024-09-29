@@ -8,7 +8,7 @@ public static class BooleanExtensions
     {
         return value ? StringConstants.Yes : StringConstants.No;
     }
-        
+
     public static string AsYesNo(this bool? source, string valueWhenNull)
     {
         if (!source.HasValue)
@@ -16,5 +16,4 @@ public static class BooleanExtensions
 
         return source.Value ? StringConstants.Yes : StringConstants.No;
     }
-
 }

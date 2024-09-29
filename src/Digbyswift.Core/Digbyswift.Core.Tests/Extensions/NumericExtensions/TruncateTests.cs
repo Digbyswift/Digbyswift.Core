@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Digbyswift.Core.Tests.Extensions.NumericExtensions;
 
 [TestFixture]
-public class TruncateExtensionTests
+public class TruncateTests
 {
     [Test]
     public void Truncate_PositiveDecimalPlaces_TruncatesCorrectly()

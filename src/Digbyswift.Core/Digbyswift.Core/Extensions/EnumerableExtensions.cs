@@ -22,12 +22,12 @@ public static class EnumerableExtensions
 
         return !source.Any();
     }
-        
+
     public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source)
     {
         return source.Where(x => x is not null);
     }
-        
+
     public static bool None<T>(this IEnumerable<T> source, Func<T, bool> func)
     {
         if (source == null)
@@ -56,23 +56,23 @@ public static class EnumerableExtensions
         return sequence.Any() ? sequence.Max() : default(T);
     }
 #else
-        public static T? MinOrDefault<T>(this IEnumerable<T> sequence)
-        {
-            if (sequence == null)
-                throw new ArgumentNullException(nameof(sequence));
+    public static T? MinOrDefault<T>(this IEnumerable<T> sequence)
+    {
+        if (sequence == null)
+            throw new ArgumentNullException(nameof(sequence));
 
-            return sequence.Any() ? sequence.Min() : default(T);
-        }
+        return sequence.Any() ? sequence.Min() : default(T);
+    }
 
-        public static T? MaxOrDefault<T>(this IEnumerable<T> sequence)
-        {
-            if (sequence == null)
-                throw new ArgumentNullException(nameof(sequence));
+    public static T? MaxOrDefault<T>(this IEnumerable<T> sequence)
+    {
+        if (sequence == null)
+            throw new ArgumentNullException(nameof(sequence));
 
-            return sequence.Any() ? sequence.Max() : default(T);
-        }
+        return sequence.Any() ? sequence.Max() : default(T);
+    }
 #endif
-        
+
     public static bool CountIs<T>(this IEnumerable<T> source, int count)
     {
         if (source == null)

@@ -10,17 +10,17 @@ public class ShortGuidTests
     private const string ExpectedStringValue = "AAAAAAAAAAAAAAAAAAAAAA";
 
     #region Empty
-        
+
     [Test]
     public void Empty_HasConstantValue()
     {
         // Arrange
         var sut = ShortGuid.Empty;
-            
+
         // Assert
         Assert.That(sut.ToString(), Is.EqualTo(ExpectedStringValue));
     }
-        
+
     [Test]
     public void Empty_HasEmptyGuid()
     {
@@ -30,9 +30,9 @@ public class ShortGuidTests
         // Assert
         Assert.That(emptyGuid, Is.EqualTo(Guid.Empty));
     }
-        
+
     #endregion
-        
+
     #region Ctor (No param)
 
     [Test]
@@ -60,7 +60,7 @@ public class ShortGuidTests
     }
 
     #endregion
-        
+
     #region Ctor (Guid param)
 
     [Test]
@@ -68,7 +68,7 @@ public class ShortGuidTests
     {
         // Arrange
         var newGuid = Guid.NewGuid();
-                        
+
         // Act
         var sut = new ShortGuid(newGuid);
 
@@ -82,7 +82,7 @@ public class ShortGuidTests
     {
         // Arrange
         var newGuid = Guid.NewGuid();
-                        
+
         // Act
         var sutA = new ShortGuid(newGuid);
         var sutB = new ShortGuid(newGuid);
@@ -98,7 +98,7 @@ public class ShortGuidTests
     {
         // Arrange
         var emptyGuid = Guid.Empty;
-            
+
         // Act
         var sut = new ShortGuid(emptyGuid);
 
@@ -109,7 +109,7 @@ public class ShortGuidTests
     }
 
     #endregion
-        
+
     #region Ctor (String param)
 
     [TestCase(ExpectedStringValue)]
@@ -120,8 +120,11 @@ public class ShortGuidTests
         var sut = new ShortGuid(testValue);
 
         // Assert
-        Assert.That(sut.ToString(), Is.EqualTo(testValue));
-        Assert.That(sut.ToGuid(), Is.EqualTo(Guid.Empty));
+        Assert.Multiple(() =>
+        {
+            Assert.That(sut.ToString(), Is.EqualTo(testValue));
+            Assert.That(sut.ToGuid(), Is.EqualTo(Guid.Empty));
+        });
     }
 
     [TestCase("AAAAAAAAAAAAAAAAAAAABB")]
@@ -135,8 +138,11 @@ public class ShortGuidTests
         var sut = new ShortGuid(testValue);
 
         // Assert
-        Assert.That(sut.ToString(), Is.EqualTo(testValue));
-        Assert.That(sut.ToGuid(), Is.Not.EqualTo(Guid.Empty));
+        Assert.Multiple(() =>
+        {
+            Assert.That(sut.ToString(), Is.EqualTo(testValue));
+            Assert.That(sut.ToGuid(), Is.Not.EqualTo(Guid.Empty));
+        });
     }
 
     [TestCase("{0070409d-a6e8-450e-ab71-bf78a0487c3c}")]
@@ -145,9 +151,11 @@ public class ShortGuidTests
     public void Ctor_Throws_WhenStringGuidParameterIsPassed(string testGuid)
     {
         // Assert
-        Assert.Throws<FormatException>(() => new ShortGuid(testGuid));
+        Assert.Throws<FormatException>(() =>
+        {
+            var unused = new ShortGuid(testGuid);
+        });
     }
 
     #endregion
-        
 }

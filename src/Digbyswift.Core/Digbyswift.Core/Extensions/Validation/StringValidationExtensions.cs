@@ -7,7 +7,6 @@ namespace Digbyswift.Core.Extensions.Validation;
 
 public static class StringValidationExtensions
 {
-
     public static bool IsEmail(this string value)
     {
         if (String.IsNullOrWhiteSpace(value))
@@ -97,7 +96,7 @@ public static class StringValidationExtensions
         {
             case NumericMatchType.Any:
                 return Regex.IsNumeric.Value.IsMatch(value);
-                
+
             case NumericMatchType.Integer:
                 return Regex.IsWholeNumber.Value.IsMatch(value);
         }
@@ -156,7 +155,7 @@ public static class StringValidationExtensions
     /// <item>Is null or whitespace?</item>
     /// <item>Starts and ends with {} or []?</item>
     /// <item>JToken.Parse?</item>
-    /// </list> 
+    /// </list>
     /// </summary>
     public static bool IsJson(this string value)
     {
@@ -186,5 +185,4 @@ public static class StringValidationExtensions
     {
         return Regex.IsHexColour.Value.IsMatch(value);
     }
-
 }

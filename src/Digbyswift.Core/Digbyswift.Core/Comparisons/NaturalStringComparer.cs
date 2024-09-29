@@ -1,4 +1,5 @@
-﻿#if NET6_0_OR_GREATER
+﻿#pragma warning disable SA1402
+#if NET6_0_OR_GREATER
 using System;
 #endif
 using System.Collections.Generic;
@@ -10,8 +11,9 @@ using System.Security;
 namespace Digbyswift.Core.Comparisons;
 
 #if NET6_0_OR_GREATER
+
 /// <summary>
-/// Taken from this answer on Stackoverflow https://stackoverflow.com/a/66354540/549820 provided by https://stackoverflow.com/users/98713/thomas-levesque 
+/// Taken from this answer on Stackoverflow https://stackoverflow.com/a/66354540/549820 provided by https://stackoverflow.com/users/98713/thomas-levesque.
 /// </summary>
 public class NaturalStringComparer : IComparer<string>
 {
@@ -53,11 +55,13 @@ public class NaturalStringComparer : IComparer<string>
                     return cmp;
                 }
             }
+
             // If x is a number and y is not, x is "lesser than" y
             else if (xSegments.CurrentIsNumber)
             {
                 return -1;
             }
+
             // If y is a number and x is not, x is "greater than" y
             else if (ySegments.CurrentIsNumber)
             {
@@ -75,7 +79,7 @@ public class NaturalStringComparer : IComparer<string>
         // If x is shorter, it's "lesser than" y
         if (x.Length < y.Length)
             return -1;
-        
+
         // If x is longer, it's "greater than" y
         if (x.Length > y.Length)
             return 1;
@@ -101,7 +105,7 @@ public class NaturalStringComparer : IComparer<string>
         }
 
         public ReadOnlySpan<char> Current => _s.AsSpan(_start, _length);
-        
+
         public bool CurrentIsNumber { get; private set; }
 
         public bool MoveNext()
@@ -130,17 +134,17 @@ public class NaturalStringComparer : IComparer<string>
 }
 #elif NET48 || NETSTANDARD2_0
 [SuppressUnmanagedCodeSecurity]
-internal static class SafeNativeMethods
-{
-    [DllImport("shlwapi.dll", CharSet = CharSet.Unicode)]
-    public static extern int StrCmpLogicalW(string psz1, string psz2);
-}
-
 public sealed class NaturalStringComparer : IComparer<string>
 {
     public int Compare(string a, string b)
     {
         return SafeNativeMethods.StrCmpLogicalW(a, b);
     }
+}
+
+internal static class SafeNativeMethods
+{
+    [DllImport("shlwapi.dll", CharSet = CharSet.Unicode)]
+    public static extern int StrCmpLogicalW(string psz1, string psz2);
 }
 #endif

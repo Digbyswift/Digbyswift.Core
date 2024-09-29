@@ -38,7 +38,10 @@ public static class StringConstants
 
     public const string Zero = "0";
     public const string One = "1";
-        
+
     public const string Yes = "Yes";
     public const string No = "No";
+
+    public const string NA = "N/A";
+    public const string Unknown = "Unknown";
 }

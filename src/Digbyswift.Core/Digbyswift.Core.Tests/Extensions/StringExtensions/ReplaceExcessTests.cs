@@ -18,11 +18,11 @@ public class ReplaceExcessTests
     {
         // Act
         var result = input.ReplaceExcess(CharConstants.Space, CharConstants.Hyphen);
-                
+
         // Assert
         Assert.That(result, Is.EqualTo(expectedResult));
     }
-            
+
     [TestCase("  ", "-")]
     [TestCase("     ", "-")]
     [TestCase("x     ", "x-")]
@@ -35,11 +35,11 @@ public class ReplaceExcessTests
     {
         // Act
         var result = input.ReplaceExcess(CharConstants.Space, CharConstants.Hyphen);
-                
+
         // Assert
         Assert.That(result, Is.EqualTo(expectedResult));
     }
-            
+
     [TestCase(@"\\", "-")]
     [TestCase(@"\\\\", "-")]
     [TestCase(@"x\\\\\", "x-")]
@@ -52,11 +52,11 @@ public class ReplaceExcessTests
     {
         // Act
         var result = input.ReplaceExcess(CharConstants.BackSlash, CharConstants.Hyphen);
-                
+
         // Assert
         Assert.That(result, Is.EqualTo(expectedResult));
     }
-            
+
     [TestCase("??", "-")]
     [TestCase("????", "-")]
     [TestCase(@"x????", "x-")]
@@ -69,20 +69,20 @@ public class ReplaceExcessTests
     {
         // Act
         var result = input.ReplaceExcess(CharConstants.QuestionMark, CharConstants.Hyphen);
-                
+
         // Assert
         Assert.That(result, Is.EqualTo(expectedResult));
     }
-            
+
     [Test]
     public void ReplaceExcess_DoesntReplaceCharactersWithASingleCharacter_WhenTheCharacterIsAnEscapedBackslash()
     {
         // Arrange
         const string input = "\\";
-                
+
         // Act
         var result = input.ReplaceExcess(CharConstants.BackSlash, CharConstants.Hyphen);
-                
+
         // Assert
         Assert.That(result, Is.EqualTo(input));
     }

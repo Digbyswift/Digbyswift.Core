@@ -40,11 +40,11 @@ public static class DictionaryExtensions
 #endif
 
 #if NETSTANDARD2_0
-        public static TValue? GetValueOrNull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
-            where TKey : notnull
-            where TValue : class
-        {
-            return dictionary.TryGetValue(key, out var workingValue) ? workingValue : null;
-        }
+    public static TValue? GetValueOrNull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+        where TKey : notnull
+        where TValue : class
+    {
+        return dictionary.TryGetValue(key, out var workingValue) ? workingValue : null;
+    }
 #endif
 }

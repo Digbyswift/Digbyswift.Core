@@ -88,5 +88,4 @@ public class EqualsTests
         // Assert
         Assert.That(result, Is.EqualTo(expectedResult));
     }
-
 }

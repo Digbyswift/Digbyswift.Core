@@ -29,7 +29,7 @@ public static class NumericConstants
         public const int PerFortnight = PerWeek * Two;
     }
 
-    public static class Minutes 
+    public static class Minutes
     {
         public const int PerHour = 60;
         public const int PerDay = PerHour * Hours.PerDay;

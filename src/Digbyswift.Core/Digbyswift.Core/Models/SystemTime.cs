@@ -4,23 +4,31 @@ namespace Digbyswift.Core.Models;
 
 public static class SystemTime
 {
-	public static Func<DateTime> UtcNow = () => DateTime.UtcNow;
+    private static DateTime? _utcNow;
+    private static DateTime? _utcToday;
+    private static DateTime? _localNow;
+    private static DateTime? _localToday;
 
-	public static Func<DateTime> UtcToday = () => DateTime.UtcNow.Date;
+    public static DateTime UtcNow => _utcNow ?? DateTime.UtcNow;
+    public static DateTime UtcToday => _utcToday ?? UtcNow.Date;
+    public static DateTime LocalNow => _localNow ?? DateTime.Now;
+    public static DateTime LocalToday => _localToday ?? LocalNow.Date;
 
-	public static Func<DateTime> LocalNow = () => DateTime.Now;
+    public static void Freeze(DateTime? frozenDate = null)
+    {
+        var workingDate = frozenDate ?? new DateTime(DateTime.UtcNow.Ticks, DateTimeKind.Utc);
 
-	public static Func<DateTime> LocalToday = () => DateTime.Now.Date;
+        _utcNow = workingDate;
+        _utcToday = workingDate.Date;
+        _localNow = workingDate.ToLocalTime();
+        _localToday = workingDate.ToLocalTime().Date;
+    }
 
-	public static void Freeze(DateTime? frozenDate = null)
-	{
-		var workingDate = frozenDate ?? new DateTime(UtcNow().Ticks, DateTimeKind.Utc);
-
-		UtcNow = () => workingDate;
-		UtcToday = () => workingDate.Date;
-            
-		LocalNow = () => workingDate.ToLocalTime();
-		LocalToday = () => workingDate.ToLocalTime().Date;
-	}
-
+    public static void UnFreeze()
+    {
+        _utcNow = null;
+        _utcToday = null;
+        _localNow = null;
+        _localToday = null;
+    }
 }

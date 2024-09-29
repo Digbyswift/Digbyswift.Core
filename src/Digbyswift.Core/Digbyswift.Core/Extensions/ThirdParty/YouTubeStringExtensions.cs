@@ -32,10 +32,8 @@ public static class YouTubeStringExtensions
     }
 
     /// <summary>
-    /// If the given URL is a valid YouTube video URL it is parsed to a YT embed URL. Otherwise it is returned as-is.
+    /// If the given URL is a valid YouTube video URL it is parsed to a YT embed URL. Otherwise, it is returned as-is.
     /// </summary>
-    /// <param name="fullYouTubeVideoUrl"></param>
-    /// <returns></returns>
     public static string ToYouTubeEmbedUrl(this string fullYouTubeVideoUrl)
     {
         if (fullYouTubeVideoUrl.IsYouTubeUrl())
@@ -57,7 +55,7 @@ public static class YouTubeStringExtensions
         Uri.TryCreate(fullYouTubeVideoUrl, UriKind.RelativeOrAbsolute, out var youtubeUri);
         if (youtubeUri == null)
             return nvc;
-            
+
         if (!youtubeUri.IsAbsoluteUri)
         {
             Uri.TryCreate($"https://{fullYouTubeVideoUrl}", UriKind.RelativeOrAbsolute, out youtubeUri);
@@ -65,16 +63,16 @@ public static class YouTubeStringExtensions
 
         if (String.IsNullOrWhiteSpace(youtubeUri?.Query))
             return nvc;
-            
+
         foreach (var item in youtubeUri!.Query.Replace(StringConstants.QuestionMark, String.Empty).SplitAndTrim(CharConstants.Ampersand))
         {
             var itemParts = item.SplitAndTrim(CharConstants.Equal).ToArray();
             if (itemParts.Length != 2)
                 continue;
-                
+
             nvc.Add(itemParts[0], itemParts[1]);
         }
-            
+
         return nvc;
     }
 }

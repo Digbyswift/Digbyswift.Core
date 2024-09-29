@@ -16,7 +16,7 @@ public class IsJsonTests
     {
         // Act
         var result = input.IsJson();
-                
+
         // Assert
         Assert.That(String.IsNullOrWhiteSpace(input), Is.True);
         Assert.That(result, Is.False);
@@ -40,7 +40,7 @@ public class IsJsonTests
     {
         // Act
         var result = input.IsJson();
-                
+
         // Assert
         Assert.That(result, Is.False);
     }
@@ -53,7 +53,7 @@ public class IsJsonTests
     {
         // Act
         var result = input.IsJson();
-                
+
         // Assert
         Assert.That(result, Is.False);
     }
@@ -72,7 +72,7 @@ public class IsJsonTests
     {
         // Act
         var result = input.IsJson();
-                
+
         // Assert
         Assert.That(result, Is.True);
     }

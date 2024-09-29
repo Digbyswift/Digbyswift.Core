@@ -62,19 +62,19 @@ public static class StringExtensions
         return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value!;
     }
 #else
-        public static string Coalesce(this string? value, string valueWhenNullOrEmpty)
-        {
-            return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value!;
-        }
+    public static string Coalesce(this string? value, string valueWhenNullOrEmpty)
+    {
+        return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value!;
+    }
 #endif
 
-#if !NET6_0_OR_GREATER        
+#if !NET6_0_OR_GREATER
     public static bool Contains(this string value, string toCheck, StringComparison comp)
     {
         return value.IndexOf(toCheck, comp) >= NumericConstants.Zero;
     }
 #endif
-        
+
     public static bool ContainsIgnoreCase(this string value, string toCheck)
     {
         return value.Contains(toCheck, StringComparison.OrdinalIgnoreCase);
@@ -110,7 +110,7 @@ public static class StringExtensions
     {
         if (String.IsNullOrWhiteSpace(input) || input.Length < length)
             return input;
-            
+
         var lastIndexOfSpaceWithinLength = input.LastIndexOf(StringConstants.Space, length, StringComparison.Ordinal);
         var truncatedText = input.Substring(0, (lastIndexOfSpaceWithinLength > NumericConstants.Zero) ? lastIndexOfSpaceWithinLength : length).Trim();
         if (truncatedText.Last() == CharConstants.Period)
@@ -123,7 +123,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Replaces repeated whitespace characters with a single space character
+    /// Replaces repeated whitespace characters with a single space character.
     /// </summary>
     public static string TrimWithin(this string value)
     {
@@ -131,7 +131,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Returns null if only whitespace is left after trimming
+    /// Returns null if only whitespace is left after trimming.
     /// </summary>
 #if NET48
     public static string TrimToNull(this string value)
@@ -139,14 +139,14 @@ public static class StringExtensions
         return TrimToDefault(value);
     }
 #else
-        public static string? TrimToNull(this string value)
-        {
-            return TrimToDefault(value);
-        }
+    public static string? TrimToNull(this string value)
+    {
+        return TrimToDefault(value);
+    }
 #endif
 
     /// <summary>
-    /// Returns null or a default value if only whitespace is left after trimming
+    /// Returns null or a default value if only whitespace is left after trimming.
     /// </summary>
 #if NET48
     public static string TrimToDefault(this string value, string defaultValue = null)
@@ -158,17 +158,17 @@ public static class StringExtensions
         return trimmedValue == String.Empty ? defaultValue : trimmedValue;
     }
 #else
-        public static string? TrimToDefault(this string value, string? defaultValue = null)
-        {
-            var trimmedValue = value.Trim();
-            return trimmedValue == String.Empty ? defaultValue : trimmedValue;
-        }
+    public static string? TrimToDefault(this string value, string? defaultValue = null)
+    {
+        var trimmedValue = value.Trim();
+        return trimmedValue == String.Empty ? defaultValue : trimmedValue;
+    }
 #endif
-        
+
     /// <summary>
     /// Performs a split, removes empty entries and then trims the remaining
     /// entries. If no separators are specified, the split occurs on each
-    /// space character.   
+    /// space character.
     /// </summary>
     public static IEnumerable<string> SplitAndTrim(this string value, params char[] separator)
     {
@@ -180,9 +180,9 @@ public static class StringExtensions
             ? value.Split(separator).Where(x => !String.IsNullOrWhiteSpace(x)).Select(x => x.Trim())
             : [];
     }
-                
+
     /// <summary>
-    /// Removes all whitespace within a string
+    /// Removes all whitespace within a string.
     /// </summary>
     public static string RemoveWhitespace(this string value)
     {
@@ -192,7 +192,7 @@ public static class StringExtensions
 #endif
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
-            
+
         return WhiteSpaceRegex.IsMatch(value)
             ? WhiteSpaceRegex.Replace(value, String.Empty).Trim()
             : value;
@@ -211,7 +211,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Replaces repeated characters
+    /// Replaces repeated characters anywhere in a string.
     /// </summary>
     public static string ReplaceExcess(this string value, char characterToReplace, char characterToReplaceWith)
     {
@@ -222,7 +222,7 @@ public static class StringExtensions
         var regexPattern = $"{(ReservedRegexChars.Contains(characterToReplace) ? StringConstants.BackSlash : null)}{characterToReplace}{{2,}}";
         return Regex.Replace(value, regexPattern, characterToReplaceWith.ToString());
     }
-        
+
     /// <summary>
     /// Removes non-word characters (equivalent to the regex \W) and trims excess whitespace.
     /// </summary>
@@ -235,7 +235,7 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        // Replace non URL-friendly characters
+        // Replace non URL-friendly characters.
         var workingString = NonWordCharactersRegex.Replace(value, String.Empty);
 
         return workingString.TrimWithin();
@@ -267,10 +267,10 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
-        if(numberOfVisibleCharacter < NumericConstants.Zero) 
+        if (numberOfVisibleCharacter < NumericConstants.Zero)
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
 
-        if(numberOfVisibleCharacter > value.Length) 
+        if (numberOfVisibleCharacter > value.Length)
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
 
         if (String.IsNullOrWhiteSpace(value))
@@ -285,10 +285,10 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
-        if(numberOfVisibleCharacter < NumericConstants.Zero) 
+        if (numberOfVisibleCharacter < NumericConstants.Zero)
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
 
-        if(numberOfVisibleCharacter > value.Length) 
+        if (numberOfVisibleCharacter > value.Length)
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
 
         if (String.IsNullOrWhiteSpace(value))
@@ -314,7 +314,7 @@ public static class StringExtensions
         // Remove excess whitespace
         workingString = workingString.TrimWithin();
 
-        // Replace non URL-friendly characters
+        // Replace non URL-friendly characters.
         workingString = NonWordCharactersRegex.Replace(workingString, StringConstants.Hyphen);
 
         return workingString.ReplaceExcess(CharConstants.Hyphen, CharConstants.Hyphen).Trim(CharConstants.Hyphen);
@@ -322,7 +322,7 @@ public static class StringExtensions
 
     /// <summary>
     /// Converts a string value to a bool. If the string isn't a valid bool, it
-    /// will return the default value or false if one is not specified. 
+    /// will return the default value or false if one is not specified.
     /// </summary>
     public static bool ToBool(this string value, bool? defaultValue)
     {
@@ -332,11 +332,10 @@ public static class StringExtensions
 #endif
         if (Boolean.TryParse(value, out var actualResult) && actualResult)
             return true;
-            
+
         return defaultValue ?? false;
     }
 
-        
     public static string CapitalizeWords(this string value)
     {
 #if NET48
@@ -348,7 +347,7 @@ public static class StringExtensions
 
         var sourceParts = value.Split([CharConstants.Space], StringSplitOptions.RemoveEmptyEntries);
         var builder = new StringBuilder();
-	        
+
         for (var i = 0; i < sourceParts.Length; i++)
         {
             if (i > 0) builder.Append(CharConstants.Space);
@@ -368,5 +367,4 @@ public static class StringExtensions
         var enumName = enumDescription.Replace(StringConstants.Space, String.Empty);
         return (T)Enum.Parse(typeof(T), enumName);
     }
-        
 }

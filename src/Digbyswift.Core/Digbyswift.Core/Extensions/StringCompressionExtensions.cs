@@ -8,7 +8,7 @@ namespace Digbyswift.Core.Extensions;
 public static class StringCompressionExtensions
 {
     /// <summary>
-    /// Compresses a string using Deflate compression
+    /// Compresses a string using Deflate compression.
     /// </summary>
     public static string Compress(this string uncompressedString)
     {
@@ -16,7 +16,7 @@ public static class StringCompressionExtensions
 
         using (var uncompressedStream = new MemoryStream(Encoding.UTF8.GetBytes(uncompressedString)))
         using (var compressedStream = new MemoryStream())
-        { 
+        {
             // Setting the leaveOpen parameter to true to ensure that compressedStream will not be closed when compressorStream is disposed.
             // This allows compressorStream to close and flush its buffers to compressedStream and guarantees that compressedStream.ToArray()
             // can be called afterward although MSDN documentation states that ToArray() can be called on a closed MemoryStream, I don't
@@ -33,22 +33,20 @@ public static class StringCompressionExtensions
     }
 
     /// <summary>
-    /// Decompresses a deflate compressed, Base64 encoded string and returns an uncompressed string.
+    /// Decompresses a deflate-compressed, Base64 encoded string and returns an uncompressed string.
     /// </summary>
     public static string Decompress(this string compressedString)
     {
-        using (var compressedStream = new MemoryStream(Convert.FromBase64String(compressedString)))
+        using var compressedStream = new MemoryStream(Convert.FromBase64String(compressedString));
+        byte[] decompressedBytes;
+
+        using (var decompressorStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+        using (var decompressedStream = new MemoryStream())
         {
-            byte[] decompressedBytes;
-
-            using (var decompressorStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-            using (var decompressedStream = new MemoryStream())
-            {
-                decompressorStream.CopyTo(decompressedStream);
-                decompressedBytes = decompressedStream.ToArray();
-            }
-
-            return Encoding.UTF8.GetString(decompressedBytes);
+            decompressorStream.CopyTo(decompressedStream);
+            decompressedBytes = decompressedStream.ToArray();
         }
+
+        return Encoding.UTF8.GetString(decompressedBytes);
     }
 }

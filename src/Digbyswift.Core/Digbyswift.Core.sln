@@ -4,6 +4,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digbyswift.Core", "Digbyswi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digbyswift.Core.Tests", "Digbyswift.Core.Tests\Digbyswift.Core.Tests.csproj", "{F16D321E-8078-456A-A3FD-F26897E7ADFD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{85AD14ED-FC49-4D0A-AAC0-3E509C8604DE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		StyleCopAnalyzers.Custom.ruleset = StyleCopAnalyzers.Custom.ruleset
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
