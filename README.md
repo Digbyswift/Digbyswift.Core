@@ -60,88 +60,88 @@ This includes:
 
 ### Enumerable
 
-- `IsEmpty()`
-- `WhereNotNull()`
-- `NotContains(T item)`
-- `None(Func<T, bool> func)`
-- `MinOrDefault()`
-- `MaxOrDefault()`
 - `CountIs(int count)`
-- `CountIsGt(int count)`
-- `CountIsGe(int count)`
-- `CountIsLt(int count)`
 - `CountIsLe(int count)`
+- `CountIsLt(int count)`
+- `CountIsGe(int count)`
+- `CountIsGt(int count)`
+- `IsEmpty()`
+- `MaxOrDefault()`
+- `MinOrDefault()`
+- `None(Func<T, bool> func)`
+- `NotContains(T item)`
 - `SkipLast()`
+- `WhereNotNull()`
 
 ### List
 
-- `Crop(int toSize)`
 - `Any()`
+- `Crop(int toSize)`
 
 ### Dictionary
 
-- `Set(TKey key, TValue value)`
 - `ContainsKeyAndValue(TKey key, TValue value)`
 - `ContainsKeyAndValue(TKey key, string value, StringComparison stringComparison)`
 - `GetOrDefault(TKey key, TValue defaultValue)`
 - `GetOrNull(TKey key)`
+- `Set(TKey key, TValue value)`
 
 ### NameValueCollection
 
-- `ToDictionary()`
 - `CopyTo(IDictionary<string, string?> dict)`
+- `ToDictionary()`
 - `ToQueryString()`
 
 ### String
 
+- `Base64Encode()`
+- `Base64Decode()`
+- `CapitalizeWords()`
 - `Coalesce(string valueWhenNullOrEmpty)`
-- `EqualsIgnoreCase(string toCheck)`
 - `Contains(string toCheck, StringComparison comp)`
 - `ContainsIgnoreCase(string toCheck)`
 - `ContainsIgnoreCase(string toCheck)`
+- `EqualsIgnoreCase(string toCheck)`
+- `MaskRight(int numberOfVisibleCharacter)`
+- `MaskLeft(int numberOfVisibleCharacter)`
 - `RemoveWhitespace()`
+- `ReplaceExcess()`
+- `SplitAndTrim(params char[]? separator)`
+- `StripMarkup()`
 - `ToBool()`
-- `CapitalizeWords()`
+- `ToEnum()`
+- `ToUrlFriendly()`
+- `TrimWithin()`
+- `TrimToDefault(string? defaultValue)`
 - `Truncate(int length)`
 - `Truncate(int length, string suffix)`
 - `TruncateAtWord(int length)`
 - `TruncateAtWord(int length, string suffix)`
-- `ToUrlFriendly()`
-- `TrimWithin()`
-- `TrimToDefault(string? defaultValue)`
-- `SplitAndTrim(params char[]? separator)`
-- `StripMarkup()`
-- `ReplaceExcess()`
-- `Base64Encode()`
-- `Base64Decode()`
-- `MaskRight(int numberOfVisibleCharacter)`
-- `MaskLeft(int numberOfVisibleCharacter)`
-- `ToEnum()`
 
 ### String validation
 
+- `ContainsEmail()`
+- `ContainsGuid()`
+- `ContainsHexColour()`
+- `ContainsIPv4()`
+- `ContainsIPv6()`
+- `ContainsMarkup()`
+- `ContainsUkTelephone()`
+- `ContainsUrl()`
+- `HasFileExtension()`
+- `IsAlphaNumeric()`
 - `IsEmail()`
-- `IsUrl()`
 - `IsGuid()`
 - `IsHexColour()`
 - `IsIsoRegionalLanguage()`
 - `IsIPv4()`
 - `IsIPv6()`
-- `IsWholeNumber()`
-- `IsNumeric()`
-- `IsAlphaNumeric()`
-- `IsUkTelephone()`
-- `IsMarkup()`
 - `IsJson()`
-- `HasFileExtension()`
-- `ContainsEmail()`
-- `ContainsUrl()`
-- `ContainsGuid()`
-- `ContainsHexColour()`
-- `ContainsIPv4()`
-- `ContainsIPv6()`
-- `ContainsUkTelephone()`
-- `ContainsMarkup()`
+- `IsMarkup()`
+- `IsNumeric()`
+- `IsUrl()`
+- `IsWholeNumber()`
+- `IsUkTelephone()`
 
 ### String compression
 
@@ -155,16 +155,17 @@ This includes:
 
 ### DateTime
 
-- `GetDaysUntil()`
-- `GetAgeNextBirthday()`
-- `GetAge()`
-- `IsBefore()`
-- `IsAfter()`
-- `SubtractDays()`
-- `SubtractMonths()`
-- `SubtractYears()`
-- `AsKind()`
-
+- `AsKind(DateTimeKind kind)`
+- `GetDaysUntil(DateTime value)`
+- `GetAgeNextBirthday(DateTime dob)`
+- `GetAge(DateTime dob)`
+- `IsAfter(DateTime otherDate)`
+- `IsBefore(DateTime otherDate)`
+- `SubtractDays(int days)`
+- `SubtractMonths(int months)`
+- `SubtractYears(int years)`
+- `TruncateTime(TimePrecision precision)`
+ 
 ### Guid
 
 - `Segments()`
@@ -172,12 +173,12 @@ This includes:
 
 ### Numeric
 
-- `IsZero()`
-- `IsEven()`
 - `AsPercentageOf(int total)`
 - `AsPercentageOf(decimal total)`
 - `AsPercentageOf(double total)`
 - `Equals(double compareTo, double decimalPlaces)`
+- `IsZero()`
+- `IsEven()`
 - `Truncate(int decimalPlaces)`
 
 ### Encryption
@@ -189,8 +190,8 @@ This includes:
 
 ### StringBuilder
 
-- `TrimEnd(char? character = null)`
 - `EnsureTrailingCharacter(char character)`
+- `TrimEnd(char? character = null)`
 
 ### Assembly
 
@@ -198,6 +199,11 @@ This includes:
 - `GetTypesAssignableFrom(Type compareType)`
 
 ### Third-party
+
+#### Loqate
+
+- `IsLoqateAddressId()`
+- `IsLoqateContainerId()`
 
 #### Youtube
 
