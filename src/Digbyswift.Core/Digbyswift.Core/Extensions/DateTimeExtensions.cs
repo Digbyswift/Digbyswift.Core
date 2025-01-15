@@ -6,9 +6,9 @@ namespace Digbyswift.Core.Extensions;
 
 public static class DateTimeExtensions
 {
-    public static int GetDaysUntil(this DateTime dateTime)
+    public static int GetDaysUntil(this DateTime value)
     {
-        return (dateTime - SystemTime.LocalNow.Date).Days;
+        return (value - SystemTime.LocalNow.Date).Days;
     }
 
     public static int GetAgeNextBirthday(this DateTime dob)
@@ -64,4 +64,59 @@ public static class DateTimeExtensions
     {
         return new DateTime(dateTime.Ticks, kind);
     }
+
+    /// <summary>
+    /// Truncates a date by zeroing the hours, minutes and seconds, depending on
+    /// the precision required.
+    /// <example>
+    /// <para>
+    /// Truncating a DateTime of <c>2025-09-23T10:59:23.456</c> with <see cref="Digbyswift.Core.Extensions.TimePrecision.Second">TimePrecision.Seconds</see>
+    /// will return <c>2025-09-23T10:59:23.000</c>. Truncating the same value with <see cref="Digbyswift.Core.Extensions.TimePrecision.Hour">TimePrecision.Hour</see>
+    /// will return <c>2025-09-23T10:00:00.000</c>.
+    /// </para>
+    /// </example>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static DateTime TruncateTime(this DateTime value, TimePrecision precision)
+    {
+        switch (precision)
+        {
+            case TimePrecision.Hour:
+                return new DateTime(value.Year, value.Month, value.Day, value.Hour, 0, 0, value.Kind);
+
+            case TimePrecision.Minute:
+                return new DateTime(value.Year, value.Month, value.Day, value.Hour, value.Minute, 0, value.Kind);
+
+            case TimePrecision.Second:
+                return new DateTime(value.Year, value.Month, value.Day, value.Hour, value.Minute, value.Second, value.Kind);
+
+            case TimePrecision.Millisecond:
+                return new DateTime(value.Year, value.Month, value.Day, value.Hour, value.Minute, value.Second, value.Millisecond, value.Kind);
+        }
+
+        throw new ArgumentOutOfRangeException(nameof(precision));
+    }
+}
+
+public enum TimePrecision
+{
+    /// <summary>
+    /// Hour precision.
+    /// </summary>
+    Hour,
+
+    /// <summary>
+    /// Minute precision.
+    /// </summary>
+    Minute,
+
+    /// <summary>
+    /// Second precision.
+    /// </summary>
+    Second,
+
+    /// <summary>
+    /// Millisecond precision.
+    /// </summary>
+    Millisecond
 }
