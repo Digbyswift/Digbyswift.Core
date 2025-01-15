@@ -7,9 +7,9 @@
         <PackageProjectUrl>https://github.com/digbyswift/Digbyswift.Core</PackageProjectUrl>
         <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
         <PackageTags>c# extensions utility</PackageTags>
-        <AssemblyVersion>2.2.0</AssemblyVersion>
-        <PackageVersion>2.2.0</PackageVersion>
-        <FileVersion>2.2.0</FileVersion>
+        <AssemblyVersion>2.3.0</AssemblyVersion>
+        <PackageVersion>2.3.0</PackageVersion>
+        <FileVersion>2.3.0</FileVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net48' ">
         <Nullable>disable</Nullable>
