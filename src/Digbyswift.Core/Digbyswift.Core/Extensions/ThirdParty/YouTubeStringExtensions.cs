@@ -8,7 +8,7 @@ namespace Digbyswift.Core.Extensions.ThirdParty;
 
 public static class YouTubeStringExtensions
 {
-    private static readonly Regex YouTubeUrl = new Regex(@".*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*", RegexOptions.IgnoreCase);
+    private static readonly Regex YouTubeUrl = new(@".*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
 
     public static bool IsYouTubeUrl(this string fullYouTubeVideoUrl)
     {

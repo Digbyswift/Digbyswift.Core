@@ -6,7 +6,7 @@ namespace Digbyswift.Core.Extensions.ThirdParty;
 public static class TwitterStringExtensions
 {
     public const string TweetUrl = @"^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$";
-    public static readonly Regex TweetUrlRegex = new Regex(TweetUrl, RegexOptions.IgnoreCase);
+    public static readonly Regex TweetUrlRegex = new Regex(TweetUrl, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(150));
 
     public static bool IsTweetUrl(this string value)
     {

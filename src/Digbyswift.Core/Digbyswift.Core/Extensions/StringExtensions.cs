@@ -44,9 +44,9 @@ public static class StringExtensions
         }
     }
 
-    private static readonly Regex WhiteSpaceRegex = new(@"\s+");
-    private static readonly Regex NonWordCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase);
-    private static readonly Regex SingleQuoteRegex = new("([’']+)");
+    private static readonly Regex WhiteSpaceRegex = new(@"\s+", RegexOptions.None, TimeSpan.FromMilliseconds(350));
+    private static readonly Regex NonWordCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(350));
+    private static readonly Regex SingleQuoteRegex = new("([’']+)", RegexOptions.None, TimeSpan.FromMilliseconds(350));
 
     public static bool EqualsIgnoreCase(this string value, string toCheck)
     {
@@ -127,7 +127,7 @@ public static class StringExtensions
     /// </summary>
     public static string TrimWithin(this string value)
     {
-        return new Regex(@"\s+").Replace(value, StringConstants.Space).Trim();
+        return new Regex(@"\s+", RegexOptions.None, TimeSpan.FromMilliseconds(250)).Replace(value, StringConstants.Space).Trim();
     }
 
     /// <summary>
@@ -207,7 +207,7 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        return Regex.Replace(value, "<.*?>", String.Empty).TrimWithin();
+        return Regex.Replace(value, "<.*?>", String.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(350)).TrimWithin();
     }
 
     /// <summary>
@@ -220,7 +220,7 @@ public static class StringExtensions
             return null;
 #endif
         var regexPattern = $"{(ReservedRegexChars.Contains(characterToReplace) ? StringConstants.BackSlash : null)}{characterToReplace}{{2,}}";
-        return Regex.Replace(value, regexPattern, characterToReplaceWith.ToString());
+        return Regex.Replace(value, regexPattern, characterToReplaceWith.ToString(), RegexOptions.None, TimeSpan.FromMilliseconds(350));
     }
 
     /// <summary>

@@ -5,8 +5,7 @@ namespace Digbyswift.Core.Extensions.ThirdParty;
 
 public static class VimeoStringExtensions
 {
-    private static readonly Regex VimeoUrlRegex =
-        new Regex(@"vimeo\.com/(?:.*#|.*(videos?|event)/)?([0-9]+)", RegexOptions.IgnoreCase);
+    private static readonly Regex VimeoUrlRegex = new(@"vimeo\.com/(?:.*#|.*(videos?|event)/)?([0-9]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(150));
 
     public static bool IsVimeoUrl(this string videoUrl)
     {
@@ -41,7 +40,7 @@ public static class VimeoStringExtensions
     }
 
     /// <summary>
-    /// If the given URL is a valid Vimeo video URL it is parsed to a Vimeo embed URL. Otherwise it is returned as-is.
+    /// If the given URL is a valid Vimeo video URL it is parsed to a Vimeo embed URL. Otherwise, it is returned as-is.
     /// </summary>
     public static string ToVimeoEmbedUrl(this string videoUrl)
     {
