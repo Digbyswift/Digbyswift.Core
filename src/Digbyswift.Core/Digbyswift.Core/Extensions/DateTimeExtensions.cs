@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Digbyswift.Core.Constants;
 using Digbyswift.Core.Models;
 
@@ -6,6 +7,25 @@ namespace Digbyswift.Core.Extensions;
 
 public static class DateTimeExtensions
 {
+    public static string ToInvariantString(this DateTime value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    public static string ToSortableString(this DateTime value)
+    {
+        return value.ToString("s");
+    }
+
+    public static long ToUnixTimeSeconds(this DateTime value)
+    {
+#if NET6_0_OR_GREATER
+        return (long)DateTime.UtcNow.Subtract(DateTime.UnixEpoch).TotalSeconds;
+#else
+        return (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+#endif
+    }
+
     public static int GetDaysUntil(this DateTime value)
     {
         return (value - SystemTime.LocalNow.Date).Days;

@@ -44,7 +44,6 @@ public static class StringExtensions
         }
     }
 
-    private static readonly Regex WhiteSpaceRegex = new(@"\s+", RegexOptions.None, TimeSpan.FromMilliseconds(350));
     private static readonly Regex NonWordCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(350));
     private static readonly Regex SingleQuoteRegex = new("([’']+)", RegexOptions.None, TimeSpan.FromMilliseconds(350));
 
@@ -64,7 +63,7 @@ public static class StringExtensions
 #else
     public static string Coalesce(this string? value, string valueWhenNullOrEmpty)
     {
-        return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value!;
+        return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value;
     }
 #endif
 
@@ -98,7 +97,11 @@ public static class StringExtensions
         if (String.IsNullOrEmpty(value))
             return value;
 
-        return value.Length <= length ? value : $"{value.Substring(NumericConstants.Zero, length).Trim(GrammarCharacters.ToArray())}{suffix}";
+#if NET6_0_OR_GREATER
+        return value.Length <= length ? value : String.Concat(value[..length].Trim(GrammarCharacters.ToArray()), suffix);
+#else
+        return value.Length <= length ? value : String.Concat(value.Substring(NumericConstants.Zero, length).Trim(GrammarCharacters.ToArray()), suffix);
+#endif
     }
 
     public static string TruncateAtWord(this string input, int length)
@@ -112,7 +115,11 @@ public static class StringExtensions
             return input;
 
         var lastIndexOfSpaceWithinLength = input.LastIndexOf(StringConstants.Space, length, StringComparison.Ordinal);
+#if NET6_0_OR_GREATER
+        var truncatedText = input[..(lastIndexOfSpaceWithinLength > NumericConstants.Zero ? lastIndexOfSpaceWithinLength : length)].Trim();
+#else
         var truncatedText = input.Substring(0, (lastIndexOfSpaceWithinLength > NumericConstants.Zero) ? lastIndexOfSpaceWithinLength : length).Trim();
+#endif
         if (truncatedText.Last() == CharConstants.Period)
             return truncatedText;
 
@@ -181,9 +188,6 @@ public static class StringExtensions
             : [];
     }
 
-    /// <summary>
-    /// Removes all whitespace within a string.
-    /// </summary>
     public static string RemoveWhitespace(this string value)
     {
 #if NET48
@@ -193,9 +197,9 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        return WhiteSpaceRegex.IsMatch(value)
-            ? WhiteSpaceRegex.Replace(value, String.Empty).Trim()
-            : value;
+        return new string(value.ToCharArray()
+            .Where(c => !Char.IsWhiteSpace(c))
+            .ToArray());
     }
 
     public static string StripMarkup(this string value)
@@ -261,7 +265,14 @@ public static class StringExtensions
         return Encoding.UTF8.GetString(base64EncodedBytes);
     }
 
-    public static string MaskRight(this string value, int numberOfVisibleCharacter)
+    /// <summary>
+    /// Masks a string so that only a set number of characters at the
+    /// beginning of the string are visible. If the <paramref name="numberOfVisibleCharacter" />
+    /// is greater than the length of the string, the original string will be returned.
+    /// <example>johnsmith@example.com -> johnsmi************</example>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static string MaskRight(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Star)
     {
 #if NET48
         if (value == null)
@@ -271,15 +282,22 @@ public static class StringExtensions
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
 
         if (numberOfVisibleCharacter > value.Length)
-            throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
+            return value;
 
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        return value.Substring(NumericConstants.Zero, numberOfVisibleCharacter).PadRight(value.Length, CharConstants.Star);
+        return value.Substring(NumericConstants.Zero, numberOfVisibleCharacter).PadRight(value.Length, maskingCharacter);
     }
 
-    public static string MaskLeft(this string value, int numberOfVisibleCharacter)
+    /// <summary>
+    /// Masks a string so that only a set number of characters at the end of
+    /// the string are visible. If the <paramref name="numberOfVisibleCharacter" />
+    /// is greater than the length of the string, the original string will be returned.
+    /// <example>johnsmith@example.com with numberOfVisibleCharacter = 7 -> ***********ple.com</example>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static string MaskLeft(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Star)
     {
 #if NET48
         if (value == null)
@@ -289,12 +307,12 @@ public static class StringExtensions
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
 
         if (numberOfVisibleCharacter > value.Length)
-            throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
+            return value;
 
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        return value.Substring(value.Length - numberOfVisibleCharacter, numberOfVisibleCharacter).PadLeft(value.Length, CharConstants.Star);
+        return value.Substring(value.Length - numberOfVisibleCharacter, numberOfVisibleCharacter).PadLeft(value.Length, maskingCharacter);
     }
 
     public static string ToUrlFriendly(this string value)
@@ -352,8 +370,13 @@ public static class StringExtensions
         {
             if (i > 0) builder.Append(CharConstants.Space);
 
+#if NET6_0_OR_GREATER
+            builder.Append(sourceParts[i][..1].ToUpper());
+            builder.Append(sourceParts[i][1..]);
+#else
             builder.Append(sourceParts[i].Substring(0, 1).ToUpper());
             builder.Append(sourceParts[i].Substring(1));
+#endif
         }
 
         return builder.ToString();

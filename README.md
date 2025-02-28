@@ -127,6 +127,7 @@ This includes:
 - `ContainsIPv6()`
 - `ContainsMarkup()`
 - `ContainsUkTelephone()`
+- `HasUkMobileNumberPrefix()`
 - `ContainsUrl()`
 - `HasFileExtension()`
 - `IsAlphaNumeric()`
@@ -165,7 +166,10 @@ This includes:
 - `SubtractMonths(int months)`
 - `SubtractYears(int years)`
 - `TruncateTime(TimePrecision precision)`
- 
+- `ToInvariantString()`
+- `ToSortableString()`
+- `ToUnixTimeSeconds()`
+
 ### Guid
 
 - `Segments()`
@@ -180,6 +184,7 @@ This includes:
 - `IsZero()`
 - `IsEven()`
 - `Truncate(int decimalPlaces)`
+- `ToInvariantString()`
 
 ### Encryption
 

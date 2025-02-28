@@ -120,6 +120,20 @@ public static class StringValidationExtensions
         return Regex.ContainsUkPhoneNumber.Value.IsMatch(value);
     }
 
+    /// <summary>
+    /// Checks whether the string parameter starts with 07, 447 or +447.
+    /// </summary>
+    public static bool HasUkMobileNumberPrefix(this string value)
+    {
+        if (String.IsNullOrWhiteSpace(value))
+            return false;
+
+        if (!Char.IsNumber(value[0]) && value[0] != CharConstants.Star)
+            return false;
+
+        return value.StartsWith("07") || value.StartsWith("447") || value.StartsWith("+447");
+    }
+
     public static bool IsMarkup(this string value)
     {
         if (String.IsNullOrWhiteSpace(value))

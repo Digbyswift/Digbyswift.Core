@@ -94,4 +94,133 @@ public static class NumericExtensions
 
         return Math.Truncate(value * divisor) / divisor;
     }
+
+    /// <summary>
+    /// Returns a string representation of the ushort value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0 -> "0"</item>
+    /// <item>1 -> "1"</item>
+    /// <item>1000 -> "1000"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this ushort value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the short value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0 -> "0"</item>
+    /// <item>1 -> "1"</item>
+    /// <item>1000 -> "1000"</item>
+    /// <item>-1000 -> "-1000"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this short value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the uint value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0 -> "0"</item>
+    /// <item>1 -> "1"</item>
+    /// <item>1000 -> "1000"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this uint value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the int value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0 -> "0"</item>
+    /// <item>1 -> "1"</item>
+    /// <item>1000 -> "1000"</item>
+    /// <item>-1000 -> "-1000"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this int value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the ulong value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0 -> "0"</item>
+    /// <item>1 -> "1"</item>
+    /// <item>1000 -> "1000"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this ulong value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the long value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0 -> "0"</item>
+    /// <item>1 -> "1"</item>
+    /// <item>1000 -> "1000"</item>
+    /// <item>-1000 -> "-1000"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this long value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the decimal value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0m -> "0"</item>
+    /// <item>1m -> "1"</item>
+    /// <item>1.0m -> "1"</item>
+    /// <item>1.99m -> "1.99"</item>
+    /// <item>1000.99m -> "1000.99"</item>
+    /// <item>-1000.99m -> "-1000.99"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this decimal value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns a string representation of the double value according to the <see cref="CultureInfo.InvariantCulture"/>. Equivalent to calling <c>.ToString(CultureInfo.InvariantCulture)</c>.
+    /// <example>
+    /// <list>
+    /// <item>0d -> "0"</item>
+    /// <item>1d-> "1"</item>
+    /// <item>1.0d -> "1"</item>
+    /// <item>1.99d -> "1.99"</item>
+    /// <item>1000.99d -> "1000.99"</item>
+    /// <item>-1000.99d -> "-1000.99"</item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    public static string ToInvariantString(this double value)
+    {
+        return value.ToString(CultureInfo.InvariantCulture);
+    }
 }
