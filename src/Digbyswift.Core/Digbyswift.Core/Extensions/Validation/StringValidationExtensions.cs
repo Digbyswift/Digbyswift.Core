@@ -178,7 +178,11 @@ public static class StringValidationExtensions
 
         var workingValue = value.Trim();
 
+#if NET6_0_OR_GREATER
+        if (!(workingValue.StartsWith('{') && workingValue.EndsWith('}')) && !(workingValue.StartsWith('[') && workingValue.EndsWith(']')))
+#else
         if (!(workingValue.StartsWith("{") && workingValue.EndsWith("}")) && !(workingValue.StartsWith("[") && workingValue.EndsWith("]")))
+#endif
             return false;
 
         try
