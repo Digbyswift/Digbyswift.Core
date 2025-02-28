@@ -9,7 +9,11 @@ public static class BooleanExtensions
         return value ? StringConstants.Yes : StringConstants.No;
     }
 
+#if NET48
+    public static string AsYesNo(this bool? source)
+#else
     public static string? AsYesNo(this bool? source)
+#endif
     {
         if (!source.HasValue)
             return null;

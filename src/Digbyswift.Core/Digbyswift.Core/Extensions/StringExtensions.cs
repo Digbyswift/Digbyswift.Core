@@ -63,6 +63,9 @@ public static class StringExtensions
 #else
     public static string Coalesce(this string? value, string valueWhenNullOrEmpty)
     {
+        if (value == null)
+            return valueWhenNullOrEmpty;
+
         return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value;
     }
 #endif

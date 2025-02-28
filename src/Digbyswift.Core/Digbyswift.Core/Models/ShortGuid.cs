@@ -49,7 +49,7 @@ public readonly struct ShortGuid : IEquatable<ShortGuid>
         if (Regex.IsGuid.Value.IsMatch(value))
         {
             var workingValue = value
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
                 .AsSpan()
                 .TrimStart(CharConstants.CurlyBracketLeft)
                 .TrimEnd(CharConstants.CurlyBracketRight)
