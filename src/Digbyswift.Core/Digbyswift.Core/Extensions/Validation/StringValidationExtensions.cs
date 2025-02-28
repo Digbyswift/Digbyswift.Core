@@ -128,7 +128,7 @@ public static class StringValidationExtensions
         if (String.IsNullOrWhiteSpace(value))
             return false;
 
-        if (!Char.IsNumber(value[0]) && value[0] != CharConstants.Star)
+        if (!Char.IsNumber(value[0]) && value[0] != CharConstants.Plus)
             return false;
 
         return value.StartsWith("07") || value.StartsWith("447") || value.StartsWith("+447");

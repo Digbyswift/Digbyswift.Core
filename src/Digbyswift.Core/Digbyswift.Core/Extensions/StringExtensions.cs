@@ -36,7 +36,7 @@ public static class StringExtensions
             yield return CharConstants.Dollar;
             yield return CharConstants.Period;
             yield return CharConstants.Pipe;
-            yield return CharConstants.Star;
+            yield return CharConstants.Asterisk;
             yield return CharConstants.Plus;
             yield return CharConstants.QuestionMark;
             yield return CharConstants.ParenthesesLeft;
@@ -275,7 +275,7 @@ public static class StringExtensions
     /// <example>johnsmith@example.com -> johnsmi************</example>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static string MaskRight(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Star)
+    public static string MaskRight(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Asterisk)
     {
 #if NET48
         if (value == null)
@@ -300,7 +300,7 @@ public static class StringExtensions
     /// <example>johnsmith@example.com with numberOfVisibleCharacter = 7 -> ***********ple.com</example>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static string MaskLeft(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Star)
+    public static string MaskLeft(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Asterisk)
     {
 #if NET48
         if (value == null)
