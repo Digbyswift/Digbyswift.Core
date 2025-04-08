@@ -12,7 +12,7 @@ public class Result<T>
         Success = success;
     }
 
-    public Result<T> NoSuccess(T value)
+    public static Result<T> NoSuccess(T value)
     {
         return new Result<T>(value, false);
     }
