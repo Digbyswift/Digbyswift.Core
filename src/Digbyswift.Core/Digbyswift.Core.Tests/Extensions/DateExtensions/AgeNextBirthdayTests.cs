@@ -8,32 +8,80 @@ namespace Digbyswift.Core.Tests.Extensions.DateExtensions;
 public class AgeNextBirthdayTests
 {
     [Test]
-    public void GetAgeNextBirthday_ReturnsEighteenFromSameDate()
+    public void GetAgeNextBirthday_ReturnsOne_WhenBornToday()
     {
-        var dob = DateTime.Now.AddYears(-17);
-        var dobDateOnly = dob.Date;
-        var ageNextBirthday = dobDateOnly.GetAgeNextBirthday();
+        // Arrange
+        var dob = DateTime.Today;
 
+        // Act
+        var ageNextBirthday = dob.GetAgeNextBirthday();
+
+        // Assert
+        Assert.That(ageNextBirthday, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void GetAgeNextBirthday_ReturnsOne_WhenBornYesterday()
+    {
+        // Arrange
+        var dob = DateTime.Today.SubtractDays(1);
+
+        // Act
+        var ageNextBirthday = dob.GetAgeNextBirthday();
+
+        // Assert
+        Assert.That(ageNextBirthday, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void GetAgeNextBirthday_ReturnsZero_WhenBornTomorrow()
+    {
+        // Arrange
+        var dob = DateTime.Today.AddDays(1);
+
+        // Act
+        var ageNextBirthday = dob.GetAgeNextBirthday();
+
+        // Assert
+        Assert.That(ageNextBirthday, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void GetAgeNextBirthday_ReturnsEighteen_WhenSeventeenthBirthdayIsToday()
+    {
+        // Arrange
+        var dob = DateTime.Today.SubtractYears(17);
+
+        // Act
+        var ageNextBirthday = dob.GetAgeNextBirthday();
+
+        // Assert
         Assert.That(ageNextBirthday, Is.EqualTo(18));
     }
 
     [Test]
-    public void GetAgeNextBirthday_ReturnsSeventeenEighteenFromNextDate()
+    public void GetAgeNextBirthday_ReturnsSeventeen_WhenSeventeenthBirthdayIsTomorrow()
     {
-        var dob = DateTime.Now.AddYears(-17).AddDays(1);
-        var dobDateOnly = dob.Date;
-        var ageNextBirthday = dobDateOnly.GetAgeNextBirthday();
+        // Arrange
+        var dob = DateTime.Today.SubtractYears(17).AddDays(1);
 
+        // Act
+        var ageNextBirthday = dob.GetAgeNextBirthday();
+
+        // Assert
         Assert.That(ageNextBirthday, Is.EqualTo(17));
     }
 
     [Test]
-    public void GetAgeNextBirthday_ReturnsSeventeenEighteenFromPreviousDate()
+    public void GetAgeNextBirthday_ReturnsSeventeen_WhenSeventeenthBirthdayWasYesterday()
     {
-        var dob = DateTime.Now.AddYears(-17).AddDays(-1);
-        var dobDateOnly = dob.Date;
-        var ageNextBirthday = dobDateOnly.GetAgeNextBirthday();
+        // Arrange
+        var dob = DateTime.Today.SubtractYears(17).SubtractDays(1);
 
+        // Act
+        var ageNextBirthday = dob.GetAgeNextBirthday();
+
+        // Assert
         Assert.That(ageNextBirthday, Is.EqualTo(18));
     }
 }
