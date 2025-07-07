@@ -1,0 +1,56 @@
+name: .NET Tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+
+    defaults:
+      run:
+        working-directory: src\Digbyswift.Core\Digbyswift.Core.Tests
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --logger trx
+
+      - name: Upload Test Result Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/**/TestResults/**/*
+          retention-days: 5
+
+      # Pinned commit for https://github.com/EnricoMi/publish-unit-test-result-action/releases/tag/v2.19.0
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/windows@afb2984f4d89672b2f9d9c13ae23d53779671984
+        if: always()
+        with:
+          files: |
+            **/*.trx
