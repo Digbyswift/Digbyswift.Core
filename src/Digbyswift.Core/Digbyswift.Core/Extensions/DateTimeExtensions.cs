@@ -39,12 +39,16 @@ public static class DateTimeExtensions
 
         var yearsSinceBirth = today.Year - dob.Year;
 
-        if (dob.AddYears(yearsSinceBirth) <= today)
+        var currentBirthday = dob.AddYears(yearsSinceBirth);
+
+        var ageNextBirthday = yearsSinceBirth;
+
+        if (currentBirthday <= today)
         {
-            yearsSinceBirth++;
+            ageNextBirthday++;
         }
 
-        return yearsSinceBirth;
+        return ageNextBirthday;
     }
 
     public static int GetAge(this DateTime dob)
