@@ -34,12 +34,16 @@ public static class DateTimeExtensions
     public static int GetAgeNextBirthday(this DateTime dob)
     {
         var today = SystemTime.LocalToday;
-        if (dob >= today)
+        if (dob > today)
             return 0;
 
-        var ageNextBirthday = today.Year - dob.Year;
+        var yearsSinceBirth = today.Year - dob.Year;
 
-        if (dob.AddYears(ageNextBirthday) < today)
+        var currentBirthday = dob.AddYears(yearsSinceBirth);
+
+        var ageNextBirthday = yearsSinceBirth;
+
+        if (currentBirthday <= today)
         {
             ageNextBirthday++;
         }
