@@ -14,12 +14,6 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    permissions:
-      contents: read
-      issues: read
-      checks: write
-      pull-requests: write
-
     defaults:
       run:
         working-directory: src/Digbyswift.Core/Digbyswift.Core.Tests
@@ -45,11 +39,32 @@ jobs:
         run: dotnet test --no-build --verbosity normal --logger trx
 
       - name: Upload Test Result Files
+        if: (!cancelled())
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
-          path: ${{ github.workspace }}/**/TestResults/**/*
+          name: Test Results (OS ${{ matrix.os }})
+          path: ${{ github.workspace }}/**/*.trx
           retention-days: 5
+
+  publish-test-results:
+    name: "Publish Tests Results"
+    needs: test-lib
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+    if: (!cancelled())
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: "artifacts/**/*.trx"
 
       # Pinned commit for https://github.com/EnricoMi/publish-unit-test-result-action/releases/tag/v2.20.0
       - name: Publish Test Results
