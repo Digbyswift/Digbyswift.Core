@@ -1,10 +1,7 @@
 name: Build and publish package
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   build-lib:
@@ -38,5 +35,17 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Nuget package
-          path: _package
+          path: src\Digbyswift.Core\Digbyswift.Core\_package
           retention-days: 5
+
+  upload-lib:
+    runs-on: 'windows-latest'
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+            name: Nuget package
+
+      - name: Publish package to nuget
+        run: dotnet nuget push *.nupkg --api-key ${env:secrets.NUGET_API_KEY} --source https://api.nuget.org/v3/index.json
