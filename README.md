@@ -1,7 +1,7 @@
 # Digbyswift.Core
 
 [![NuGet version (Digbyswift.Core)](https://img.shields.io/nuget/v/Digbyswift.Core.svg)](https://www.nuget.org/packages/Digbyswift.Core/)
-![Build status](https://dev.azure.com/digbyswift/Digbyswift%20-%20OSS%20Packages/_apis/build/status/Build%20Digbyswift.Core)
+[![Build and publish package](https://github.com/Digbyswift/Digbyswift.Core/actions/workflows/dotnet-build-publish.yml/badge.svg)](https://github.com/Digbyswift/Digbyswift.Core/actions/workflows/dotnet-build-publish.yml)
 
 A library of general-use classes and extensions for everyday coding.
 
