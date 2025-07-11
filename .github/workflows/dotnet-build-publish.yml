@@ -33,7 +33,7 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Pack
-        run: dotnet pack --include-symbols --no-build --output _package
+        run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build --output _package -p:SymbolPackageFormat=snupkg
 
       - name: Upload package
         uses: actions/upload-artifact@v4
