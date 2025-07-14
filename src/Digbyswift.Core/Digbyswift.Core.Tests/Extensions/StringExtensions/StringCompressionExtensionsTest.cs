@@ -1,4 +1,5 @@
-﻿using Digbyswift.Core.Extensions;
+﻿using System;
+using Digbyswift.Core.Extensions;
 using NUnit.Framework;
 
 namespace Digbyswift.Core.Tests.Extensions.StringExtensions;
@@ -21,11 +22,39 @@ public class StringCompressionExtensionsTest
     }
 
     [Test]
+    public void Compress_ReturnsEmptyString_WhenGivenAnEmptyString()
+    {
+        // Arrange
+        var value = String.Empty;
+        var expectedResult = String.Empty;
+
+        // Act
+        var result = value.Compress();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [Test]
     public void DeCompress_ReturnsUncompressedString_WhenGivenCompressedString()
     {
         // Arrange
         var value = "H4sIAAAAAAAECgtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
         var expectedResult = "Testing a string with spaces";
+
+        // Act
+        var result = value.Decompress();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [Test]
+    public void DeCompress_ReturnsEmptyString_WhenGivenAnEmptyString()
+    {
+        // Arrange
+        var value = String.Empty;
+        var expectedResult = String.Empty;
 
         // Act
         var result = value.Decompress();
