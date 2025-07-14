@@ -110,7 +110,7 @@ public class NumericExtensionsTest
         var ex = Assert.Throws<ArgumentOutOfRangeException>(
             () =>
             {
-                var result = source.Equals(compareTo, -1);
+                source.Equals(compareTo, -1);
             });
 
         // Assert
@@ -136,7 +136,7 @@ public class NumericExtensionsTest
         var ex = Assert.Throws<ArgumentOutOfRangeException>(
             () =>
             {
-                var result = source.Truncate(decimalPlaces);
+                source.Truncate(decimalPlaces);
             });
 
         // Assert
