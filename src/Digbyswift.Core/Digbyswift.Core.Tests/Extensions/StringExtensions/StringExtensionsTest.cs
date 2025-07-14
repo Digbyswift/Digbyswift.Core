@@ -432,58 +432,198 @@ public class StringExtensionsTest
         Assert.That(result, Is.EqualTo(expectedResult));
     }
 
-    [Test]
-    [Ignore("Test not implemented yet")]
-    public void StripMarkup()
+    [TestCase("", "")]
+    [TestCase("Testing", "Testing")]
+    [TestCase("<p>Testing</p>", "Testing")]
+    [TestCase("<p><span>Testing<span></p>", "Testing")]
+    public void StripMarkup_ReturnsStringWithoutMarkup_IfMarkupIsPresent(string source, string expectedResult)
     {
+        // Arrange & Act
+        var result = source.StripMarkup();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase("", "")]
+    [TestCase("Tesst", "Tedt")]
+    [TestCase("Tesst aagain", "Tedt aagain")]
+    public void ReplaceExcess_ReturnsStringWithExcessCharacterReplaces_IfDuplicateCharacterIsPresent(string source, string expectedResult)
+    {
+        // Arrange & Act
+        var result = source.ReplaceExcess('s', 'd');
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase("", "")]
+    [TestCase("Test./?", "Test")]
+    [TestCase("Test./? ", "Test")]
+    [TestCase("123Test./? ", "Test")]
+    [TestCase("123Test./?123 ", "Test")]
+    public void RemoveNonWordCharacters_ReturnsString_WithNoNonAlphanumericCharacters(string source, string expectedResult)
+    {
+        // Arrange & Act
+        var result = source.RemoveNonWordCharacters();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
     [Test]
-    [Ignore("Test not implemented yet")]
-    public void ReplaceExcess()
+    public void Base64Encode_ReturnsEncodedString()
     {
+        // Arrange
+        var expectedResult = "VGVzdGluZyBhIHN0cmluZyB0aGF0IGNvbnRhaW5zIHRleHQ=";
+
+        // Act
+        var result = TestingContainingText.Base64Encode();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
     [Test]
-    [Ignore("Test not implemented yet")]
-    public void RemoveNonWordCharacters()
+    public void Base64Decode_ReturnsDecodedString()
     {
+        // Arrange
+        var source = "VGVzdGluZyBhIHN0cmluZyB0aGF0IGNvbnRhaW5zIHRleHQ=";
+        var expectedResult = TestingContainingText;
+
+        // Act
+        var result = source.Base64Decode();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase(Testing, 10, "Testing")]
+    [TestCase(TestingContainingText, 4, "Test*******************************")]
+    public void MaskRight_ReturnsString_WithExpectedCharactersMasked(string source, int numberOfVisibleCharacters, string expectedResult)
+    {
+        // Arrange & Act
+        var result = source.MaskRight(numberOfVisibleCharacters);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
     [Test]
-    [Ignore("Test not implemented yet")]
-    public void Base64Encode()
+    public void MaskRight_ThrowsException_WhenNegativeCharactersVisible()
     {
+        // Act & Assert
+        Assert.Throws<ArgumentOutOfRangeException>(
+            () =>
+            {
+                TestingContainingText.MaskRight(-4);
+            });
+    }
+
+    [TestCase(Testing, 10, "Testing")]
+    [TestCase(TestingContainingText, 4, "*******************************text")]
+    public void MaskLeft_ReturnsString_WithExpectedCharactersMasked(string source, int numberOfVisibleCharacters, string expectedResult)
+    {
+        // Arrange & Act
+        var result = source.MaskLeft(numberOfVisibleCharacters);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
     [Test]
-    [Ignore("Test not implemented yet")]
-    public void MaskRight()
+    public void MaskLeft_ThrowsException_WhenNegativeCharactersVisible()
     {
+        // Act & Assert
+        Assert.Throws<ArgumentOutOfRangeException>(
+            () =>
+            {
+                TestingContainingText.MaskLeft(-4);
+            });
     }
 
-    [Test]
-    [Ignore("Test not implemented yet")]
-    public void MaskLeft()
+    [TestCase(Testing, "testing")]
+    [TestCase("Testing url Transform", "testing-url-transform")]
+    [TestCase(" Testing url Transform with whitespace ", "testing-url-transform-with-whitespace")]
+    [TestCase(" Testing url Transform's with quotes", "testing-url-transforms-with-quotes")]
+    [TestCase(" Testing url & Transform's ", "testing-url-transforms")]
+    public void ToUrlFriendly_ReturnsUrlFormattedString_WithoutIncorrectCharactersOrFormatting(string source, string expectedResult)
     {
+        // Arrange & Act
+        var result = source.ToUrlFriendly();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
-    [Test]
-    [Ignore("Test not implemented yet")]
-    public void ToUrlFriendly()
+    [TestCase("True", true)]
+    [TestCase("true", true)]
+    public void ToBool_ReturnsTrue_WhenValueIsTrue(string source, bool expectedResult)
     {
+        // Arrange & Act
+        var result = source.ToBool(null);
+
+        // Assert
+        Assert.IsTrue(result);
     }
 
-    [Test]
-    [Ignore("Test not implemented yet")]
-    public void ToBool()
+    [TestCase("False", false)]
+    [TestCase("false", false)]
+    public void ToBool_ReturnsFalse_WhenValueIsFalse(string source, bool expectedResult)
     {
+        // Arrange & Act
+        var result = source.ToBool(null);
+
+        // Assert
+        Assert.IsFalse(result);
     }
 
-    [Test]
-    [Ignore("Test not implemented yet")]
-    public void CapitalizeWords()
+    [TestCase("", false)]
+    [TestCase(Testing, false)]
+    public void ToBool_ReturnsFalse_WhenValueIsEmptyOrInvalid(string source, bool expectedResult)
     {
+        // Arrange & Act
+        var result = source.ToBool(null);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase("", false)]
+    [TestCase(Testing, false)]
+    public void ToBool_ReturnsDefault_WhenValueIsEmptyOrInvalid(string source, bool expectedResult)
+    {
+        // Arrange
+        bool defaultValue = true;
+
+        // Act
+        var result = source.ToBool(defaultValue);
+
+        // Assert
+        Assert.IsTrue(result);
+    }
+
+    [TestCase("", false)]
+    [TestCase(Testing, false)]
+    public void ToBool_ReturnsFalse_WhenValueIsEmptyOrInvalid_AndNoDefaultSupplied(string source, bool expectedResult)
+    {
+        // Arrange & Act
+        var result = source.ToBool(null);
+
+        // Assert
+        Assert.IsFalse(result);
+    }
+
+    [TestCase("", "")]
+    [TestCase(Testing, "Testing")]
+    [TestCase(TestingContainingText, "Testing A String That Contains Text")]
+    public void CapitalizeWords_ReturnsString_WithCorrectCasing(string source, string expectedResult)
+    {
+        // Arrange & Act
+        var result = source.CapitalizeWords();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
     [Test]
