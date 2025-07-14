@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digbyswift.Core.Extensions;
+using Digbyswift.Core.Tests.Mocks;
 using NUnit.Framework;
 
 namespace Digbyswift.Core.Tests.Extensions.StringExtensions;
@@ -626,9 +627,39 @@ public class StringExtensionsTest
         Assert.That(result, Is.EqualTo(expectedResult));
     }
 
-    [Test]
-    [Ignore("Test not implemented yet")]
-    public void ToEnum()
+    [TestCase]
+    public void ToEnum_ReturnsEnum_WhenMatchingDescription()
     {
+        // Arrange
+        var source = "Test";
+
+        // Act
+        var result = source.ToEnum<MockEnum>();
+
+        // Assert
+        Assert.AreEqual(result, MockEnum.Test);
+    }
+
+    [TestCase]
+    public void ToEnum_ReturnsDefaultEnum_WhenNoDescription()
+    {
+        // Arrange & Act
+        var result = String.Empty.ToEnum<MockEnum>();
+
+        // Assert
+        Assert.AreEqual(result, MockEnum.Test);
+    }
+
+    [TestCase]
+    public void ToEnum_ReturnsDefaultEnum_WhenNotMatchingDescription()
+    {
+        // Arrange
+        var source = "Testing";
+
+        // Act
+        var result = source.ToEnum<MockEnum>();
+
+        // Assert
+        Assert.AreEqual(result, MockEnum.Test);
     }
 }
