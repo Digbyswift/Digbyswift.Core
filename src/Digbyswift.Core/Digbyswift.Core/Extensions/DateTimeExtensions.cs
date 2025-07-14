@@ -35,28 +35,24 @@ public static class DateTimeExtensions
     {
         var today = SystemTime.LocalToday;
         if (dob > today)
-            return 0;
+            return NumericConstants.Zero;
 
-        var yearsSinceBirth = today.Year - dob.Year;
-
-        var currentBirthday = dob.AddYears(yearsSinceBirth);
-
-        var ageNextBirthday = yearsSinceBirth;
-
-        if (currentBirthday <= today)
-        {
-            ageNextBirthday++;
-        }
-
-        return ageNextBirthday;
+        return GetAge(dob.Date) + 1;
     }
 
     public static int GetAge(this DateTime dob)
     {
-        if (dob >= SystemTime.LocalToday)
+        var today = SystemTime.LocalToday;
+        if (dob > today)
             return NumericConstants.Zero;
 
-        return GetAgeNextBirthday(dob) - NumericConstants.One;
+        var yearsSinceBirth = today.Year - dob.Year;
+        if (dob.Date > today.SubtractYears(yearsSinceBirth))
+        {
+            yearsSinceBirth--;
+        }
+
+        return yearsSinceBirth;
     }
 
     public static bool IsBefore(this DateTime dateTime, DateTime otherDate)
