@@ -1,8 +1,9 @@
 name: Build and publish package
 
 on:
-  workflow_dispatch:
-
+  push:
+    branches: [ "master" ]
+    
 jobs:
   build-lib:
     runs-on: 'windows-latest'
@@ -31,7 +32,7 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Pack
-        run: dotnet pack --include-symbols --no-build --output _package
+        run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build --output _package -p:SymbolPackageFormat=snupkg
 
       - name: Upload package
         uses: actions/upload-artifact@v4
@@ -52,4 +53,6 @@ jobs:
           name: .package
 
       - name: Publish package to nuget
-        run: dotnet nuget push *.nupkg --api-key ${env:secrets.NUGET_API_KEY} --source https://api.nuget.org/v3/index.json
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push *.nupkg --api-key "${env:NUGET_API_KEY}" --source https://api.nuget.org/v3/index.json
