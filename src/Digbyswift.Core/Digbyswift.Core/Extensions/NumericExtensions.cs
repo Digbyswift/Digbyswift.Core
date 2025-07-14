@@ -194,7 +194,7 @@ public static class NumericExtensions
     /// <list>
     /// <item>0m -> "0"</item>
     /// <item>1m -> "1"</item>
-    /// <item>1.0m -> "1"</item>
+    /// <item>1.0m -> "1.0"</item>
     /// <item>1.99m -> "1.99"</item>
     /// <item>1000.99m -> "1000.99"</item>
     /// <item>-1000.99m -> "-1000.99"</item>
