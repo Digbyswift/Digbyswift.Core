@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Digbyswift.Core.Tests.Extensions.DateExtensions;
 
 [TestFixture]
-public class AgeNextBirthdayTests
+public class GetAgeNextBirthdayTests
 {
     [Test]
     public void GetAgeNextBirthday_ReturnsOne_WhenBornToday()
@@ -38,6 +38,19 @@ public class AgeNextBirthdayTests
     {
         // Arrange
         var dob = DateTime.Today.AddDays(1);
+
+        // Act
+        var ageNextBirthday = dob.GetAgeNextBirthday();
+
+        // Assert
+        Assert.That(ageNextBirthday, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void GetAgeNextBirthday_ReturnsZero_WhenBornTomorrowExact()
+    {
+        // Arrange
+        var dob = DateTime.Now.AddDays(1);
 
         // Act
         var ageNextBirthday = dob.GetAgeNextBirthday();
