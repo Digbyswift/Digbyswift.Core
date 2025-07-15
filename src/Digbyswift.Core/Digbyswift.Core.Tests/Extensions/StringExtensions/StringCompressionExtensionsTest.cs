@@ -26,22 +26,18 @@ public class StringCompressionExtensionsTest
     [Test]
     public void Compress_ReturnsEmptyString_WhenGivenAnEmptyString()
     {
-        // Arrange
-        var value = String.Empty;
-        var expectedResult = String.Empty;
-
-        // Act
-        var result = value.Compress();
+        // Arrange & Act
+        var result = String.Empty.Compress();
 
         // Assert
-        Assert.That(result, Is.EqualTo(expectedResult));
+        Assert.That(result, Is.EqualTo(String.Empty));
     }
 
     [Test]
     public void Decompress_ReturnsUncompressedString_WhenGivenCompressedString()
     {
         // Arrange
-        var value = "H4sIAAAAAAAECgtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
+        const string value = "H4sIAAAAAAAECgtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
         var expectedResult = TestingStringWithSpaces;
 
         // Act
@@ -54,15 +50,11 @@ public class StringCompressionExtensionsTest
     [Test]
     public void Decompress_ReturnsEmptyString_WhenGivenAnEmptyString()
     {
-        // Arrange
-        var value = String.Empty;
-        var expectedResult = String.Empty;
-
-        // Act
-        var result = value.Decompress();
+        // Arrange & Act
+        var result = String.Empty.Decompress();
 
         // Assert
-        Assert.That(result, Is.EqualTo(expectedResult));
+        Assert.That(result, Is.EqualTo(String.Empty));
     }
 
     [Test]
@@ -109,7 +101,7 @@ public class StringCompressionExtensionsTest
     public void CompressProcess_ReturnsOriginalString_WhenGivenStringWithMarkup()
     {
         // Arrange
-        var value = "<p>Morbi commodo <span><strong>sapien non convallis</strong></span> tempor. Mauris id volutpat elit, vel tristique est. Etiam efficitur nibh vitae ipsum euismod, sit amet semper eros euismod. Quisque id tristique nisl, et varius nulla. Nulla scelerisque tellus non purus facilisis, vitae placerat urna mollis</p>";
+        const string value = "<p>Morbi commodo <span><strong>sapien non convallis</strong></span> tempor. Mauris id volutpat elit, vel tristique est. Etiam efficitur nibh vitae ipsum euismod, sit amet semper eros euismod. Quisque id tristique nisl, et varius nulla. Nulla scelerisque tellus non purus facilisis, vitae placerat urna mollis</p>";
 
         // Act
         var compressionResult = value.Compress();
