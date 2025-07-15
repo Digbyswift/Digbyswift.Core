@@ -1,4 +1,5 @@
-﻿using Digbyswift.Core.Extensions;
+﻿using System.Collections.Generic;
+using Digbyswift.Core.Extensions;
 using NUnit.Framework;
 
 namespace Digbyswift.Core.Tests.Extensions.NumericExtensions;
@@ -18,16 +19,14 @@ public class AsPercentageTests
         Assert.That(result.Equals(percentage));
     }
 
-    [TestCase(100.0000, 1000.00000, 10)]
-    [TestCase(0.0000, 1000.0000, 0)]
-    [TestCase(1000.0000, 1000.0000, 100)]
-    public void AsPercentageOf_ReturnsCorrectPercentage(decimal source, decimal total, int percentage)
+    [TestCaseSource(nameof(PercentageTestTestDataWithDecimals))]
+    public void AsPercentageOf_ReturnsCorrectPercentage(PercentageTestData testData)
     {
         // Arrange & Act
-        var result = source.AsPercentageOf(total);
+        var result = testData.Source.AsPercentageOf(testData.Total);
 
         // Assert
-        Assert.That(result, Is.EqualTo(percentage));
+        Assert.That(result, Is.EqualTo(testData.Percentage));
     }
 
     [TestCase(100.00d, 1000.00d, 10)]
@@ -40,5 +39,19 @@ public class AsPercentageTests
 
         // Assert
         Assert.That(result, Is.EqualTo(percentage));
+    }
+
+    private static IEnumerable<PercentageTestData> PercentageTestTestDataWithDecimals()
+    {
+        yield return new PercentageTestData(100.0000m, 1000.00000m, 10);
+        yield return new PercentageTestData(0.0000m, 1000.0000m, 0);
+        yield return new PercentageTestData(1000.0000m, 1000.00000m, 100);
+    }
+
+    public class PercentageTestData(decimal source, decimal total, int percentage)
+    {
+        public decimal Source { get; } = source;
+        public decimal Total { get; } = total;
+        public int Percentage { get; } = percentage;
     }
 }
