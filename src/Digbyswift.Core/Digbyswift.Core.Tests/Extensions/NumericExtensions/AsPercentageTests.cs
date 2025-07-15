@@ -10,7 +10,7 @@ public class AsPercentageTests
     [TestCase(100, 1000, 10)]
     [TestCase(0, 1000, 0)]
     [TestCase(1000, 1000, 100)]
-    public void AsPercentageOf_ReturnsCorrectPercentage(int source, int total, int percentage)
+    public void AsPercentageOf_ReturnsCorrectPercentage_WhenSourceIsAnInteger(int source, int total, int percentage)
     {
         // Arrange & Act
         var result = source.AsPercentageOf(total);
@@ -20,7 +20,7 @@ public class AsPercentageTests
     }
 
     [TestCaseSource(nameof(PercentageTestTestDataWithDecimals))]
-    public void AsPercentageOf_ReturnsCorrectPercentage(PercentageTestData testData)
+    public void AsPercentageOf_ReturnsCorrectPercentage_WhenSourceIsPercentage(PercentageTestData testData)
     {
         // Arrange & Act
         var result = testData.Source.AsPercentageOf(testData.Total);
@@ -32,7 +32,7 @@ public class AsPercentageTests
     [TestCase(100.00d, 1000.00d, 10)]
     [TestCase(0.00d, 1000.00d, 0)]
     [TestCase(1000.00d, 1000.00d, 100)]
-    public void AsPercentageOf_ReturnsCorrectPercentage(double source, double total, int percentage)
+    public void AsPercentageOf_ReturnsCorrectPercentage_whenSourceIsDouble(double source, double total, int percentage)
     {
         // Arrange & Act
         var result = source.AsPercentageOf(total);
