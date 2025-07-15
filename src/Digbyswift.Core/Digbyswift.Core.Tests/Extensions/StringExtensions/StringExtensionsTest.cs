@@ -236,11 +236,7 @@ public class StringExtensionsTest
         // Arrange
 
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(
-            () =>
-            {
-                TestingContainingText.Truncate(-20);
-            });
+        Assert.Throws<ArgumentOutOfRangeException>(() => TestingContainingText.Truncate(-20));
     }
 
     [Test]
@@ -411,7 +407,7 @@ public class StringExtensionsTest
         var expectedResult = new List<string> { "Testing", "a", "string", "that", "contains", "text" };
 
         // Act
-        var result = source.SplitAndTrim()?.ToList();
+        var result = source.SplitAndTrim().ToList();
 
         // Assert
         for (int i = 0; i < result.Count; i++)
@@ -514,11 +510,7 @@ public class StringExtensionsTest
     public void MaskRight_ThrowsException_WhenNegativeCharactersVisible()
     {
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(
-            () =>
-            {
-                TestingContainingText.MaskRight(-4);
-            });
+        Assert.Throws<ArgumentOutOfRangeException>(() => TestingContainingText.MaskRight(-4));
     }
 
     [TestCase(Testing, 10, "Testing")]
@@ -536,11 +528,7 @@ public class StringExtensionsTest
     public void MaskLeft_ThrowsException_WhenNegativeCharactersVisible()
     {
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(
-            () =>
-            {
-                TestingContainingText.MaskLeft(-4);
-            });
+        Assert.Throws<ArgumentOutOfRangeException>(() => TestingContainingText.MaskLeft(-4));
     }
 
     [TestCase(Testing, "testing")]
@@ -634,20 +622,20 @@ public class StringExtensionsTest
         var source = "Test";
 
         // Act
-        var result = source.ToEnum<MockEnum>();
+        var result = source.ToEnum<TestEnum>();
 
         // Assert
-        Assert.AreEqual(result, MockEnum.Test);
+        Assert.AreEqual(result, TestEnum.Test);
     }
 
     [TestCase]
     public void ToEnum_ReturnsDefaultEnum_WhenNoDescription()
     {
         // Arrange & Act
-        var result = String.Empty.ToEnum<MockEnum>();
+        var result = String.Empty.ToEnum<TestEnum>();
 
         // Assert
-        Assert.AreEqual(result, MockEnum.Test);
+        Assert.AreEqual(result, TestEnum.Test);
     }
 
     [TestCase]
@@ -657,9 +645,9 @@ public class StringExtensionsTest
         var source = "Testing";
 
         // Act
-        var result = source.ToEnum<MockEnum>();
+        var result = source.ToEnum<TestEnum>();
 
         // Assert
-        Assert.AreEqual(result, MockEnum.Test);
+        Assert.AreEqual(result, TestEnum.Test);
     }
 }

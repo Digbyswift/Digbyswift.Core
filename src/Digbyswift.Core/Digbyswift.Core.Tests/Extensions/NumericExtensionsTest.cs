@@ -8,9 +8,9 @@ namespace Digbyswift.Core.Tests.Extensions;
 [TestFixture]
 public class NumericExtensionsTest
 {
-    [TestCase(0)]
-    [TestCase(0.0)]
-    [TestCase(-0)]
+    [TestCase(0d)]
+    [TestCase(0.0d)]
+    [TestCase(-0d)]
     public void IsZero_ReturnsTrue_WhenValueIsZero(double source)
     {
         // Arrange & Act
@@ -20,9 +20,9 @@ public class NumericExtensionsTest
         Assert.IsTrue(result);
     }
 
-    [TestCase(0.1)]
-    [TestCase(1)]
-    [TestCase(-1)]
+    [TestCase(0.1d)]
+    [TestCase(1d)]
+    [TestCase(-1d)]
     public void IsZero_ReturnsFalse_WhenValueIsNotZero(double source)
     {
         // Arrange & Act
@@ -66,9 +66,9 @@ public class NumericExtensionsTest
         Assert.That(result.Equals(percentage));
     }
 
-    [TestCase(100.0000, 1000.00000, 10)]
-    [TestCase(0.0000, 1000.0000, 0)]
-    [TestCase(1000.0000, 1000.0000, 100)]
+    [TestCase(100.0000m, 1000.00000m, 10)]
+    [TestCase(0.0000m, 1000.0000m, 0)]
+    [TestCase(1000.0000m, 1000.0000m, 100)]
     public void AsPercentageOf_ReturnsCorrectPercentage(decimal source, decimal total, int percentage)
     {
         // Arrange & Act
@@ -78,9 +78,9 @@ public class NumericExtensionsTest
         Assert.That(result, Is.EqualTo(percentage));
     }
 
-    [TestCase(100.00, 1000.00, 10)]
-    [TestCase(0.00, 1000.00, 0)]
-    [TestCase(1000.00, 1000.00, 100)]
+    [TestCase(100.00d, 1000.00d, 10)]
+    [TestCase(0.00d, 1000.00d, 0)]
+    [TestCase(1000.00d, 1000.00d, 100)]
     public void AsPercentageOf_ReturnsCorrectPercentage(double source, double total, int percentage)
     {
         // Arrange & Act
@@ -90,11 +90,10 @@ public class NumericExtensionsTest
         Assert.That(result, Is.EqualTo(percentage));
     }
 
-    [TestCase(123, 123.5, 0)]
-    [TestCase(123.534, 123.578, 0)]
-    [TestCase(123.534, 123.578, 1)]
-    public void Equals_ReturnsTrue_WhenValuesAreEqualToDecimalPlace(double source, double compareTo,
-        double decimalPlaces)
+    [TestCase(123d, 123.5d, 0)]
+    [TestCase(123.534d, 123.578d, 0)]
+    [TestCase(123.534d, 123.578d, 1)]
+    public void Equals_ReturnsTrue_WhenValuesAreEqualToDecimalPlace(double source, double compareTo, double decimalPlaces)
     {
         // Arrange & Act
         var result = source.Equals(compareTo, decimalPlaces);
@@ -103,23 +102,19 @@ public class NumericExtensionsTest
         Assert.IsTrue(result);
     }
 
-    [TestCase(123, 123.5)]
-    public void Equals_ReturnsException_WhenWhenNoDecimalPlaceSpecified(double source, double compareTo)
+    [TestCase(123d, 123.5d)]
+    public void Equals_ThrowsException_WhenWhenNoDecimalPlaceSpecified(double source, double compareTo)
     {
         // Arrange & Act
-        var ex = Assert.Throws<ArgumentOutOfRangeException>(
-            () =>
-            {
-                source.Equals(compareTo, -1);
-            });
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => source.Equals(compareTo, -1));
 
         // Assert
-        Assert.That(ex.Message.ContainsIgnoreCase("Decimal places must be non-negative"));
+        Assert.That(ex.Message, Contains.Substring("Decimal places must be non-negative"));
     }
 
-    [TestCase(123.889078, 1, 123.8)]
-    [TestCase(123.889078, 2, 123.88)]
-    [TestCase(123.889078, 3, 123.889)]
+    [TestCase(123.889078d, 1, 123.8d)]
+    [TestCase(123.889078d, 2, 123.88d)]
+    [TestCase(123.889078d, 3, 123.889d)]
     public void Truncate_ReturnsDouble_WithoutDecimalPlaces(double source, int decimalPlaces, double expectedResult)
     {
         // Arrange & Act
@@ -129,18 +124,14 @@ public class NumericExtensionsTest
         Assert.That(result, Is.EqualTo(expectedResult));
     }
 
-    [TestCase(123.889078, -2)]
-    public void Truncate_ReturnsException_WhenDecimalPlaceIsNegative(double source, int decimalPlaces)
+    [TestCase(123.889078d, -2)]
+    public void Truncate_ThrowsException_WhenDecimalPlaceIsNegative(double source, int decimalPlaces)
     {
         // Arrange & Act
-        var ex = Assert.Throws<ArgumentOutOfRangeException>(
-            () =>
-            {
-                source.Truncate(decimalPlaces);
-            });
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => source.Truncate(decimalPlaces));
 
         // Assert
-        Assert.That(ex.Message.ContainsIgnoreCase("Decimal places must be non-negative"));
+        Assert.That(ex.Message, Contains.Substring("Decimal places must be non-negative"));
     }
 
     [Test]

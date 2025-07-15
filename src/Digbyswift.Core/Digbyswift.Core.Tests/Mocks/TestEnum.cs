@@ -1,6 +1,6 @@
 ﻿namespace Digbyswift.Core.Tests.Mocks;
 
-internal enum MockEnum
+internal enum TestEnum
 {
     /// <summary>
     /// Test.
