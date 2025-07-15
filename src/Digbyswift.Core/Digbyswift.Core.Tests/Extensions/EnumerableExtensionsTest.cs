@@ -55,6 +55,32 @@ public class EnumerableExtensionsTest
     }
 
     [Test]
+    public void NotContains_ReturnsTrue_WhenListContainsEmptyItems()
+    {
+        // Arrange
+        IEnumerable<string> source = new List<string> { String.Empty, String.Empty, " " };
+
+        // Act
+        var result = source.NotContains(Test);
+
+        // Assert
+        Assert.IsTrue(result);
+    }
+
+    [Test]
+    public void NotContains_ReturnsTrue_WhenListContainsNullItems()
+    {
+        // Arrange
+        IEnumerable<string> source = new List<string> { null, null };
+
+        // Act
+        var result = source.NotContains(Test);
+
+        // Assert
+        Assert.IsTrue(result);
+    }
+
+    [Test]
     public void IsEmpty_ReturnsTrue_WhenListIsEmpty()
     {
         // Arrange
@@ -81,11 +107,78 @@ public class EnumerableExtensionsTest
     }
 
     [Test]
+    public void IsEmpty_ReturnsFalse_WhenListContainsEmptyItems()
+    {
+        // Arrange
+        IEnumerable<string> source = new List<string> { String.Empty, String.Empty, " " };
+
+        // Act
+        var result = source.IsEmpty();
+
+        // Assert
+        Assert.IsFalse(result);
+    }
+
+    [Test]
+    public void IsEmpty_ReturnsFalse_WhenListContainsNullItems()
+    {
+        // Arrange
+        IEnumerable<string> source = new List<string> { null, null };
+
+        // Act
+        var result = source.IsEmpty();
+
+        // Assert
+        Assert.IsFalse(result);
+    }
+
+    [Test]
+    public void IsEmpty_ReturnsFalse_WhenListContainsSingleItem()
+    {
+        // Arrange
+        IEnumerable<string> source = new List<string> { String.Empty };
+
+        // Act
+        var result = source.IsEmpty();
+
+        // Assert
+        Assert.IsFalse(result);
+    }
+
+    [Test]
+    public void WhereNotNull_ReturnsIdenticalList_WhenListHasNoNulls()
+    {
+        // Arrange
+        IEnumerable<string> source = new List<string> { Testing, TestingAgain, TestingYetAgain };
+        IEnumerable<string> expectedResult = new List<string> { Testing, TestingAgain, TestingYetAgain };
+
+        // Act
+        var result = source.WhereNotNull();
+
+        // Assert
+        Assert.AreEqual(result, expectedResult);
+    }
+
+    [Test]
     public void WhereNotNull_ReturnsListWithoutNulls_WhenListHasItems()
     {
         // Arrange
         IEnumerable<string> source = new List<string> { Testing, null, TestingAgain, null, TestingYetAgain };
         IEnumerable<string> expectedResult = new List<string> { Testing, TestingAgain, TestingYetAgain };
+
+        // Act
+        var result = source.WhereNotNull();
+
+        // Assert
+        Assert.AreEqual(result, expectedResult);
+    }
+
+    [Test]
+    public void WhereNotNull_ReturnsEmptyList_WhenListHasOnlyNulls()
+    {
+        // Arrange
+        IEnumerable<string> source = new List<string> { null, null, null };
+        IEnumerable<string> expectedResult = new List<string>();
 
         // Act
         var result = source.WhereNotNull();
