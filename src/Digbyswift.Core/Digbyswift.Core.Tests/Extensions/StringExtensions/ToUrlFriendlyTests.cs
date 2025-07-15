@@ -27,4 +27,18 @@ public class ToUrlFriendlyTests
         // Assert
         Assert.That(result, Is.EqualTo(String.Empty));
     }
+
+    [TestCase("Testing", "testing")]
+    [TestCase("Testing url Transform", "testing-url-transform")]
+    [TestCase(" Testing url Transform with whitespace ", "testing-url-transform-with-whitespace")]
+    [TestCase(" Testing url Transform's with quotes", "testing-url-transforms-with-quotes")]
+    [TestCase(" Testing url & Transform's ", "testing-url-transforms")]
+    public void ToUrlFriendly_ReturnsUrlFormattedString_WithoutIncorrectCharactersOrFormatting(string source, string expectedResult)
+    {
+        // Arrange & Act
+        var result = source.ToUrlFriendly();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
 }

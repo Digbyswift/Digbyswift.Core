@@ -2,7 +2,7 @@
 using Digbyswift.Core.Extensions;
 using NUnit.Framework;
 
-namespace Digbyswift.Core.Tests.Extensions.StringExtensions;
+namespace Digbyswift.Core.Tests.Extensions.StringCompression;
 
 [TestFixture]
 public class StringCompressionExtensionsTest

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using Digbyswift.Core.Extensions;
@@ -142,4 +142,132 @@ public class ToInvariantStringTests
     }
 
     #endregion
+
+    [Test]
+    public void ToInvariantString_ReturnsUShortValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<ushort> { 0, 1, 1000 };
+        var expectedResults = new List<string> { "0", "1", "1000" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
+
+    [Test]
+    public void ToInvariantString_ReturnsShortValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<short> { 0, 1, 1000 };
+        var expectedResults = new List<string> { "0", "1", "1000" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
+
+    [Test]
+    public void ToInvariantString_ReturnsUIntValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<uint> { 0, 1, 1000 };
+        var expectedResults = new List<string> { "0", "1", "1000" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
+
+    [Test]
+    public void ToInvariantString_ReturnsIntValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<int> { 0, 1, 1000, -1000 };
+        var expectedResults = new List<string> { "0", "1", "1000", "-1000" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
+
+    [Test]
+    public void ToInvariantString_ReturnsULongValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<ulong> { 0, 1, 1000 };
+        var expectedResults = new List<string> { "0", "1", "1000" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
+
+    [Test]
+    public void ToInvariantString_ReturnsLongValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<long> { 0, 1, 1000, -1000 };
+        var expectedResults = new List<string> { "0", "1", "1000", "-1000" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
+
+    [Test]
+    public void ToInvariantString_ReturnsDecimalValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<decimal> { 0m, 1m, 1.0m, 1.99m, 1000.99m, -1000.99m };
+        var expectedResults = new List<string> { "0", "1", "1.0", "1.99", "1000.99", "-1000.99" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
+
+    [Test]
+    public void ToInvariantString_ReturnsDoubleValue_AsInvariantString()
+    {
+        // Arrange
+        var values = new List<double> { 0d, 1d, 1.0d, 1.99d, 1000.99d, -1000.99d };
+        var expectedResults = new List<string> { "0", "1", "1", "1.99", "1000.99", "-1000.99" };
+
+        // Act & Assert
+        for (var i = 0; i < values.Count; i++)
+        {
+            var result = values[i].ToInvariantString();
+
+            Assert.That(result, Is.EqualTo(expectedResults[i]));
+        }
+    }
 }
