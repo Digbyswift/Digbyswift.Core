@@ -66,9 +66,9 @@ public class NumericExtensionsTest
         Assert.That(result.Equals(percentage));
     }
 
-    [TestCase(100.0000m, 1000.00000m, 10)]
-    [TestCase(0.0000m, 1000.0000m, 0)]
-    [TestCase(1000.0000m, 1000.0000m, 100)]
+    [TestCase(100.0000, 1000.00000, 10)]
+    [TestCase(0.0000, 1000.0000, 0)]
+    [TestCase(1000.0000, 1000.0000, 100)]
     public void AsPercentageOf_ReturnsCorrectPercentage(decimal source, decimal total, int percentage)
     {
         // Arrange & Act
