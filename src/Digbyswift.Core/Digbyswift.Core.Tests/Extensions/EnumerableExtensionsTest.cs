@@ -8,13 +8,13 @@ namespace Digbyswift.Core.Tests.Extensions;
 [TestFixture]
 public class EnumerableExtensionsTest
 {
-    private readonly List<int> _testNumericList = [11, 4, 6, 2, 9];
+    private readonly IEnumerable<int> _testNumericList = [11, 4, 6, 2, 9];
 
     [Test]
     public void NotContains_ReturnsFalse_WhenListContainsMatch()
     {
         // Arrange
-        var source = new List<string> { "Testing", "Testing again" };
+        IEnumerable<string> source = new List<string> { "Testing", "Testing again" };
 
         // Act
         var result = source.NotContains("Testing");
@@ -27,7 +27,7 @@ public class EnumerableExtensionsTest
     public void NotContains_ReturnsTrue_WhenListDoesNotContainMatch()
     {
         // Arrange
-        var source = new List<string> { "Testing", "Testing again" };
+        IEnumerable<string> source = new List<string> { "Testing", "Testing again" };
 
         // Act
         var result = source.NotContains("Test");
@@ -40,7 +40,7 @@ public class EnumerableExtensionsTest
     public void NotContains_ReturnsTrue_WhenListIsEmpty()
     {
         // Arrange
-        var source = new List<string>();
+        IEnumerable<string> source = new List<string>();
 
         // Act
         var result = source.NotContains("Test");
@@ -53,7 +53,7 @@ public class EnumerableExtensionsTest
     public void IsEmpty_ReturnsTrue_WhenListIsEmpty()
     {
         // Arrange
-        var source = new List<string>();
+        IEnumerable<string> source = new List<string>();
 
         // Act
         var result = source.IsEmpty();
@@ -66,7 +66,7 @@ public class EnumerableExtensionsTest
     public void IsEmpty_ReturnsFalse_WhenListHasItems()
     {
         // Arrange
-        var source = new List<string> { "Testing", "Testing again" };
+        IEnumerable<string> source = new List<string> { "Testing", "Testing again" };
 
         // Act
         var result = source.IsEmpty();
@@ -79,8 +79,8 @@ public class EnumerableExtensionsTest
     public void WhereNotNull_ReturnsListWithoutNulls_WhenListHasItems()
     {
         // Arrange
-        var source = new List<string> { "Testing", null, "Testing again", null, "Third Test" };
-        var expectedResult = new List<string> { "Testing", "Testing again", "Third Test" };
+        IEnumerable<string> source = new List<string> { "Testing", null, "Testing again", null, "Third Test" };
+        IEnumerable<string> expectedResult = new List<string> { "Testing", "Testing again", "Third Test" };
 
         // Act
         var result = source.WhereNotNull();
@@ -93,7 +93,7 @@ public class EnumerableExtensionsTest
     public void None_ReturnsException_WhenSourceIsNull()
     {
         // Arrange
-        List<string>? source = null;
+        IEnumerable<string>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
@@ -123,7 +123,7 @@ public class EnumerableExtensionsTest
     public void MinOrDefault_ReturnsException_WhenEnumerableIsNull()
     {
         // Arrange
-        List<int>? source = null;
+        IEnumerable<int>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
@@ -147,7 +147,7 @@ public class EnumerableExtensionsTest
     public void MaxOrDefault_ReturnsException_WhenEnumerableIsNull()
     {
         // Arrange
-        List<int>? source = null;
+        IEnumerable<int>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
@@ -171,7 +171,7 @@ public class EnumerableExtensionsTest
     public void CountIs_ReturnsFalse_WhenCountIsNotSameAsListCount()
     {
         // Arrange
-        var source = new List<int> { 11, 4, 6 };
+        IEnumerable<int> source = new List<int> { 11, 4, 6 };
 
         // Act
         var result = source.CountIs(5);
@@ -184,7 +184,7 @@ public class EnumerableExtensionsTest
     public void CountIs_ReturnsException_WhenEnumerableIsNull()
     {
         // Arrange
-        List<int>? source = null;
+        IEnumerable<int>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
@@ -198,7 +198,7 @@ public class EnumerableExtensionsTest
     public void CountIs_ReturnsException_WhenCountIsNegative()
     {
         // Arrange
-        var source = new List<int> { 11, 4, 6 };
+        IEnumerable<int> source = new List<int> { 11, 4, 6 };
 
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(
@@ -222,7 +222,7 @@ public class EnumerableExtensionsTest
     public void CountIsLowerThan_ReturnsException_WhenEnumerableIsNull()
     {
         // Arrange
-        List<int>? source = null;
+        IEnumerable<int>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
@@ -236,7 +236,7 @@ public class EnumerableExtensionsTest
     public void CountIsLowerThan_ReturnsException_WhenCountIsNegative()
     {
         // Arrange
-        var source = new List<int> { 11, 4, 6 };
+        IEnumerable<int> source = new List<int> { 11, 4, 6 };
 
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(
@@ -270,7 +270,7 @@ public class EnumerableExtensionsTest
     public void CountIsLowerThanThanOrEqual_ReturnsException_WhenEnumerableIsNull()
     {
         // Arrange
-        List<int>? source = null;
+        IEnumerable<int>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
@@ -284,7 +284,7 @@ public class EnumerableExtensionsTest
     public void CountIsLowerThanThanOrEqual_ReturnsException_WhenCountIsNegative()
     {
         // Arrange
-        var source = new List<int> { 11, 4, 6 };
+        IEnumerable<int> source = new List<int> { 11, 4, 6 };
 
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(
@@ -308,7 +308,7 @@ public class EnumerableExtensionsTest
     public void CountIsGreaterThan_ReturnsException_WhenEnumerableIsNull()
     {
         // Arrange
-        List<int>? source = null;
+        IEnumerable<int>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
@@ -322,7 +322,7 @@ public class EnumerableExtensionsTest
     public void CountIsGreaterThan_ReturnsException_WhenCountIsNegative()
     {
         // Arrange
-        var source = new List<int> { 11, 4, 6 };
+        IEnumerable<int> source = new List<int> { 11, 4, 6 };
 
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(
@@ -356,7 +356,7 @@ public class EnumerableExtensionsTest
     public void CountIsGreaterThanThanOrEqual_ReturnsException_WhenEnumerableIsNull()
     {
         // Arrange
-        List<int>? source = null;
+        IEnumerable<int>? source = null;
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(
