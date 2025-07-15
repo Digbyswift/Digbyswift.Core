@@ -7,6 +7,8 @@ namespace Digbyswift.Core.Tests.Extensions;
 [TestFixture]
 public class BooleanExtensionsTest
 {
+    private const string Testing = "Testing";
+
     [Test]
     public void AsYesNo_ReturnsYes_WhenTrueIsPassed()
     {
@@ -14,7 +16,7 @@ public class BooleanExtensionsTest
         var result = true.AsYesNo();
 
         // Assert
-        Assert.That(result == StringConstants.Yes);
+        Assert.That(result, Is.EqualTo(StringConstants.Yes));
     }
 
     [Test]
@@ -24,7 +26,7 @@ public class BooleanExtensionsTest
         var result = false.AsYesNo();
 
         // Assert
-        Assert.That(result == StringConstants.No);
+        Assert.That(result, Is.EqualTo(StringConstants.No));
     }
 
     [Test]
@@ -41,15 +43,15 @@ public class BooleanExtensionsTest
     }
 
     [Test]
-    public void AsYesNoWithFallbackValue_ReturnsFallbackValue_WhenNullIsPassed()
+    public void AsYesNo_ReturnsFallbackParameterValue_WhenSourceIsNull()
     {
         // Arrange
         bool? source = null;
 
         // Act
-        var result = source.AsYesNo("Testing");
+        var result = source.AsYesNo(Testing);
 
         // Assert
-        Assert.That(result == "Testing");
+        Assert.That(result, Is.EqualTo(Testing));
     }
 }
