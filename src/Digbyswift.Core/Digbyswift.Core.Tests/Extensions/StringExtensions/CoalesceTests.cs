@@ -21,7 +21,7 @@ public class CoalesceTests
         var result = source.Coalesce(fallback);
 
         // Assert
-        Assert.That(result.Equals("Testing"));
+        Assert.That(result, Is.EqualTo("Testing"));
     }
 
     [Test]
@@ -35,7 +35,7 @@ public class CoalesceTests
         var result = source.Coalesce(fallback);
 
         // Assert
-        Assert.That(result.Equals("Testing Fallback"));
+        Assert.That(result, Is.EqualTo("Testing Fallback"));
     }
 
     [Test]
@@ -49,7 +49,7 @@ public class CoalesceTests
         var result = source.Coalesce(fallback);
 
         // Assert
-        Assert.That(result.Equals("Testing Fallback"));
+        Assert.That(result, Is.EqualTo("Testing Fallback"));
     }
 
     [Test]
@@ -63,6 +63,6 @@ public class CoalesceTests
         var result = source.Coalesce(fallback);
 
         // Assert
-        Assert.That(result.Equals(String.Empty));
+        Assert.That(result, Is.EqualTo(String.Empty));
     }
 }

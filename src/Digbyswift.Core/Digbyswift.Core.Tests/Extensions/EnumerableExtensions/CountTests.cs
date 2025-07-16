@@ -17,7 +17,7 @@ public class CountTests
         var result = _testNumericList.CountIs(5);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -30,7 +30,7 @@ public class CountTests
         var result = source.CountIs(5);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -60,7 +60,7 @@ public class CountTests
         var result = _testNumericList.CountIsLt(10);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -90,7 +90,7 @@ public class CountTests
         var result = _testNumericList.CountIsLe(10);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -100,7 +100,7 @@ public class CountTests
         var result = _testNumericList.CountIsLe(5);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -130,7 +130,7 @@ public class CountTests
         var result = _testNumericList.CountIsGt(3);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -160,7 +160,7 @@ public class CountTests
         var result = _testNumericList.CountIsGe(3);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -170,7 +170,7 @@ public class CountTests
         var result = _testNumericList.CountIsGe(5);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]

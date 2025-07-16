@@ -14,7 +14,7 @@ public class IsEvenTests
         var result = source.IsEven();
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [TestCase(1)]
@@ -25,6 +25,6 @@ public class IsEvenTests
         var result = source.IsEven();
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 }

@@ -39,7 +39,7 @@ public class BooleanExtensionsTests
         var result = source.AsYesNo();
 
         // Assert
-        Assert.IsNull(result);
+        Assert.That(result, Is.Null);
     }
 
     [Test]

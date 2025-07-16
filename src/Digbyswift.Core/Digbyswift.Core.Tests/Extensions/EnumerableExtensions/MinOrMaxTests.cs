@@ -17,7 +17,7 @@ public class MinOrMaxTests
         var result = _testNumericList.MinOrDefault();
 
         // Assert
-        Assert.AreEqual(result, 2);
+        Assert.That(2, Is.EqualTo(result));
     }
 
     [Test]
@@ -37,7 +37,7 @@ public class MinOrMaxTests
         var result = _testNumericList.MaxOrDefault();
 
         // Assert
-        Assert.AreEqual(result, 11);
+        Assert.That(11, Is.EqualTo(result));
     }
 
     [Test]

@@ -21,7 +21,7 @@ public class ContainsTests
         var result = TestingContainingText.Contains(match);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -34,7 +34,7 @@ public class ContainsTests
         var result = source.Contains(TestingLowercase);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -44,7 +44,7 @@ public class ContainsTests
         var result = TestingContainingText.Contains(TestingLowercase, StringComparison.OrdinalIgnoreCase);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -58,7 +58,7 @@ public class ContainsTests
         var result = source.ContainsIgnoreCase(match);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -72,7 +72,7 @@ public class ContainsTests
         var result = source.ContainsIgnoreCase(match);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -92,7 +92,7 @@ public class ContainsTests
         var result = source.ContainsIgnoreCase(match);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -112,11 +112,11 @@ public class ContainsTests
         var result = source.ContainsIgnoreCase(match);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
-    public void ContainsIgnoreCase_ReturnsTrue_WhenValueIsWithinWord_WithinListOfWords()
+    public void ContainsIgnoreCase_ReturnsFalse_WhenValueIsWithinWord_WithinListOfWords()
     {
         // Arrange
         var source = new List<string>
@@ -132,6 +132,6 @@ public class ContainsTests
         var result = source.ContainsIgnoreCase(match);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.False);
     }
 }

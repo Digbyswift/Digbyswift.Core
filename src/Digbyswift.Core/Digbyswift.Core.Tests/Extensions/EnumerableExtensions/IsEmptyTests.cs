@@ -21,7 +21,7 @@ public class IsEmptyTests
         var result = source.IsEmpty();
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -34,7 +34,7 @@ public class IsEmptyTests
         var result = source.IsEmpty();
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -47,7 +47,7 @@ public class IsEmptyTests
         var result = source.IsEmpty();
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -60,7 +60,7 @@ public class IsEmptyTests
         var result = source.IsEmpty();
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -73,6 +73,6 @@ public class IsEmptyTests
         var result = source.IsEmpty();
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 }

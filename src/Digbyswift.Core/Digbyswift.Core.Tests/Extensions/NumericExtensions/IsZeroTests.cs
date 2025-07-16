@@ -15,7 +15,7 @@ public class IsZeroTests
         var result = source.IsZero();
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [TestCase(0.1d)]
@@ -27,6 +27,6 @@ public class IsZeroTests
         var result = source.IsZero();
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 }

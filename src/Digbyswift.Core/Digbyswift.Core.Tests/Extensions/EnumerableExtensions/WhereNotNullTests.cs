@@ -22,7 +22,7 @@ public class WhereNotNullTests
         var result = source.WhereNotNull();
 
         // Assert
-        Assert.AreEqual(result, expectedResult);
+        Assert.That(expectedResult, Is.EqualTo(result));
     }
 
     [Test]
@@ -36,7 +36,7 @@ public class WhereNotNullTests
         var result = source.WhereNotNull();
 
         // Assert
-        Assert.AreEqual(result, expectedResult);
+        Assert.That(expectedResult, Is.EqualTo(result));
     }
 
     [Test]
@@ -50,6 +50,6 @@ public class WhereNotNullTests
         var result = source.WhereNotNull();
 
         // Assert
-        Assert.AreEqual(result, expectedResult);
+        Assert.That(expectedResult, Is.EqualTo(result));
     }
 }

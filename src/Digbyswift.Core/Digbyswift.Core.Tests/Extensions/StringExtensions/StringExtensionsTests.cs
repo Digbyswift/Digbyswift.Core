@@ -18,7 +18,7 @@ public class StringExtensionsTests
         var result = source.EqualsIgnoreCase(stringToCompareAgainst);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]

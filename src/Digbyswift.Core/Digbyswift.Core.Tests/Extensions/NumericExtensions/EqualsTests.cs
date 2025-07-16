@@ -98,7 +98,7 @@ public class EqualsTests
         var result = source.Equals(compareTo, decimalPlaces);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [TestCase(123d, 123.5d)]

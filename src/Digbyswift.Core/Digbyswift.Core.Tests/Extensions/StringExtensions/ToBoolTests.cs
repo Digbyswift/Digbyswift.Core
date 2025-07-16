@@ -16,7 +16,7 @@ public class ToBoolTests
         var result = source.ToBool(null);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [TestCase("False", false)]
@@ -27,7 +27,7 @@ public class ToBoolTests
         var result = source.ToBool(null);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 
     [TestCase("", false)]
@@ -52,7 +52,7 @@ public class ToBoolTests
         var result = source.ToBool(defaultValue);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [TestCase("", false)]
@@ -63,6 +63,6 @@ public class ToBoolTests
         var result = source.ToBool(null);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 }

@@ -22,7 +22,7 @@ public class NotContainsTests
         var result = source.NotContains(Testing);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -35,7 +35,7 @@ public class NotContainsTests
         var result = source.NotContains(Test);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -48,7 +48,7 @@ public class NotContainsTests
         var result = source.NotContains(Test);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -61,7 +61,7 @@ public class NotContainsTests
         var result = source.NotContains(Test);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -74,6 +74,6 @@ public class NotContainsTests
         var result = source.NotContains(Test);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 }

@@ -18,7 +18,7 @@ public class ToEnumTests
         var result = source.ToEnum<TestEnum>();
 
         // Assert
-        Assert.AreEqual(result, TestEnum.Test);
+        Assert.That(TestEnum.Test, Is.EqualTo(result));
     }
 
     [TestCase]
@@ -28,7 +28,7 @@ public class ToEnumTests
         var result = String.Empty.ToEnum<TestEnum>();
 
         // Assert
-        Assert.AreEqual(result, TestEnum.Test);
+        Assert.That(TestEnum.Test, Is.EqualTo(result));
     }
 
     [TestCase]
@@ -41,6 +41,6 @@ public class ToEnumTests
         var result = source.ToEnum<TestEnum>();
 
         // Assert
-        Assert.AreEqual(result, TestEnum.Test);
+        Assert.That(TestEnum.Test, Is.EqualTo(result));
     }
 }
