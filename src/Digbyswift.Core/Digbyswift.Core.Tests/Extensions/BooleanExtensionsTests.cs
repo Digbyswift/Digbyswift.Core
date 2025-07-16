@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Digbyswift.Core.Tests.Extensions;
 
 [TestFixture]
-public class BooleanExtensionsTest
+public class BooleanExtensionsTests
 {
     private const string Testing = "Testing";
 

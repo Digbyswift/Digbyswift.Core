@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Digbyswift.Core.Tests.Extensions.StringCompression;
 
 [TestFixture]
-public class StringCompressionExtensionsTest
+public class StringCompressionExtensionsTests
 {
     private const string TestingStringWithSpaces = "Testing a string with spaces";
 

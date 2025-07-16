@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Digbyswift.Core.Tests.Extensions.StringExtensions;
 
 [TestFixture]
-public class StringExtensionsTest
+public class StringExtensionsTests
 {
     private const string Testing = "Testing";
     private const string TestingContainingText = "Testing a string that contains text";
@@ -62,9 +62,9 @@ public class StringExtensionsTest
     [TestCase("", "")]
     [TestCase("Test./?", "Test")]
     [TestCase("Test./? ", "Test")]
-    [TestCase("123Test./? ", "Test")]
-    [TestCase("123Test./?123 ", "Test")]
-    public void RemoveNonWordCharacters_ReturnsString_WithNoNonAlphanumericCharacters(string source, string expectedResult)
+    [TestCase("123Test./? ", "123Test")]
+    [TestCase("123Test./?123 ", "123Test123")]
+    public void RemoveNonWordCharacters_ReturnsString_WithNoNonWordCharacters(string source, string expectedResult)
     {
         // Arrange & Act
         var result = source.RemoveNonWordCharacters();
