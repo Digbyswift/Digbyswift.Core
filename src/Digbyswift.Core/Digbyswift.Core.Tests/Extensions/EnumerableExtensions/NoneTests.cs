@@ -22,5 +22,6 @@ public class NoneTests
     [Ignore("Test yet to be implemented")]
     public void None_ReturnsException_WhenFunctionIsNull()
     {
+        // Test has yet to be implemented.
     }
 }
