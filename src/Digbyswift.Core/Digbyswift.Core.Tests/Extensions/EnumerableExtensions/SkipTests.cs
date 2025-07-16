@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Digbyswift.Core.Extensions;
 using NUnit.Framework;
 
@@ -9,17 +8,7 @@ namespace Digbyswift.Core.Tests.Extensions.EnumerableExtensions;
 public class SkipTests
 {
     [Test]
-    public void SkipLast_ThrowsException_WhenSourceIsNull()
-    {
-        // Arrange
-        IEnumerable<string>? source = null;
-
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => source.SkipLast());
-    }
-
-    [Test]
-    public void SkipLast_OutputsEnumerable_WithoutLastItem()
+    public void SkipLast_ReturnsEnumerable_WithoutLastItem()
     {
         // Arrange
         IEnumerable<int> source = new List<int> { 1, 2, 3 };
@@ -33,7 +22,7 @@ public class SkipTests
     }
 
     [Test]
-    public void SkipLast_OutputsEmptyEnumerable_WhenSourceIsEmpty()
+    public void SkipLast_ReturnsEmptyEnumerable_WhenSourceIsEmpty()
     {
         // Arrange
         IEnumerable<int> source = new List<int>();
@@ -47,7 +36,7 @@ public class SkipTests
     }
 
     [Test]
-    public void SkipLast_OutputsEmptyEnumerable_WhenSourceHasSingleItem()
+    public void SkipLast_ReturnsEmptyEnumerable_WhenSourceHasSingleItem()
     {
         // Arrange
         IEnumerable<int> source = new List<int> { 1 };

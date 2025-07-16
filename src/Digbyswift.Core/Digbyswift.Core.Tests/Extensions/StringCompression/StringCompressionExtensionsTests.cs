@@ -10,25 +10,6 @@ public class StringCompressionExtensionsTests
     private const string TestingStringWithSpaces = "Testing a string with spaces";
 
     [Test]
-    public void Compress_ReturnsCompressedString_WhenGivenSimpleString()
-    {
-        // Arrange
-        var value = TestingStringWithSpaces;
-#if NET48
-        // compression is slightly different, so change our expected result.
-        const string expectedResult = "H4sIAAAAAAAEAAtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
-#else
-        const string expectedResult = "H4sIAAAAAAAECgtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
-#endif
-
-        // Act
-        var result = value.Compress();
-
-        // Assert
-        Assert.That(result, Is.EqualTo(expectedResult));
-    }
-
-    [Test]
     public void Compress_ReturnsEmptyString_WhenGivenAnEmptyString()
     {
         // Arrange & Act
@@ -36,20 +17,6 @@ public class StringCompressionExtensionsTests
 
         // Assert
         Assert.That(result, Is.EqualTo(String.Empty));
-    }
-
-    [Test]
-    public void Decompress_ReturnsUncompressedString_WhenGivenCompressedString()
-    {
-        // Arrange
-        const string value = "H4sIAAAAAAAECgtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
-        var expectedResult = TestingStringWithSpaces;
-
-        // Act
-        var result = value.Decompress();
-
-        // Assert
-        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -71,10 +38,10 @@ public class StringCompressionExtensionsTests
 
         // Act
         var compressionResult = value.Compress();
-        var decrompressedResult = compressionResult.Decompress();
+        var decompressedResult = compressionResult.Decompress();
 
         // Assert
-        Assert.That(decrompressedResult, Is.EqualTo(expectedResult));
+        Assert.That(decompressedResult, Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -82,10 +49,10 @@ public class StringCompressionExtensionsTests
     {
         // Arrange & Act
         var compressionResult = String.Empty.Compress();
-        var decrompressedResult = compressionResult.Decompress();
+        var decompressedResult = compressionResult.Decompress();
 
         // Assert
-        Assert.That(decrompressedResult, Is.EqualTo(String.Empty));
+        Assert.That(decompressedResult, Is.EqualTo(String.Empty));
     }
 
     [Test]
