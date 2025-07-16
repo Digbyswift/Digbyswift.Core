@@ -14,7 +14,12 @@ public class StringCompressionExtensionsTests
     {
         // Arrange
         var value = TestingStringWithSpaces;
-        var expectedResult = "H4sIAAAAAAAECgtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
+#if NET48
+        // compression is slightly different, so change our expected result.
+        const string expectedResult = "H4sIAAAAAAAEAAtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
+#else
+        const string expectedResult = "H4sIAAAAAAAECgtJLS7JzEtXSFQoLikCMcozSzIUigsSk1OLAQgrK2QcAAAA";
+#endif
 
         // Act
         var result = value.Compress();
