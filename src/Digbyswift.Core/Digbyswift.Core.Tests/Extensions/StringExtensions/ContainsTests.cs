@@ -52,7 +52,7 @@ public class ContainsTests
     {
         // Arrange
         string? source = TestingContainingText;
-        var match = "text";
+        const string match = "text";
 
         // Act
         var result = source.ContainsIgnoreCase(match);
@@ -66,7 +66,7 @@ public class ContainsTests
     {
         // Arrange
         string? source = TestingContainingText;
-        var match = "ring";
+        const string match = "ring";
 
         // Act
         var result = source.ContainsIgnoreCase(match);
@@ -86,7 +86,7 @@ public class ContainsTests
             "Testing another"
         };
 
-        var match = "another";
+        const string match = "testing another";
 
         // Act
         var result = source.ContainsIgnoreCase(match);
@@ -106,7 +106,7 @@ public class ContainsTests
             "Testing another"
         };
 
-        var match = "Testing another";
+        const string match = "Testing another";
 
         // Act
         var result = source.ContainsIgnoreCase(match);
@@ -126,7 +126,7 @@ public class ContainsTests
             "Testing another"
         };
 
-        var match = "ring";
+        const string match = "ring";
 
         // Act
         var result = source.ContainsIgnoreCase(match);

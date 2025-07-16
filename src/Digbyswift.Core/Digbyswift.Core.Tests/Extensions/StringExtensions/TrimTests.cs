@@ -15,8 +15,8 @@ public class TrimTests
     public void TrimWithin_ReturnsString_WithDuplicateSpacesRemoved()
     {
         // Arrange
-        var source = "Testing  a string that contains  text";
-        var expectedResult = "Testing a string that contains text";
+        const string source = "Testing  a string that contains  text";
+        const string expectedResult = "Testing a string that contains text";
 
         // Act
         var result = source.TrimWithin();
@@ -28,23 +28,19 @@ public class TrimTests
     [Test]
     public void TrimWithin_ReturnsEmptyString_WhenSourceIsEmpty()
     {
-        // Arrange
-        var source = String.Empty;
-        var expectedResult = String.Empty;
-
-        // Act
-        var result = source.TrimWithin();
+        // Arrange & Act
+        var result = String.Empty.TrimWithin();
 
         // Assert
-        Assert.IsTrue(result == expectedResult);
+        Assert.IsTrue(result == String.Empty);
     }
 
     [Test]
     public void TrimToNull_ReturnsString_WithDuplicateSpacesRemoved()
     {
         // Arrange
-        var source = "Testing  a string that contains  text";
-        var expectedResult = "Testing a string that contains text";
+        const string source = "Testing  a string that contains  text";
+        const string expectedResult = "Testing a string that contains text";
 
         // Act
         var result = source.TrimToNull();
@@ -57,7 +53,7 @@ public class TrimTests
     public void TrimToNull_ReturnsNull_WhenOnlyWhitespaceRemains()
     {
         // Arrange
-        var source = "    ";
+        const string source = "    ";
 
         // Act
         var result = source.TrimToNull();
@@ -69,11 +65,8 @@ public class TrimTests
     [Test]
     public void TrimToNull_ReturnsNull_WhenPassedEmptyString()
     {
-        // Arrange
-        var source = String.Empty;
-
-        // Act
-        var result = source.TrimToNull();
+        // Arrange & Act
+        var result = String.Empty.TrimToNull();
 
         // Assert
         Assert.IsNull(result);
@@ -83,8 +76,8 @@ public class TrimTests
     public void TrimToDefault_ReturnsString_WithDuplicateSpacesRemoved()
     {
         // Arrange
-        var source = "Testing  a string that contains  text";
-        var expectedResult = "Testing a string that contains text";
+        const string source = "Testing  a string that contains  text";
+        const string expectedResult = "Testing a string that contains text";
 
         // Act
         var result = source.TrimToDefault();
@@ -97,7 +90,7 @@ public class TrimTests
     public void TrimToDefault_ReturnsNull_WhenOnlyWhitespaceRemains_AndNoDefaultProvided()
     {
         // Arrange
-        var source = "    ";
+        const string source = "    ";
 
         // Act
         var result = source.TrimToDefault();
@@ -110,23 +103,21 @@ public class TrimTests
     public void TrimToDefault_ReturnsDefault_WhenOnlyWhitespaceRemains()
     {
         // Arrange
-        var source = "    ";
+        const string source = "    ";
+        const string defaultValue = "Default string";
 
         // Act
-        var result = source.TrimToDefault("Default string");
+        var result = source.TrimToDefault(defaultValue);
 
         // Assert
-        Assert.IsNull(result);
+        Assert.That(result, Is.EqualTo(defaultValue));
     }
 
     [Test]
     public void TrimToDefault_ReturnsNull_WhenPassedEmptyString()
     {
-        // Arrange
-        var source = String.Empty;
-
-        // Act
-        var result = source.TrimToDefault();
+        // Arrange & Act
+        var result = String.Empty.TrimToDefault();
 
         // Assert
         Assert.IsNull(result);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Digbyswift.Core.Extensions;
 using NUnit.Framework;
 
@@ -8,37 +7,32 @@ namespace Digbyswift.Core.Tests.Extensions.NumericExtensions;
 [TestFixture]
 public class AsPercentageTests
 {
-    // Negative percentages
-    // Excessive percentages
-    // All 0's
-    // Negative source
-    // Infinity / Negative Infinity
-
-    [TestCase(0, 0, 0)]
-    [TestCase(0, 100, 0)]
-    [TestCase(10, -100, -10)]
-    [TestCase(10, 100, 10)]
-    [TestCase(100, 100, 100)]
-    [TestCase(120, 100, 120)]
-    [TestCase(-120, 100, -120)]
-    public void AsPercentageOf_ReturnsCorrectPercentage_WhenSourceIsAnInteger(int source, int total, int expectedPercentage)
+    [TestCase(0, 0, 0d)]
+    [TestCase(0, 100, 0d)]
+    [TestCase(10, -100, -10d)]
+    [TestCase(10, 100, 10d)]
+    [TestCase(17, 100, 17d)]
+    [TestCase(100, 100, 100d)]
+    [TestCase(120, 100, 120d)]
+    [TestCase(-120, 100, -120d)]
+    public void AsPercentageOf_ReturnsCorrectPercentage_WhenSourceIsAnInteger(int source, int total, double expectedPercentage)
     {
         // Arrange & Act
         var result = source.AsPercentageOf(total);
 
         // Assert
-        Assert.That(result.Equals(expectedPercentage));
+        Assert.That(result, Is.EqualTo(expectedPercentage));
     }
 
-    [TestCase(0d, 0d, 0)]
-    [TestCase(0d, 100d, 0)]
-    [TestCase(10d, -100d, -10)]
-    [TestCase(10d, 100d, 10)]
-    [TestCase(100d, 100d, 100)]
-    [TestCase(120d, 100d, 120)]
-    [TestCase(-120d, 100d, -120)]
-    [TestCase(double.Epsilon, 100d, 100)]
-    public void AsPercentageOf_ReturnsCorrectPercentage_WhenSourceIsDouble(double source, double total, int expectedPercentage)
+    [TestCase(0d, 0d, 0d)]
+    [TestCase(0d, 100d, 0d)]
+    [TestCase(10d, -100d, -10d)]
+    [TestCase(10d, 100d, 10d)]
+    [TestCase(100d, 100d, 100d)]
+    [TestCase(120d, 100d, 120d)]
+    [TestCase(-120d, 100d, -120d)]
+    [TestCase(double.Epsilon, 100d, 0.00d)]
+    public void AsPercentageOf_ReturnsCorrectPercentage_WhenSourceIsDouble(double source, double total, double expectedPercentage)
     {
         // Arrange & Act
         var result = source.AsPercentageOf(total);
