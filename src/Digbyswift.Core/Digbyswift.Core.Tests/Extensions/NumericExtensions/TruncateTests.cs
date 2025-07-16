@@ -101,4 +101,26 @@ public class TruncateTests
         // Assert
         Assert.That(result, Is.EqualTo(0.00012));
     }
+
+    [TestCase(123.889078d, 1, 123.8d)]
+    [TestCase(123.889078d, 2, 123.88d)]
+    [TestCase(123.889078d, 3, 123.889d)]
+    public void Truncate_ReturnsDouble_WithoutDecimalPlaces(double source, int decimalPlaces, double expectedResult)
+    {
+        // Arrange & Act
+        var result = source.Truncate(decimalPlaces);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase(123.889078d, -2)]
+    public void Truncate_ThrowsException_WhenDecimalPlaceIsNegative(double source, int decimalPlaces)
+    {
+        // Arrange & Act
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => source.Truncate(decimalPlaces));
+
+        // Assert
+        Assert.That(ex.Message, Contains.Substring("Decimal places must be non-negative"));
+    }
 }
