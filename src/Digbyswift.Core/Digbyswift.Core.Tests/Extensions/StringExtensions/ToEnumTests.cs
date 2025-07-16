@@ -32,15 +32,12 @@ public class ToEnumTests
     }
 
     [TestCase]
-    public void ToEnum_ReturnsDefaultEnum_WhenNotMatchingDescription()
+    public void ToEnum_ThrowsArgumentException_WhenNotMatchingDescription()
     {
         // Arrange
         const string source = "Testing";
 
-        // Act
-        var result = source.ToEnum<TestEnum>();
-
-        // Assert
-        Assert.That(TestEnum.Test, Is.EqualTo(result));
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => source.ToEnum<TestEnum>());
     }
 }

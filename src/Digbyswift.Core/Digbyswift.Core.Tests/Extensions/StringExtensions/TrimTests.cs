@@ -36,10 +36,10 @@ public class TrimTests
     }
 
     [Test]
-    public void TrimToNull_ReturnsString_WithDuplicateSpacesRemoved()
+    public void TrimToNull_ReturnsString_WithStartAndEndSpacesRemoved()
     {
         // Arrange
-        const string source = "Testing  a string that contains  text";
+        const string source = " Testing a string that contains text ";
         const string expectedResult = "Testing a string that contains text";
 
         // Act
@@ -73,10 +73,10 @@ public class TrimTests
     }
 
     [Test]
-    public void TrimToDefault_ReturnsString_WithDuplicateSpacesRemoved()
+    public void TrimToDefault_ReturnsString_WithStartAndEndSpacesRemoved()
     {
         // Arrange
-        const string source = "Testing  a string that contains  text";
+        const string source = " Testing a string that contains text ";
         const string expectedResult = "Testing a string that contains text";
 
         // Act
