@@ -9,6 +9,7 @@ public class TwitterStringExtensionsTest
 {
     #region IsTweetUrl
 
+    [TestCase("https://twitter.com/dotnet/status/1167169777414168576")]
     [TestCase("https://x.com/dotnet/status/1167169777414168576")]
     public void IsTweetUrl_ReturnsTrue_WhenUrlIsTweet(string source)
     {
@@ -20,6 +21,8 @@ public class TwitterStringExtensionsTest
     }
 
     [TestCase("")]
+    [TestCase("https://twitter.com/dotnet/1167169777414168576")]
+    [TestCase("https://twitter.com/dotnet/status/")]
     [TestCase("https://x.com/dotnet/1167169777414168576")]
     [TestCase("https://x.com/dotnet/status/")]
     public void IsTweetUrl_ReturnsFalse_WhenUrlIsNotTweet(string source)
@@ -36,6 +39,7 @@ public class TwitterStringExtensionsTest
     #region ExtractIdFromTweetUrl
 
 #if NET48
+    [TestCase("https://twitter.com/dotnet/status/1167169777414168576", "1167169777414168576")]
     [TestCase("https://x.com/dotnet/status/1167169777414168576", "1167169777414168576")]
     public void ExtractIdFromTweetUrl_ReturnsId_WhenTweetUrlContainsId(string source, string expectedResult)
     {
@@ -47,6 +51,7 @@ public class TwitterStringExtensionsTest
     }
 
     [TestCase("")]
+    [TestCase("https://twitter.com/dotnet/status/")]
     [TestCase("https://x.com/dotnet/status/")]
     public void ExtractIdFromTweetUrl_ReturnsNull_WhenTweetUrlDoesNotContainId(string source)
     {
@@ -57,6 +62,7 @@ public class TwitterStringExtensionsTest
         Assert.That(result, Is.EqualTo(null));
     }
 #else
+    [TestCase("https://twitter.com/dotnet/status/1167169777414168576", "1167169777414168576")]
     [TestCase("https://x.com/dotnet/status/1167169777414168576", "1167169777414168576")]
     public void ExtractIdFromTweetUrl_ReturnsId_WhenTweetUrlContainsId(string source, string expectedResult)
     {
@@ -68,6 +74,7 @@ public class TwitterStringExtensionsTest
     }
 
     [TestCase("")]
+    [TestCase("https://twitter.com/dotnet/status/")]
     [TestCase("https://x.com/dotnet/status/")]
     public void ExtractIdFromTweetUrl_ReturnsNull_WhenTweetUrlDoesNotContainId(string source)
     {
