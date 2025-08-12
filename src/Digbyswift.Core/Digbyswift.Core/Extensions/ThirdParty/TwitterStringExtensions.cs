@@ -5,7 +5,7 @@ namespace Digbyswift.Core.Extensions.ThirdParty;
 
 public static class TwitterStringExtensions
 {
-    public const string TweetUrl = @"^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$";
+    public const string TweetUrl = @"^https?:\/\/(?:x|twitter)\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$";
     public static readonly Regex TweetUrlRegex = new Regex(TweetUrl, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(150));
 
     public static bool IsTweetUrl(this string value)
@@ -20,6 +20,10 @@ public static class TwitterStringExtensions
     public static string ExtractIdFromTweetUrl(this string value)
     {
         var matches = TweetUrlRegex.Matches(value);
+
+        // check for any matches
+        if (matches.Count == 0) return null;
+
         if (matches.Count != 1 && matches[0].Groups.Count != 4)
             return null;
 
@@ -30,6 +34,11 @@ public static class TwitterStringExtensions
     public static string? ExtractIdFromTweetUrl(this string value)
     {
         var matches = TweetUrlRegex.Matches(value);
+
+        // check for any matches
+        if (matches.Count == 0) return null;
+
+        // check if we have a single valid match
         if (matches.Count != 1 && matches[0].Groups.Count != 4)
             return null;
 
