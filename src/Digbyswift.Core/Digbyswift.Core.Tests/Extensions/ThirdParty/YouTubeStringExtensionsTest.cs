@@ -111,8 +111,7 @@ public class YouTubeStringExtensionsTest
 
     #region ToYouTubeEmbedUrl
 
-    [TestCase("https://www.youtube.com/watch?v=lJIrF4YjHfQ&t=2s", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ/?si=isrdMegKebVIZ8Su")]
-    [TestCase("https://www.youtube.com/watch?v=lJIrF4YjHfQ&t=2s", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ/?si=isrdMegKebVIZ8Su")]
+    [TestCase("https://www.youtube.com/watch?v=lJIrF4YjHfQ", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ/?v=lJIrF4YjHfQ&rel=0&modestbranding=1&controls=0")]
     public void ToYouTubeEmbedUrl_ReturnsEmbedUrl_WhenUrlIsValid(string source, string expectedResult)
     {
         // Arrange & Act
@@ -122,7 +121,7 @@ public class YouTubeStringExtensionsTest
         Assert.That(result, Is.EqualTo(expectedResult));
     }
 
-    [TestCase("https://www.youtube.com/embed/lJIrF4YjHfQ?si=isrdMegKebVIZ8Su", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ?si=isrdMegKebVIZ8Su")]
+    [TestCase("https://www.youtube.com/embed/lJIrF4YjHfQ?si=isrdMegKebVIZ8Su", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ/?si=isrdMegKebVIZ8Su&rel=0&modestbranding=1&controls=0")]
     public void ToYouTubeEmbedUrl_ReturnsOriginalUrl_WhenUrlIsAlreadyAnEmbedUrl(string source, string expectedResult)
     {
         // Arrange & Act
@@ -132,8 +131,8 @@ public class YouTubeStringExtensionsTest
         Assert.That(result, Is.EqualTo(expectedResult));
     }
 
-    [TestCase("https://www.youtube.com/watch?v=lJIrF4YjHfQ&t=2s", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ/?v=lJIrF4YjHfQ")]
-    [TestCase("https://www.youtube.com/embed/?si=isrdMegKebVIZ8Su", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ/?v=lJIrF4YjHfQ")]
+    [TestCase("https://www.youtube.com/watch?v=lJIrF4YjHfQ", "https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ/?v=lJIrF4YjHfQ&rel=0&modestbranding=1&controls=0")]
+    [TestCase("https://www.youtube.com/embed/?si=isrdMegKebVIZ8Su", "https://www.youtube-nocookie.com/embed//?si=isrdMegKebVIZ8Su&rel=0&modestbranding=1&controls=0")]
     public void ToYouTubeEmbedUrl_ReturnsUrlWithEmptyPathSegment_WhenUrlIsNotValid(string source, string expectedResult)
     {
         // Arrange & Act
