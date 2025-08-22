@@ -45,8 +45,8 @@
       },
       "Newtonsoft.Json": {
         "type": "Transitive",
-        "resolved": "12.0.3",
-        "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+        "resolved": "11.0.2",
+        "contentHash": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ=="
       },
       "StyleCop.Analyzers.Unstable": {
         "type": "Transitive",
@@ -56,7 +56,7 @@
       "digbyswift.core": {
         "type": "Project",
         "dependencies": {
-          "Newtonsoft.Json": "[12.0.3, )"
+          "Newtonsoft.Json": "[11.0.2, )"
         }
       }
     },
@@ -194,8 +194,8 @@
       },
       "Newtonsoft.Json": {
         "type": "Transitive",
-        "resolved": "12.0.3",
-        "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+        "resolved": "11.0.2",
+        "contentHash": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ=="
       },
       "NuGet.Frameworks": {
         "type": "Transitive",
@@ -680,7 +680,7 @@
       "digbyswift.core": {
         "type": "Project",
         "dependencies": {
-          "Newtonsoft.Json": "[12.0.3, )"
+          "Newtonsoft.Json": "[11.0.2, )"
         }
       }
     },
@@ -818,8 +818,8 @@
       },
       "Newtonsoft.Json": {
         "type": "Transitive",
-        "resolved": "12.0.3",
-        "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+        "resolved": "11.0.2",
+        "contentHash": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ=="
       },
       "NuGet.Frameworks": {
         "type": "Transitive",
@@ -1304,7 +1304,7 @@
       "digbyswift.core": {
         "type": "Project",
         "dependencies": {
-          "Newtonsoft.Json": "[12.0.3, )"
+          "Newtonsoft.Json": "[11.0.2, )"
         }
       }
     }
