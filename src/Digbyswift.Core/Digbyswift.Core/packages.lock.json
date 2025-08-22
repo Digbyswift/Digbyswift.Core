@@ -4,9 +4,9 @@
     ".NETFramework,Version=v4.8": {
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "[12.0.3, )",
-        "resolved": "12.0.3",
-        "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+        "requested": "[11.0.2, )",
+        "resolved": "11.0.2",
+        "contentHash": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ=="
       },
       "StyleCop.Analyzers": {
         "type": "Direct",
@@ -35,9 +35,9 @@
       },
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "[12.0.3, )",
-        "resolved": "12.0.3",
-        "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+        "requested": "[11.0.2, )",
+        "resolved": "11.0.2",
+        "contentHash": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ=="
       },
       "StyleCop.Analyzers": {
         "type": "Direct",
@@ -62,9 +62,9 @@
     "net6.0": {
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "[12.0.3, )",
-        "resolved": "12.0.3",
-        "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+        "requested": "[11.0.2, )",
+        "resolved": "11.0.2",
+        "contentHash": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ=="
       },
       "StyleCop.Analyzers": {
         "type": "Direct",
@@ -84,9 +84,9 @@
     "net8.0": {
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "[12.0.3, )",
-        "resolved": "12.0.3",
-        "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+        "requested": "[11.0.2, )",
+        "resolved": "11.0.2",
+        "contentHash": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ=="
       },
       "StyleCop.Analyzers": {
         "type": "Direct",
