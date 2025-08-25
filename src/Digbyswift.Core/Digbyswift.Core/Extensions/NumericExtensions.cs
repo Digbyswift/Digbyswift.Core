@@ -27,12 +27,12 @@ public static class NumericExtensions
         return value % 2 == NumericConstants.Zero;
     }
 
-    public static float AsPercentageOf(this int proportion, int total)
+    public static double AsPercentageOf(this int proportion, int total)
     {
         if (proportion == NumericConstants.Zero || total == NumericConstants.Zero)
             return NumericConstants.Zero;
 
-        return (proportion / (float)total) * NumericConstants.Hundred;
+        return (proportion / (double)total) * NumericConstants.Hundred;
     }
 
     public static decimal AsPercentageOf(this decimal proportion, decimal total)
@@ -194,7 +194,7 @@ public static class NumericExtensions
     /// <list>
     /// <item>0m -> "0"</item>
     /// <item>1m -> "1"</item>
-    /// <item>1.0m -> "1"</item>
+    /// <item>1.0m -> "1.0"</item>
     /// <item>1.99m -> "1.99"</item>
     /// <item>1000.99m -> "1000.99"</item>
     /// <item>-1000.99m -> "-1000.99"</item>

@@ -88,4 +88,26 @@ public class EqualsTests
         // Assert
         Assert.That(result, Is.EqualTo(expectedResult));
     }
+
+    [TestCase(123d, 123.5d, 0)]
+    [TestCase(123.534d, 123.578d, 0)]
+    [TestCase(123.534d, 123.578d, 1)]
+    public void Equals_ReturnsTrue_WhenValuesAreEqualToDecimalPlace(double source, double compareTo, double decimalPlaces)
+    {
+        // Arrange & Act
+        var result = source.Equals(compareTo, decimalPlaces);
+
+        // Assert
+        Assert.That(result, Is.True);
+    }
+
+    [TestCase(123d, 123.5d)]
+    public void Equals_ThrowsException_WhenWhenNoDecimalPlaceSpecified(double source, double compareTo)
+    {
+        // Arrange & Act
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => source.Equals(compareTo, -1));
+
+        // Assert
+        Assert.That(ex.Message, Contains.Substring("Decimal places must be non-negative"));
+    }
 }
