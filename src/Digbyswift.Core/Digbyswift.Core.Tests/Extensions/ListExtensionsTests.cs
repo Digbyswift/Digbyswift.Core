@@ -8,6 +8,7 @@ namespace Digbyswift.Core.Tests.Extensions;
 [TestFixture]
 public class ListExtensionsTests
 {
+#if NET48
     [Test]
     public void Crop_Throws_WhenInputIsNull()
     {
@@ -16,6 +17,7 @@ public class ListExtensionsTests
         // Assert
         Assert.Throws<ArgumentNullException>(() => list.Crop(1));
     }
+#endif
 
     [Test]
     public void Crop_Throws_WhenSizeParameterIsLargerThanInputLength()

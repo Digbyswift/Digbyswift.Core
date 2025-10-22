@@ -3,6 +3,7 @@
 using System;
 #endif
 using System.Collections.Generic;
+using System.Globalization;
 #if NET48 || NETSTANDARD2_0
 using System.Runtime.InteropServices;
 using System.Security;
@@ -47,8 +48,8 @@ public class NaturalStringComparer : IComparer<string>
             // If they're both numbers, compare the value
             if (xSegments.CurrentIsNumber && ySegments.CurrentIsNumber)
             {
-                var xValue = Int64.Parse(xSegments.Current);
-                var yValue = Int64.Parse(ySegments.Current);
+                var xValue = Int64.Parse(xSegments.Current, NumberStyles.Any, CultureInfo.InvariantCulture);
+                var yValue = Int64.Parse(ySegments.Current, NumberStyles.Any, CultureInfo.InvariantCulture);
                 cmp = xValue.CompareTo(yValue);
                 if (cmp != 0)
                 {

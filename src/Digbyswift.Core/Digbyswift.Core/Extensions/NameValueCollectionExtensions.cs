@@ -9,58 +9,52 @@ namespace Digbyswift.Core.Extensions;
 public static class NameValueCollectionExtensions
 {
 #if NET48
-    public static IDictionary<string, string> ToDictionary(this NameValueCollection nvc)
+    public static IDictionary<string, string> ToDictionary(this NameValueCollection source)
     {
-        if (nvc == null)
-            throw new ArgumentNullException(nameof(nvc));
+        if (source == null)
+            throw new ArgumentNullException(nameof(source));
 
-        return nvc.Count > 0
-            ? nvc.AllKeys.Where(k => k != null).ToDictionary(k => k!, k => nvc[k])
+        return source.Count > 0
+            ? source.AllKeys.Where(k => k != null).ToDictionary(k => k!, k => source[k])
             : new Dictionary<string, string>();
     }
 
-    public static void CopyTo(this NameValueCollection nvc, IDictionary<string, string> dict)
+    public static void CopyTo(this NameValueCollection source, IDictionary<string, string> dict)
     {
-        if (nvc == null)
-            throw new ArgumentNullException(nameof(nvc));
+        if (source == null)
+            throw new ArgumentNullException(nameof(source));
 
-        if (nvc.Count == 0)
+        if (source.Count == 0)
             return;
 
-        foreach (var k in nvc.AllKeys)
+        foreach (var k in source.AllKeys)
         {
             if (k == null)
                 continue;
 
-            dict.Add(k, nvc[k]);
+            dict.Add(k, source[k]);
         }
     }
 
-    public static string ToQueryString(this NameValueCollection nvc)
+    public static string ToQueryString(this NameValueCollection source)
     {
-        if (nvc == null)
-            throw new ArgumentNullException(nameof(nvc));
+        if (source == null)
+            throw new ArgumentNullException(nameof(source));
 
-        return nvc.Count > 0
-            ? String.Join(StringConstants.Ampersand, nvc.AllKeys.Select(x => $"{x}={nvc[x]}"))
+        return source.Count > 0
+            ? String.Join(StringConstants.Ampersand, source.AllKeys.Select(x => $"{x}={source[x]}"))
             : null;
     }
 #else
-    public static IDictionary<string, string?> ToDictionary(this NameValueCollection nvc)
+    public static IDictionary<string, string?> ToDictionary(this NameValueCollection source)
     {
-        if (nvc == null)
-            throw new ArgumentNullException(nameof(nvc));
-
-        return nvc.Count > 0
-            ? nvc.AllKeys.Where(k => k != null).ToDictionary(k => k!, string? (k) => nvc[k])
+        return source.Count > 0
+            ? source.AllKeys.Where(k => k != null).ToDictionary(k => k!, string? (k) => source[k])
             : new Dictionary<string, string?>();
     }
 
     public static void CopyTo(this NameValueCollection nvc, IDictionary<string, string?> dict)
     {
-        if (nvc == null)
-            throw new ArgumentNullException(nameof(nvc));
-
         if (nvc.Count == 0)
             return;
 
@@ -73,13 +67,10 @@ public static class NameValueCollectionExtensions
         }
     }
 
-    public static string? ToQueryString(this NameValueCollection nvc)
+    public static string? ToQueryString(this NameValueCollection source)
     {
-        if (nvc == null)
-            throw new ArgumentNullException(nameof(nvc));
-
-        return nvc.Count > 0
-            ? String.Join(StringConstants.Ampersand, nvc.AllKeys.Select(x => $"{x}={nvc[x]}"))
+        return source.Count > 0
+            ? String.Join(StringConstants.Ampersand, source.AllKeys.Select(x => $"{x}={source[x]}"))
             : null;
     }
 #endif

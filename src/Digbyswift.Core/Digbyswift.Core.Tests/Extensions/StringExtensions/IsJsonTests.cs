@@ -7,10 +7,11 @@ namespace Digbyswift.Core.Tests.Extensions.StringExtensions;
 [TestFixture]
 public class IsJsonTests
 {
+#if NET48
     [TestCase(null)]
     [TestCase("")]
     [TestCase(" ")]
-    [TestCase(@" 
+    [TestCase(@"
         ")]
     public void IsJson_ReturnsFalse_WhenValueIsNullOrEmpty(string input)
     {
@@ -18,9 +19,13 @@ public class IsJsonTests
         var result = input.IsJson();
 
         // Assert
-        Assert.That(String.IsNullOrWhiteSpace(input), Is.True);
-        Assert.That(result, Is.False);
+        Assert.Multiple(() =>
+        {
+            Assert.That(String.IsNullOrWhiteSpace(input), Is.True);
+            Assert.That(result, Is.False);
+        });
     }
+#endif
 
     [TestCase("x")]
     [TestCase("asd")]

@@ -87,8 +87,10 @@ public static class Patterns
 
         public static readonly string AlphaNumeric = Exact.AlphaNumeric.Trim(CharConstants.Hat, CharConstants.Dollar);
 
+        // ReSharper disable once InconsistentNaming
         public static readonly string IPv4 = Exact.IPv4.Trim(CharConstants.Hat, CharConstants.Dollar);
 
+        // ReSharper disable once InconsistentNaming
         public static readonly string IPv6 = Exact.IPv6.Trim(CharConstants.Hat, CharConstants.Dollar);
 
         public static readonly string Guid = Exact.Guid.Trim(CharConstants.Hat, CharConstants.Dollar);

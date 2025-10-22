@@ -44,8 +44,8 @@ public static class StringExtensions
         }
     }
 
-    private static readonly Regex NonWordCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(350));
-    private static readonly Regex SingleQuoteRegex = new("([’']+)", RegexOptions.None, TimeSpan.FromMilliseconds(350));
+    private static readonly Regex _nonWordCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(350));
+    private static readonly Regex _singleQuoteRegex = new("([’']+)", RegexOptions.None, TimeSpan.FromMilliseconds(350));
 
     public static bool EqualsIgnoreCase(this string value, string toCheck)
     {
@@ -61,12 +61,23 @@ public static class StringExtensions
         return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value!;
     }
 #else
-    public static string Coalesce(this string? value, string valueWhenNullOrEmpty)
+    public static string Coalesce(this string? value, string fallback)
     {
         if (value == null)
-            return valueWhenNullOrEmpty;
+            return fallback;
 
-        return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value;
+        return String.IsNullOrWhiteSpace(value) ? fallback : value;
+    }
+
+    /// <summary>
+    /// Returns a fallback when the input is null, empty or whitespace.
+    /// </summary>
+    public static string Coalesce(this string? value, string? optionalFallback, string requiredFallback)
+    {
+        if (!String.IsNullOrWhiteSpace(value))
+            return value!;
+
+        return !String.IsNullOrWhiteSpace(optionalFallback) ? optionalFallback! : requiredFallback;
     }
 #endif
 
@@ -94,9 +105,12 @@ public static class StringExtensions
 
     public static string Truncate(this string value, int length, string suffix)
     {
+#if NET7_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfLessThan(length, 0, nameof(length));
+#else
         if (length < NumericConstants.Zero)
             throw new ArgumentOutOfRangeException(nameof(length));
-
+#endif
         if (String.IsNullOrEmpty(value))
             return value;
 
@@ -243,7 +257,7 @@ public static class StringExtensions
             return String.Empty;
 
         // Replace non URL-friendly characters.
-        var workingString = NonWordCharactersRegex.Replace(value, String.Empty);
+        var workingString = _nonWordCharactersRegex.Replace(value, String.Empty);
 
         return workingString.TrimWithin();
     }
@@ -281,9 +295,12 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
+#if NET7_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfLessThan(numberOfVisibleCharacter, 0, nameof(numberOfVisibleCharacter));
+#else
         if (numberOfVisibleCharacter < NumericConstants.Zero)
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
-
+#endif
         if (numberOfVisibleCharacter > value.Length)
             return value;
 
@@ -306,9 +323,12 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
+#if NET7_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfLessThan(numberOfVisibleCharacter, 0, nameof(numberOfVisibleCharacter));
+#else
         if (numberOfVisibleCharacter < NumericConstants.Zero)
             throw new ArgumentOutOfRangeException(nameof(numberOfVisibleCharacter));
-
+#endif
         if (numberOfVisibleCharacter > value.Length)
             return value;
 
@@ -330,13 +350,13 @@ public static class StringExtensions
         var workingString = value.ToLower();
 
         // Remove quotes so that they aren't replaced by hyphens later.
-        workingString = SingleQuoteRegex.Replace(workingString, String.Empty);
+        workingString = _singleQuoteRegex.Replace(workingString, String.Empty);
 
         // Remove excess whitespace
         workingString = workingString.TrimWithin();
 
         // Replace non URL-friendly characters.
-        workingString = NonWordCharactersRegex.Replace(workingString, StringConstants.Hyphen);
+        workingString = _nonWordCharactersRegex.Replace(workingString, StringConstants.Hyphen);
 
         return workingString.ReplaceExcess(CharConstants.Hyphen, CharConstants.Hyphen).Trim(CharConstants.Hyphen);
     }

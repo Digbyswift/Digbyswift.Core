@@ -11,20 +11,25 @@ public static class ListExtensions
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static IList<T> Crop<T>(this IList<T> instance, int toSize)
+    public static IList<T> Crop<T>(this IList<T> source, int toSize)
     {
-        if (instance == null)
-            throw new ArgumentNullException(nameof(instance));
+#if NET48
+        if (source == null)
+            throw new ArgumentNullException(nameof(source));
+#endif
+#if NET7_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfLessThan(source.Count, toSize, nameof(source));
+#else
+        if (source.Count < toSize)
+            throw new ArgumentOutOfRangeException(nameof(source));
+#endif
 
-        if (instance.Count < toSize)
-            throw new ArgumentOutOfRangeException(nameof(instance));
-
-        while (instance.Count > toSize)
+        while (source.Count > toSize)
         {
-            instance.RemoveAt(instance.Count - 1);
+            source.RemoveAt(source.Count - 1);
         }
 
-        return instance;
+        return source;
     }
 
     public static bool Any<T>(this List<T> list)
