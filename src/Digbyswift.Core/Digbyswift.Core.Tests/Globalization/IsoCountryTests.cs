@@ -7,63 +7,47 @@ namespace Digbyswift.Core.Tests.Globalization;
 [TestFixture]
 public class IsoCountryTests
 {
+    private const string Name = "Test Name";
+    private const string ShortName = "Test Short Name";
+    private const string Alpha2 = "TN";
+    private const string Alpha3 = "TNM";
+    private const int NumericCode = 123;
+
     [Test]
     public void Ctor_PropertiesAreSet_WhenMandatoryParametersAreProvided()
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Act
-        var sut = new IsoCountry(name, alpha2, alpha3, numericCode);
+        // Arrange & Act
+        var sut = new IsoCountry(Name, Alpha2, Alpha3, NumericCode);
 
         // Assert
-        Assert.That(sut.Name, Is.EqualTo(name));
-        Assert.That(sut.Alpha2, Is.EqualTo(alpha2));
-        Assert.That(sut.Alpha3, Is.EqualTo(alpha3));
-        Assert.That(sut.NumericCode, Is.EqualTo(numericCode));
+        Assert.That(sut.Name, Is.EqualTo(Name));
+        Assert.That(sut.Alpha2, Is.EqualTo(Alpha2));
+        Assert.That(sut.Alpha3, Is.EqualTo(Alpha3));
+        Assert.That(sut.NumericCode, Is.EqualTo(NumericCode));
     }
 
+#if NET48
     [Test]
     public void Ctor_Throws_WhenNameIsNull()
     {
-        // Arrange
-        const string name = (string)null;
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Assert
-        Assert.Throws<ArgumentException>(() => new IsoCountry(name, alpha2, alpha3, numericCode));
+        // Arrange & Assert
+        Assert.Throws<ArgumentException>(() => new IsoCountry(null, Alpha2, Alpha3, NumericCode));
     }
 
     [Test]
     public void Ctor_Throws_WhenAlpha2IsNull()
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = (string)null;
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Assert
-        Assert.Throws<ArgumentException>(() => new IsoCountry(name, alpha2, alpha3, numericCode));
+        // Arrange & Assert
+        Assert.Throws<ArgumentException>(() => new IsoCountry(Name, null, Alpha3, NumericCode));
     }
 
     [Test]
     public void Ctor_Throws_WhenAlpha3IsNull()
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const string alpha3 = (string)null;
-        const int numericCode = 123;
-
-        // Assert
-        Assert.Throws<ArgumentException>(() => new IsoCountry(name, alpha2, alpha3, numericCode));
+        // Arrange & Assert
+        Assert.Throws<ArgumentException>(() => new IsoCountry(Name, Alpha2, null, NumericCode));
     }
+#endif
 
     [TestCase("")]
     [TestCase("X")]
@@ -71,13 +55,8 @@ public class IsoCountryTests
     [TestCase("XXXX")]
     public void Ctor_Throws_WhenAlpha2IsInvalidLength(string alpha2)
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Assert
-        Assert.Throws<ArgumentException>(() => new IsoCountry(name, alpha2, alpha3, numericCode));
+        // Arrange & Assert
+        Assert.Throws<ArgumentException>(() => new IsoCountry(Name, alpha2, Alpha3, NumericCode));
     }
 
     [TestCase("")]
@@ -86,26 +65,16 @@ public class IsoCountryTests
     [TestCase("XXXX")]
     public void Ctor_Throws_WhenAlpha3IsInvalidLength(string alpha3)
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const int numericCode = 123;
-
-        // Assert
-        Assert.Throws<ArgumentException>(() => new IsoCountry(name, alpha2, alpha3, numericCode));
+        // Arrange & Assert
+        Assert.Throws<ArgumentException>(() => new IsoCountry(Name, Alpha2, alpha3, NumericCode));
     }
 
     [TestCase(0)]
     [TestCase(-1)]
     public void Ctor_Throws_WhenNumericCodeIsZeroOrLess(int numericCode)
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-
-        // Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => new IsoCountry(name, alpha2, alpha3, numericCode));
+        // Arrange & Assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => new IsoCountry(Name, Alpha2, Alpha3, numericCode));
     }
 
     [TestCase("")]
@@ -113,14 +82,8 @@ public class IsoCountryTests
     [TestCase("  ")]
     public void Ctor_Throws_WhenShortNameIsEmptyOrWhiteSpace(string shortName)
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Assert
-        Assert.Throws<ArgumentException>(() => new IsoCountry(name, alpha2, alpha3, numericCode, shortName: shortName));
+        // Arrange & Assert
+        Assert.Throws<ArgumentException>(() => new IsoCountry(Name, Alpha2, Alpha3, NumericCode, shortName: shortName));
     }
 
     [TestCase("")]
@@ -128,60 +91,35 @@ public class IsoCountryTests
     [TestCase("  ")]
     public void Ctor_Throws_WhenAbbreviationIsEmptyOrWhiteSpace(string abbreviation)
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Assert
-        Assert.Throws<ArgumentException>(() => new IsoCountry(name, alpha2, alpha3, numericCode, abbreviation: abbreviation));
+        // Arrange & Assert
+        Assert.Throws<ArgumentException>(() => new IsoCountry(Name, Alpha2, Alpha3, NumericCode, abbreviation: abbreviation));
     }
 
     [Test]
     public void ShortName_FallsBackToName_WhenNotProvided()
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Act
-        var sut = new IsoCountry(name, alpha2, alpha3, numericCode);
+        // Arrange & Act
+        var sut = new IsoCountry(Name, Alpha2, Alpha3, NumericCode);
 
         // Assert
-        Assert.That(sut.ShortName, Is.EqualTo(name));
+        Assert.That(sut.ShortName, Is.EqualTo(Name));
     }
 
     [Test]
     public void ShortName_IsExpectedValue_WhenProvided()
     {
-        // Arrange
-        const string name = "Test Name";
-        const string shortName = "Test Short Name";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Act
-        var sut = new IsoCountry(name, alpha2, alpha3, numericCode, shortName: shortName);
+        // Arrange & Act
+        var sut = new IsoCountry(Name, Alpha2, Alpha3, NumericCode, shortName: ShortName);
 
         // Assert
-        Assert.That(sut.ShortName, Is.EqualTo(shortName));
+        Assert.That(sut.ShortName, Is.EqualTo(ShortName));
     }
 
     [Test]
     public void Abbreviation_IsNull_WhenNotProvided()
     {
-        // Arrange
-        const string name = "Test Name";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
-
-        // Act
-        var sut = new IsoCountry(name, alpha2, alpha3, numericCode);
+        // Arrange & Act
+        var sut = new IsoCountry(Name, Alpha2, Alpha3, NumericCode);
 
         // Assert
         Assert.That(sut.Abbreviation, Is.Null);
@@ -191,14 +129,10 @@ public class IsoCountryTests
     public void Abbreviation_IsExpectedValue_WhenProvided()
     {
         // Arrange
-        const string name = "Test Name";
         const string abbreviation = "TNA";
-        const string alpha2 = "TN";
-        const string alpha3 = "TNM";
-        const int numericCode = 123;
 
         // Act
-        var sut = new IsoCountry(name, alpha2, alpha3, numericCode, abbreviation: abbreviation);
+        var sut = new IsoCountry(Name, Alpha2, Alpha3, NumericCode, abbreviation: abbreviation);
 
         // Assert
         Assert.That(sut.Abbreviation, Is.EqualTo(abbreviation));

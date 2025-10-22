@@ -7,8 +7,8 @@ public static class LoqateStringExtensions
 {
     private static TimeSpan IsTimeout { get; } = TimeSpan.FromMilliseconds(150);
 
-    private static readonly Regex LoqateAddressId = new Regex(@"^GB\|[A-Z]+\|A\|\d+$", RegexOptions.IgnoreCase, IsTimeout);
-    private static readonly Regex LoqateContainerId = new Regex(@"^GB\|[A-Z]+\|[A-Z]+\|[A-Z\d\-]+\|[A-Z]{3}$", RegexOptions.IgnoreCase, IsTimeout);
+    private static readonly Regex _loqateAddressId = new Regex(@"^GB\|[A-Z]+\|A\|\d+$", RegexOptions.IgnoreCase, IsTimeout);
+    private static readonly Regex _loqateContainerId = new Regex(@"^GB\|[A-Z]+\|[A-Z]+\|[A-Z\d\-]+\|[A-Z]{3}$", RegexOptions.IgnoreCase, IsTimeout);
 
     /// <summary>
     /// Validates a Loqate address ID.
@@ -18,7 +18,7 @@ public static class LoqateStringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return false;
 
-        return LoqateAddressId.IsMatch(value);
+        return _loqateAddressId.IsMatch(value);
     }
 
     /// <summary>
@@ -29,6 +29,6 @@ public static class LoqateStringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return false;
 
-        return LoqateContainerId.IsMatch(value);
+        return _loqateContainerId.IsMatch(value);
     }
 }

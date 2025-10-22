@@ -5,14 +5,14 @@ namespace Digbyswift.Core.Extensions.ThirdParty;
 
 public static class VimeoStringExtensions
 {
-    private static readonly Regex VimeoUrlRegex = new(@"vimeo\.com/(?:.*#|.*(videos?|event)/)?([0-9]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(150));
+    private static readonly Regex _vimeoUrlRegex = new(@"vimeo\.com/(?:.*#|.*(videos?|event)/)?([0-9]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(150));
 
     public static bool IsVimeoUrl(this string videoUrl)
     {
         if (String.IsNullOrWhiteSpace(videoUrl))
             return false;
 
-        return VimeoUrlRegex.IsMatch(videoUrl);
+        return _vimeoUrlRegex.IsMatch(videoUrl);
     }
 
     public static bool IsVimeoEventUrl(this string videoUrl)
@@ -20,7 +20,7 @@ public static class VimeoStringExtensions
         if (String.IsNullOrWhiteSpace(videoUrl))
             return false;
 
-        var matches = VimeoUrlRegex.Matches(videoUrl);
+        var matches = _vimeoUrlRegex.Matches(videoUrl);
         if (matches.Count == 0 || matches[0].Groups.Count != 3)
             return false;
 
@@ -32,7 +32,7 @@ public static class VimeoStringExtensions
         if (String.IsNullOrWhiteSpace(videoUrl))
             return String.Empty;
 
-        var matches = VimeoUrlRegex.Matches(videoUrl);
+        var matches = _vimeoUrlRegex.Matches(videoUrl);
         if (matches.Count == 0 || matches[0].Groups.Count != 3)
             return String.Empty;
 

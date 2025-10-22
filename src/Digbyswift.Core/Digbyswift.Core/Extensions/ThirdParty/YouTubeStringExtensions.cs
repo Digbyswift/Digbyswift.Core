@@ -8,16 +8,16 @@ namespace Digbyswift.Core.Extensions.ThirdParty;
 
 public static class YouTubeStringExtensions
 {
-    private static readonly Regex YouTubeUrl = new(@".*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+    private static readonly Regex _youTubeUrl = new(@".*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
 
     public static bool IsYouTubeUrl(this string fullYouTubeVideoUrl)
     {
-        return YouTubeUrl.IsMatch(fullYouTubeVideoUrl);
+        return _youTubeUrl.IsMatch(fullYouTubeVideoUrl);
     }
 
     public static string ExtractYouTubeVideoId(this string fullYouTubeVideoUrl)
     {
-        var matches = YouTubeUrl.Matches(fullYouTubeVideoUrl);
+        var matches = _youTubeUrl.Matches(fullYouTubeVideoUrl);
         if (matches.Count == 0)
             return String.Empty;
 
@@ -32,7 +32,7 @@ public static class YouTubeStringExtensions
     }
 
     /// <summary>
-    /// If the given URL is a valid YouTube video URL it is parsed to a YT embed URL. Otherwise, it is returned as-is.
+    /// If the given URL is a valid YouTube video URL, it is parsed to a YT embed URL. Otherwise, it is returned as-is.
     /// </summary>
     public static string ToYouTubeEmbedUrl(this string fullYouTubeVideoUrl)
     {

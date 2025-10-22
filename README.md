@@ -65,6 +65,9 @@ This includes:
 - `CountIsLt(int count)`
 - `CountIsGe(int count)`
 - `CountIsGt(int count)`
+- `FindFirstIndex(Func<T, bool> func)`
+- `FindIndexes(Func<T, bool> func)`
+- `FindLastIndex(Func<T, bool> func)`
 - `IsEmpty()`
 - `MaxOrDefault()`
 - `MinOrDefault()`
@@ -97,7 +100,8 @@ This includes:
 - `Base64Encode()`
 - `Base64Decode()`
 - `CapitalizeWords()`
-- `Coalesce(string valueWhenNullOrEmpty)`
+- `Coalesce(string fallback)`
+- `Coalesce(string? optionalFallback, string requiredFallback)`
 - `Contains(string toCheck, StringComparison comp)`
 - `ContainsIgnoreCase(string toCheck)`
 - `ContainsIgnoreCase(string toCheck)`
