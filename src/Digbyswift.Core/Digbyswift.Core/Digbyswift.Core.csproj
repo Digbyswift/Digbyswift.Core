@@ -16,9 +16,9 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>package-icon.png</PackageIcon>
         <PackageTags>c# extensions utility</PackageTags>
-        <PackageVersion>2.6.0</PackageVersion>
-        <AssemblyVersion>2.6.0</AssemblyVersion>
-        <FileVersion>2.6.0</FileVersion>
+        <PackageVersion>2.6.1</PackageVersion>
+        <AssemblyVersion>2.6.1</AssemblyVersion>
+        <FileVersion>2.6.1 </FileVersion>
         <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
