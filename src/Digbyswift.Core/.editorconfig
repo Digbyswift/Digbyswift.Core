@@ -369,11 +369,11 @@ dotnet_diagnostic.S3236.severity = suggestion
 
 
 
-[*.{xml,config,*proj,nuspec,props,resx,ruleset,targets,tasks,vsixmanifest,vsct,yml}]
-indent_size = 2
+[*.{xml,config,*proj,nuspec,props,resx,ruleset,targets,tasks,vsixmanifest,vsct}]
+indent_size = 4
 
 
-[*.json]
+[*.{json,yml}]
 indent_size = 2
 
 
