@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Digbyswift.Core.Constants;
+﻿namespace Digbyswift.Core.Constants;
 
 public static class StringConstants
 {
     public const string Ampersand = "&";
-    public const string Asterisk = "/";
+    public const string Asterisk = "*";
     public const string At = "@";
     public const string BackSlash = "\\";
     public const string Backtick = "`";
@@ -17,6 +15,7 @@ public static class StringConstants
     public const string Dollar = "$";
     public const string DoubleQuote = "\"";
     public const string Ellipsis = "…";
+    public const string EllipsisAlt = "...";
     public const string EmDash = "—";
     public const string EnDash = "–";
     public const string Equal = "=";
@@ -40,9 +39,6 @@ public static class StringConstants
     public const string Space = " ";
     public const string SquareBracketLeft = "[";
     public const string SquareBracketRight = "]";
-
-    [Obsolete("This will be removed in future versions. Please use CharConstants.Asterisk instead.")]
-    public const string Star = "*";
     public const string Tilde = "~";
     public const string Underscore = "_";
 

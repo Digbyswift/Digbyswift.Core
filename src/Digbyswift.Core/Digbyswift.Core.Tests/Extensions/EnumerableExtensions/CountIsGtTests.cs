@@ -19,7 +19,7 @@ public class CountIsGtTests
         // Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var result = source.CountIsGt(1);
+            source.CountIsGt(1);
         });
     }
 #endif
@@ -74,8 +74,11 @@ public class CountIsGtTests
         var result = source.CountIsGt(queriedCount);
 
         // Assert
-        Assert.That(source.Count(), Is.GreaterThan(queriedCount));
-        Assert.That(result, Is.True, () => $"Source count: {source.Count()}, Queried count: {queriedCount}");
+        Assert.Multiple(() =>
+        {
+            Assert.That(source.Count(), Is.GreaterThan(queriedCount));
+            Assert.That(result, Is.True, () => $"Source count: {source.Count()}, Queried count: {queriedCount}");
+        });
     }
 
     [TestCase(1)]

@@ -19,7 +19,7 @@ public class CountIsTests
         // Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var result = source.CountIs(1);
+            source.CountIs(1);
         });
     }
 #endif

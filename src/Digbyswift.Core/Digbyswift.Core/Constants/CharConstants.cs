@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Digbyswift.Core.Constants;
+﻿namespace Digbyswift.Core.Constants;
 
 public static class CharConstants
 {
@@ -40,9 +38,6 @@ public static class CharConstants
     public const char Space = ' ';
     public const char SquareBracketLeft = '[';
     public const char SquareBracketRight = ']';
-
-    [Obsolete("This will be removed in future versions. Please use CharConstants.Asterisk instead.")]
-    public const char Star = '*';
     public const char Tilde = '~';
     public const char Underscore = '_';
 }

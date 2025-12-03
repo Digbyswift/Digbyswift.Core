@@ -20,7 +20,7 @@ public class FindIndexesTests
         Assert.Throws<ArgumentNullException>(() =>
         {
             var result = source.FindIndexes(x => x > 0);
-            var hydratedList = result.ToList();
+            result.ToList();
         });
     }
 
@@ -34,7 +34,7 @@ public class FindIndexesTests
         Assert.Throws<ArgumentNullException>(() =>
         {
             var result = source.FindIndexes(null);
-            var hydratedList = result.ToList();
+            result.ToList();
         });
     }
 #endif

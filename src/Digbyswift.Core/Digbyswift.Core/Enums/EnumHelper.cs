@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Digbyswift.Core.Enums;
+﻿namespace Digbyswift.Core.Enums;
 
 public static class EnumHelper
 {

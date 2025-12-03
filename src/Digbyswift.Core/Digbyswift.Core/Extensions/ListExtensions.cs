@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Digbyswift.Core.Extensions;
+﻿namespace Digbyswift.Core.Extensions;
 
 public static class ListExtensions
 {
@@ -9,8 +6,10 @@ public static class ListExtensions
     /// Resizes a list by removing any additional items from the end of the list.
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+#if NET48
+    /// <exception cref="ArgumentNullException">The source parameter is null</exception>
+#endif
+    /// <exception cref="ArgumentOutOfRangeException">The toSize parameter is greater than the source size.</exception>
     public static IList<T> Crop<T>(this IList<T> source, int toSize)
     {
 #if NET48

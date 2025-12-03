@@ -1,8 +1,4 @@
 ﻿#pragma warning disable SA1402
-#if NET6_0_OR_GREATER
-using System;
-#endif
-using System.Collections.Generic;
 using System.Globalization;
 #if NET48 || NETSTANDARD2_0
 using System.Runtime.InteropServices;
@@ -38,8 +34,8 @@ public class NaturalStringComparer : IComparer<string>
         if (x is null || y is null)
             return String.Compare(x, y, _comparison);
 
-        var xSegments = GetSegments(x);
-        var ySegments = GetSegments(y);
+        var xSegments = Segments(x);
+        var ySegments = Segments(y);
 
         while (xSegments.MoveNext() && ySegments.MoveNext())
         {
@@ -89,7 +85,7 @@ public class NaturalStringComparer : IComparer<string>
         return 0;
     }
 
-    private static StringSegmentEnumerator GetSegments(string s) => new(s);
+    private static StringSegmentEnumerator Segments(string s) => new(s);
 
     private struct StringSegmentEnumerator
     {
@@ -123,6 +119,7 @@ public class NaturalStringComparer : IComparer<string>
 
             while (++currentPosition < _s.Length && Char.IsDigit(_s[currentPosition]) == isFirstCharDigit)
             {
+                // Do nothing
             }
 
             _start = start;

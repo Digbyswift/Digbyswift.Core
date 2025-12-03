@@ -1,7 +1,6 @@
-﻿using System;
+﻿#pragma warning disable SA1202
+
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Digbyswift.Core.Constants;
 
 namespace Digbyswift.Core.Extensions;
@@ -90,8 +89,8 @@ public static class EnumerableExtensions
     /// large collections since it will potentially iterate over a large number of
     /// items and a list allocation may be better.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="ArgumentNullException">The source parameter is null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The count parameter is less than zero.</exception>
     public static bool CountIs<T>(this IEnumerable<T> source, int count)
     {
 #if NET48
@@ -120,8 +119,9 @@ public static class EnumerableExtensions
     /// large collections since it will potentially iterate over a large number of
     /// items and a list allocation may be better.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+#if NET48
+    /// <exception cref="ArgumentNullException">The source or predicate parameter is null.</exception>
+#endif
     public static bool CountIs<T>(this IEnumerable<T> source, int count, Func<T, bool> predicate)
     {
 #if NET48
@@ -284,6 +284,11 @@ public static class EnumerableExtensions
         if (predicate == null)
             throw new ArgumentNullException(nameof(predicate));
 #endif
+        return FindIndexesIterator(source, predicate);
+    }
+
+    private static IEnumerable<int> FindIndexesIterator<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+    {
         var index = 0;
 
         foreach (var item in source)
@@ -304,6 +309,11 @@ public static class EnumerableExtensions
         if (predicate == null)
             throw new ArgumentNullException(nameof(predicate));
 #endif
+        return FindFirstIndexIterator(source, predicate);
+    }
+
+    private static int FindFirstIndexIterator<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+    {
         var index = 0;
 
         foreach (var item in source)
@@ -348,6 +358,11 @@ public static class EnumerableExtensions
         if (source == null)
             throw new ArgumentNullException(nameof(source));
 #endif
+        return SkipLastIterator(source);
+    }
+
+    private static IEnumerable<T> SkipLastIterator<T>(this IEnumerable<T> source)
+    {
         using var e = source.GetEnumerator();
         if (!e.MoveNext())
             yield break;

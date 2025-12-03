@@ -41,15 +41,6 @@ public class IsJsonTests
     [TestCase("]")]
     [TestCase("{")]
     [TestCase("}")]
-    public void IsJson_ReturnsFalse_WhenValueStartsOrEndsWithInvalidCharacter(string input)
-    {
-        // Act
-        var result = input.IsJson();
-
-        // Assert
-        Assert.That(result, Is.False);
-    }
-
     [TestCase("{a}")]
     [TestCase("[a]")]
     [TestCase(" {a} ")]

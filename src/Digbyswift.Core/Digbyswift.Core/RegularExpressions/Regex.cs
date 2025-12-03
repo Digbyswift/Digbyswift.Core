@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using SysRegex = System.Text.RegularExpressions.Regex;
 
 namespace Digbyswift.Core.RegularExpressions;

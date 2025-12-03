@@ -1,5 +1,4 @@
-﻿using System;
-using Digbyswift.Core.Constants;
+﻿using Digbyswift.Core.Constants;
 using Newtonsoft.Json;
 
 namespace Digbyswift.Core.Serialization;

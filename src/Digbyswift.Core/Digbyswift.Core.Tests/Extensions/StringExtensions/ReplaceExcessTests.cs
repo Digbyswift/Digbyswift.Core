@@ -7,6 +7,7 @@ namespace Digbyswift.Core.Tests.Extensions.StringExtensions;
 [TestFixture]
 public class ReplaceExcessTests
 {
+#pragma warning disable S4144
     [TestCase("", "")]
     [TestCase(" ", " ")]
     [TestCase("x ", "x ")]
@@ -56,6 +57,7 @@ public class ReplaceExcessTests
         // Assert
         Assert.That(result, Is.EqualTo(expectedResult));
     }
+#pragma warning restore S4144
 
     [TestCase("??", "-")]
     [TestCase("????", "-")]

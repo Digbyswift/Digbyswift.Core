@@ -47,7 +47,7 @@ public class DateTimeComparerTests
         var result = sut.Compare(now, now);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
     }
 
     [TestCase(DateTimeComparePrecision.Millisecond)]
@@ -59,7 +59,7 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(precision);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Unspecified);
         var historicalDate = now.Subtract(TimeSpan.FromTicks(1));
 
         // Act
@@ -74,14 +74,14 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Millisecond);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddTicks(999);
 
         // Act
         var result = sut.Compare(futureDate, now);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
     }
 
     [TestCase(0)]
@@ -90,7 +90,7 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Millisecond);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddMilliseconds(1).AddTicks(ticks);
 
         // Act
@@ -105,14 +105,14 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Second);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddSeconds(1).Subtract(TimeSpan.FromTicks(1));
 
         // Act
         var result = sut.Compare(futureDate, now);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
     }
 
     [TestCase(0)]
@@ -121,7 +121,7 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Second);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddSeconds(1).AddTicks(ticks);
 
         // Act
@@ -136,14 +136,14 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Minute);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddMinutes(1).Subtract(TimeSpan.FromTicks(1));
 
         // Act
         var result = sut.Compare(futureDate, now);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
     }
 
     [TestCase(0)]
@@ -152,7 +152,7 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Minute);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddMinutes(1).AddTicks(ticks);
 
         // Act
@@ -167,14 +167,14 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Hour);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddHours(1).Subtract(TimeSpan.FromTicks(1));
 
         // Act
         var result = sut.Compare(futureDate, now);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
     }
 
     [TestCase(0)]
@@ -183,7 +183,7 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Hour);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddHours(1).AddTicks(ticks);
 
         // Act
@@ -198,14 +198,14 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Day);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddDays(1).Subtract(TimeSpan.FromTicks(1));
 
         // Act
         var result = sut.Compare(futureDate, now);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
     }
 
     [TestCase(0)]
@@ -214,7 +214,7 @@ public class DateTimeComparerTests
     {
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Day);
-        var now = new DateTime(2000, 01, 01);
+        var now = new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc);
         var futureDate = now.AddDays(1).AddTicks(ticks);
 
         // Act
@@ -234,8 +234,8 @@ public class DateTimeComparerTests
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Day);
 
-        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59);
-        var impreciseDateTime = new DateTime(2000, 01, 01);
+        var preciseDateTime = new DateTime(2000, 1, 1, 23, 59, 59, DateTimeKind.Utc);
+        var impreciseDateTime = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         // Act
         var result = sut.AreEqual(preciseDateTime, impreciseDateTime);
@@ -250,8 +250,8 @@ public class DateTimeComparerTests
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Hour);
 
-        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59);
-        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 0, 0);
+        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, DateTimeKind.Utc);
+        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 0, 0, DateTimeKind.Utc);
 
         // Act
         var result = sut.AreEqual(preciseDateTime, impreciseDateTime);
@@ -266,8 +266,8 @@ public class DateTimeComparerTests
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Minute);
 
-        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59);
-        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 59, 0);
+        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, DateTimeKind.Utc);
+        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 59, 0, DateTimeKind.Utc);
 
         // Act
         var result = sut.AreEqual(preciseDateTime, impreciseDateTime);
@@ -282,8 +282,8 @@ public class DateTimeComparerTests
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Second);
 
-        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, 999);
-        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59);
+        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, 999, DateTimeKind.Utc);
+        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, DateTimeKind.Utc);
 
         // Act
         var result = sut.AreEqual(preciseDateTime, impreciseDateTime);
@@ -298,8 +298,8 @@ public class DateTimeComparerTests
         // Arrange
         var sut = new DateTimeComparer(DateTimeComparePrecision.Millisecond);
 
-        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, 999).AddTicks(999);
-        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, 999);
+        var preciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, 999, DateTimeKind.Utc).AddTicks(999);
+        var impreciseDateTime = new DateTime(2000, 01, 01, 23, 59, 59, 999, DateTimeKind.Utc);
 
         // Act
         var result = sut.AreEqual(preciseDateTime, impreciseDateTime);

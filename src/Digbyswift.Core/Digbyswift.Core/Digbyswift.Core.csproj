@@ -1,15 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
+        <!-- Project settings -->
         <TargetFrameworks>net6.0;net8.0;netstandard2.0;net48</TargetFrameworks>
+        <RootNamespace>Digbyswift.Core</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+        <!-- Nuget settings -->
         <Title>Digbyswift.Core</Title>
+        <Authors>Digbyswift Ltd</Authors>
+        <NeutralLanguage>en-GB</NeutralLanguage>
+        <Copyright>Copyright © Digbyswift Ltd 2025</Copyright>
+        <PackageId>Digbyswift.Core</PackageId>
         <PackageProjectUrl>https://github.com/digbyswift/Digbyswift.Core</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>package-icon.png</PackageIcon>
         <PackageTags>c# extensions utility</PackageTags>
-        <AssemblyVersion>2.6.0</AssemblyVersion>
         <PackageVersion>2.6.0</PackageVersion>
+        <AssemblyVersion>2.6.0</AssemblyVersion>
         <FileVersion>2.6.0</FileVersion>
+        <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net48' ">
         <Nullable>disable</Nullable>
@@ -18,16 +29,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <None Include="../../../package-icon.png" Pack="true" PackagePath="" />
+        <None Include="../../../package-icon.png" Pack="true" PackagePath=""/>
     </ItemGroup>
     <ItemGroup>
-        <None Include="../../../LICENSE" Pack="true" PackagePath="" />
+        <None Include="../../../LICENSE" Pack="true" PackagePath=""/>
     </ItemGroup>
     <ItemGroup>
-        <None Include="../../../README.md" Pack="true" PackagePath="" />
+        <None Include="../../../README.md" Pack="true" PackagePath=""/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="Newtonsoft.Json"/>
     </ItemGroup>
-
 </Project>

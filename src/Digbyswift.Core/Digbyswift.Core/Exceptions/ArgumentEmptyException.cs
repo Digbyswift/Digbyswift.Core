@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Digbyswift.Core.Exceptions;
+﻿namespace Digbyswift.Core.Exceptions;
 
 public class ArgumentEmptyException : ArgumentException
 {

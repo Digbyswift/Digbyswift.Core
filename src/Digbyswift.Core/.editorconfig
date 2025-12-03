@@ -341,11 +341,22 @@ dotnet_diagnostic.CS8601.severity = error
 dotnet_diagnostic.CS8604.severity = error
 
 
-[*.{xml,config,*proj,nuspec,props,resx,ruleset,targets,tasks,vsixmanifest,vsct,yml}]
-indent_size = 2
+# S2325: Methods and properties that don't access instance data should be static
+dotnet_diagnostic.S2325.severity = suggestion
+
+# S3236: Caller information arguments should not be provided explicitly
+dotnet_diagnostic.S3236.severity = suggestion
+
+# S4456:
+# dotnet_diagnostic.S4456.severity = suggestion
 
 
-[*.json]
+
+[*.{xml,config,*proj,nuspec,props,resx,ruleset,targets,tasks,vsixmanifest,vsct}]
+indent_size = 4
+
+
+[*.{json,yml}]
 indent_size = 2
 
 
