@@ -153,7 +153,7 @@ public class ShortGuidTests
         // Assert
         Assert.Throws<FormatException>(() =>
         {
-            var unused = new ShortGuid(testGuid);
+            new ShortGuid(testGuid);
         });
     }
 

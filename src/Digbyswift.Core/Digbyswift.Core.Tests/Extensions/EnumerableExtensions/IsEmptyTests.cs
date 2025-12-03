@@ -19,7 +19,7 @@ public class IsEmptyTests
         // Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var result = source.IsEmpty();
+            source.IsEmpty();
         });
     }
 #endif

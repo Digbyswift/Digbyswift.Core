@@ -19,7 +19,7 @@ public class SkipLastTests
         // Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var result = source.SkipLast().ToList();
+            source.SkipLast().ToList();
         });
     }
 #endif
@@ -46,8 +46,11 @@ public class SkipLastTests
         var result = source.SkipLast();
 
         // Assert
-        Assert.That(result.Last(), Is.EqualTo(4));
-        Assert.That(result.First(), Is.EqualTo(firstItem));
-        Assert.That(result.Count(), Is.EqualTo(4));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Last(), Is.EqualTo(4));
+            Assert.That(result.First(), Is.EqualTo(firstItem));
+            Assert.That(result.Count(), Is.EqualTo(4));
+        });
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Linq;
+﻿using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using Digbyswift.Core.Constants;
 

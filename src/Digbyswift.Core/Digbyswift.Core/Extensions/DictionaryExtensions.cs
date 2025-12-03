@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Digbyswift.Core.Extensions;
+﻿namespace Digbyswift.Core.Extensions;
 
 public static class DictionaryExtensions
 {

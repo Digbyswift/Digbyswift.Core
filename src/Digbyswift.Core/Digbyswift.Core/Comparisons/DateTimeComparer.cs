@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Digbyswift.Core.Comparisons;
+﻿namespace Digbyswift.Core.Comparisons;
 
 public enum DateTimeComparePrecision : long
 {

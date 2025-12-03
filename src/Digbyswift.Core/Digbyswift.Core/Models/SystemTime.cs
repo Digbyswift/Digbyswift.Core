@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Digbyswift.Core.Models;
+﻿namespace Digbyswift.Core.Models;
 
 public static class SystemTime
 {

@@ -5,159 +5,159 @@ using NUnit.Framework;
 namespace Digbyswift.Core.Tests.Extensions.DateExtensions;
 
 [TestFixture]
-public class GetAgeTests
+public class AgeTests
 {
     [Test]
-    public void GetAge_ReturnsZero_WhenBornToday()
+    public void Age_ReturnsZero_WhenBornToday()
     {
         // Arrange
         var dob = DateTime.Today;
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
-        Assert.That(age, Is.EqualTo(0));
+        Assert.That(age, Is.Zero);
     }
 
     [Test]
-    public void GetAge_ReturnsZero_WhenBornTodayExact()
+    public void Age_ReturnsZero_WhenBornTodayExact()
     {
         // Arrange
         var dob = DateTime.Now;
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
-        Assert.That(age, Is.EqualTo(0));
+        Assert.That(age, Is.Zero);
     }
 
     [Test]
-    public void GetAge_ReturnsZero_WhenBornYesterday()
+    public void Age_ReturnsZero_WhenBornYesterday()
     {
         // Arrange
         var dob = DateTime.Today.SubtractDays(1);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
-        Assert.That(age, Is.EqualTo(0));
+        Assert.That(age, Is.Zero);
     }
 
     [Test]
-    public void GetAge_ReturnsZero_WhenBornYesterdayExact()
+    public void Age_ReturnsZero_WhenBornYesterdayExact()
     {
         // Arrange
         var dob = DateTime.Now.SubtractDays(1);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
-        Assert.That(age, Is.EqualTo(0));
+        Assert.That(age, Is.Zero);
     }
 
     [Test]
-    public void GetAge_ReturnsZero_WhenBornTomorrow()
+    public void Age_ReturnsZero_WhenBornTomorrow()
     {
         // Arrange
         var dob = DateTime.Today.AddDays(1);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
-        Assert.That(age, Is.EqualTo(0));
+        Assert.That(age, Is.Zero);
     }
 
     [Test]
-    public void GetAge_ReturnsZero_WhenBornTomorrowExact()
+    public void Age_ReturnsZero_WhenBornTomorrowExact()
     {
         // Arrange
         var dob = DateTime.Now.AddDays(1);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
-        Assert.That(age, Is.EqualTo(0));
+        Assert.That(age, Is.Zero);
     }
 
     [Test]
-    public void GetAge_ReturnsEighteen_WhenEighteenthBirthdayIsToday()
+    public void Age_ReturnsEighteen_WhenEighteenthBirthdayIsToday()
     {
         // Arrange
         var dob = DateTime.Today.SubtractYears(18);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
         Assert.That(age, Is.EqualTo(18));
     }
 
     [Test]
-    public void GetAge_ReturnsEighteen_WhenEighteenthBirthdayIsTodayExact()
+    public void Age_ReturnsEighteen_WhenEighteenthBirthdayIsTodayExact()
     {
         // Arrange
         var dob = DateTime.Now.SubtractYears(18);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
         Assert.That(age, Is.EqualTo(18));
     }
 
     [Test]
-    public void GetAge_ReturnsSeventeen_WhenEighteenthBirthdayIsTomorrow()
+    public void Age_ReturnsSeventeen_WhenEighteenthBirthdayIsTomorrow()
     {
         // Arrange
         var dob = DateTime.Today.AddDays(1).SubtractYears(18);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
         Assert.That(age, Is.EqualTo(17));
     }
 
     [Test]
-    public void GetAge_ReturnsSeventeen_WhenEighteenthBirthdayIsTomorrowExact()
+    public void Age_ReturnsSeventeen_WhenEighteenthBirthdayIsTomorrowExact()
     {
         // Arrange
         var dob = DateTime.Now.AddDays(1).SubtractYears(18);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
         Assert.That(age, Is.EqualTo(17));
     }
 
     [Test]
-    public void GetAge_ReturnsSeventeen_WhenEighteenthBirthdayWasYesterday()
+    public void Age_ReturnsSeventeen_WhenEighteenthBirthdayWasYesterday()
     {
         // Arrange
         var dob = DateTime.Today.SubtractYears(18).SubtractDays(1);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
         Assert.That(age, Is.EqualTo(18));
     }
 
     [Test]
-    public void GetAge_ReturnsSeventeen_WhenEighteenthBirthdayWasYesterdayExact()
+    public void Age_ReturnsSeventeen_WhenEighteenthBirthdayWasYesterdayExact()
     {
         // Arrange
         var dob = DateTime.Now.SubtractDays(1).SubtractYears(18);
 
         // Act
-        var age = dob.GetAge();
+        var age = dob.Age();
 
         // Assert
         Assert.That(age, Is.EqualTo(18));

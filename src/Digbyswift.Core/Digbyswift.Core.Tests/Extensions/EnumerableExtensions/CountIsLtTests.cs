@@ -19,7 +19,7 @@ public class CountIsLtTests
         // Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var result = source.CountIsLt(1);
+            source.CountIsLt(1);
         });
     }
 #endif

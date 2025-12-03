@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Digbyswift.Core.Globalization;
+﻿namespace Digbyswift.Core.Globalization;
 
 public record IsoCountry
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 using Digbyswift.Core.Constants;
 
@@ -234,13 +231,13 @@ public static class StringExtensions
     /// <summary>
     /// Replaces repeated characters anywhere in a string.
     /// </summary>
-    public static string ReplaceExcess(this string value, char characterToReplace, char characterToReplaceWith)
+    public static string ReplaceExcess(this string value, char characterToReplace, char characterToReplaceWith, int minimumOccurrences = 2)
     {
 #if NET48
         if (value == null)
             return null;
 #endif
-        var regexPattern = $"{(ReservedRegexChars.Contains(characterToReplace) ? StringConstants.BackSlash : null)}{characterToReplace}{{2,}}";
+        var regexPattern = $"{(ReservedRegexChars.Contains(characterToReplace) ? StringConstants.BackSlash : null)}{characterToReplace}{{{minimumOccurrences},}}";
         return Regex.Replace(value, regexPattern, characterToReplaceWith.ToString(), RegexOptions.None, TimeSpan.FromMilliseconds(350));
     }
 
@@ -256,7 +253,7 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        // Replace non URL-friendly characters.
+        // Replace non-URL-friendly characters.
         var workingString = _nonWordCharactersRegex.Replace(value, String.Empty);
 
         return workingString.TrimWithin();
@@ -288,7 +285,8 @@ public static class StringExtensions
     /// is greater than the length of the string, the original string will be returned.
     /// <example>johnsmith@example.com -> johnsmi************</example>
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="ArgumentNullException">The value parameter is null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The numberOfVisibleCharacter parameter is less than zero.</exception>
     public static string MaskRight(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Asterisk)
     {
 #if NET48
@@ -316,7 +314,8 @@ public static class StringExtensions
     /// is greater than the length of the string, the original string will be returned.
     /// <example>johnsmith@example.com with numberOfVisibleCharacter = 7 -> ***********ple.com</example>
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="ArgumentNullException">The value parameter is null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The numberOfVisibleCharacter parameter is less than zero.</exception>
     public static string MaskLeft(this string value, int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Asterisk)
     {
 #if NET48
@@ -355,7 +354,7 @@ public static class StringExtensions
         // Remove excess whitespace
         workingString = workingString.TrimWithin();
 
-        // Replace non URL-friendly characters.
+        // Replace non-URL-friendly characters.
         workingString = _nonWordCharactersRegex.Replace(workingString, StringConstants.Hyphen);
 
         return workingString.ReplaceExcess(CharConstants.Hyphen, CharConstants.Hyphen).Trim(CharConstants.Hyphen);
@@ -405,12 +404,12 @@ public static class StringExtensions
         return builder.ToString();
     }
 
-    public static T ToEnum<T>(this string enumDescription)
+    public static TEnum ToEnum<TEnum>(this string enumDescription) where TEnum : struct, Enum
     {
         if (String.IsNullOrEmpty(enumDescription))
-            return (T)Enum.ToObject(typeof(T), NumericConstants.Zero);
+            return (TEnum)Enum.ToObject(typeof(TEnum), NumericConstants.Zero);
 
         var enumName = enumDescription.Replace(StringConstants.Space, String.Empty);
-        return (T)Enum.Parse(typeof(T), enumName);
+        return (TEnum)Enum.Parse(typeof(TEnum), enumName);
     }
 }

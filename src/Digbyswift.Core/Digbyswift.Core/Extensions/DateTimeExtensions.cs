@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Digbyswift.Core.Constants;
 using Digbyswift.Core.Models;
 
@@ -20,27 +19,27 @@ public static class DateTimeExtensions
     public static long ToUnixTimeSeconds(this DateTime value)
     {
 #if NET6_0_OR_GREATER
-        return (long)DateTime.UtcNow.Subtract(DateTime.UnixEpoch).TotalSeconds;
+        return (long)value.Subtract(DateTime.UnixEpoch).TotalSeconds;
 #else
-        return (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+        return (long)value.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, value.Kind)).TotalSeconds;
 #endif
     }
 
-    public static int GetDaysUntil(this DateTime value)
+    public static int DaysUntil(this DateTime value)
     {
         return (value - SystemTime.LocalNow.Date).Days;
     }
 
-    public static int GetAgeNextBirthday(this DateTime dob)
+    public static int AgeNextBirthday(this DateTime dob)
     {
         var today = SystemTime.LocalToday;
         if (dob > today)
             return NumericConstants.Zero;
 
-        return GetAge(dob.Date) + 1;
+        return Age(dob.Date) + 1;
     }
 
-    public static int GetAge(this DateTime dob)
+    public static int Age(this DateTime dob)
     {
         var today = SystemTime.LocalToday;
         if (dob > today)
@@ -96,7 +95,7 @@ public static class DateTimeExtensions
     /// </para>
     /// </example>
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="ArgumentOutOfRangeException">An unrecognized TimePrecision value was passed.</exception>
     public static DateTime TruncateTime(this DateTime value, TimePrecision precision)
     {
         switch (precision)

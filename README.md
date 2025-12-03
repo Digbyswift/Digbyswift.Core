@@ -60,39 +60,39 @@ This includes:
 
 ### Enumerable
 
-- `CountIs(int count)`
-- `CountIsLe(int count)`
-- `CountIsLt(int count)`
-- `CountIsGe(int count)`
-- `CountIsGt(int count)`
-- `FindFirstIndex(Func<T, bool> func)`
-- `FindIndexes(Func<T, bool> func)`
-- `FindLastIndex(Func<T, bool> func)`
-- `IsEmpty()`
-- `MaxOrDefault()`
-- `MinOrDefault()`
-- `None(Func<T, bool> func)`
-- `NotContains(T item)`
-- `SkipLast()`
-- `WhereNotNull()`
+- `CountIs<T>(int count)`
+- `CountIsLe<T>(int count)`
+- `CountIsLt<T>(int count)`
+- `CountIsGe<T>(int count)`
+- `CountIsGt<T>(int count)`
+- `FindFirstIndex<T>(Func<T, bool> func)`
+- `FindIndexes<T>(Func<T, bool> func)`
+- `FindLastIndex<T>(Func<T, bool> func)`
+- `IsEmpty<T>()`
+- `MaxOrDefault<T>()`
+- `MinOrDefault<T>()`
+- `None<T>(Func<T, bool> func)`
+- `NotContains<T>(T item)`
+- `SkipLast<T>()`
+- `WhereNotNull<T>()`
 
 ### List
 
-- `Any()`
-- `Crop(int toSize)`
+- `Any<T>()`
+- `Crop<T>(int toSize)`
 
 ### Dictionary
 
-- `ContainsKeyAndValue(TKey key, TValue value)`
-- `ContainsKeyAndValue(TKey key, string value, StringComparison stringComparison)`
-- `GetOrDefault(TKey key, TValue defaultValue)`
-- `GetOrNull(TKey key)`
-- `Set(TKey key, TValue value)`
+- `ContainsKeyAndValue<TKey, TValue>(TKey key, TValue value)`
+- `ContainsKeyAndValue<TKey>(TKey key, string value, StringComparison stringComparison)`
+- `GetOrDefault<TKey, TValue>(TKey key, TValue defaultValue)`
+- `GetOrNull<TKey, TValue>(TKey key)`
+- `Set<TKey, TValue>(TKey key, TValue value)`
 
 ### NameValueCollection
 
 - `CopyTo(IDictionary<string, string?> dict)`
-- `ToDictionary()`
+- `Dictionary<string, string?> ToDictionary()`
 - `ToQueryString()`
 
 ### String
@@ -104,16 +104,15 @@ This includes:
 - `Coalesce(string? optionalFallback, string requiredFallback)`
 - `Contains(string toCheck, StringComparison comp)`
 - `ContainsIgnoreCase(string toCheck)`
-- `ContainsIgnoreCase(string toCheck)`
 - `EqualsIgnoreCase(string toCheck)`
 - `MaskRight(int numberOfVisibleCharacter)`
 - `MaskLeft(int numberOfVisibleCharacter)`
 - `RemoveWhitespace()`
-- `ReplaceExcess()`
+- `ReplaceExcess(char character, int maxRepeats)`
 - `SplitAndTrim(params char[]? separator)`
 - `StripMarkup()`
 - `ToBool()`
-- `ToEnum()`
+- `ToEnum<TEnum>()`
 - `ToUrlFriendly()`
 - `TrimWithin()`
 - `TrimToDefault(string? defaultValue)`
@@ -143,7 +142,7 @@ This includes:
 - `IsIPv6()`
 - `IsJson()`
 - `IsMarkup()`
-- `IsNumeric()`
+- `IsNumeric(NumericMatchType numericMatchType = NumericMatchType.Real)`
 - `IsUrl()`
 - `IsWholeNumber()`
 - `IsUkTelephone()`
@@ -161,9 +160,9 @@ This includes:
 ### DateTime
 
 - `AsKind(DateTimeKind kind)`
-- `GetDaysUntil(DateTime value)`
-- `GetAgeNextBirthday(DateTime dob)`
-- `GetAge(DateTime dob)`
+- `GetDaysUntil()`
+- `GetAgeNextBirthday()`
+- `GetAge()`
 - `IsAfter(DateTime otherDate)`
 - `IsBefore(DateTime otherDate)`
 - `SubtractDays(int days)`
@@ -181,26 +180,66 @@ This includes:
 
 ### Numeric
 
+#### Int
+
 - `AsPercentageOf(int total)`
+- `IsEven()`
+- `ToInvariantString()`
+
+#### Decimal
+
 - `AsPercentageOf(decimal total)`
+- `ToInvariantString()`
+
+#### Double
+
 - `AsPercentageOf(double total)`
 - `Equals(double compareTo, double decimalPlaces)`
 - `IsZero()`
-- `IsEven()`
 - `Truncate(int decimalPlaces)`
 - `ToInvariantString()`
 
+#### Short
+
+- `ToInvariantString()`
+
+#### UShort
+
+- `ToInvariantString()`
+
+#### UInt
+
+- `ToInvariantString()`
+
+#### Long
+
+- `ToInvariantString()`
+
+#### ULong
+
+- `ToInvariantString()`
+
 ### Encryption
+
+#### RSA
 
 - `RSAEncrypt()`
 - `RSAEncrypt(string publicKeyXml)`
 - `RSADecrypt()`
 - `RSADecrypt(string privateKeyXml)`
 
+#### SHA
+
+- `ToSHA1()`
+- `ToSHA256()`
+- `ToSHA384()`
+- `ToSHA512()`
+
 ### StringBuilder
 
 - `EnsureTrailingCharacter(char character)`
 - `TrimEnd(char? character = null)`
+- `Truncate(int maxLength)`
 
 ### Assembly
 
@@ -218,9 +257,9 @@ This includes:
 
 - `IsYouTubeUrl()`
 - `ExtractYouTubeVideoId()`
-- `ToYouTubeThumbnailUrl()`
+- `ToYouTubeThumbnailUrl(YouTubeThumbnailSize thumbnailSize = YouTubeThumbnailSize.Default)`
 - `ToYouTubeEmbedUrl()`
-- `ParseYoutubeQueryString()`
+- `NameValueCollection? ParseYoutubeQueryString()`
 
 #### Vimeo
 

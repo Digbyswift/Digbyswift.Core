@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Digbyswift.Core.Constants;
 
 namespace Digbyswift.Core.Extensions;
@@ -58,7 +57,7 @@ public static class NumericExtensions
     /// <para>123 and 123.5 are equal to zero places but not 1 decimal place.</para>
     /// <para>123.534 and 123.578 are equal to zero and one place but not 2 decimal places.</para>
     /// </example>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="ArgumentOutOfRangeException">The decimalPlaces parameter is less than zero.</exception>
     public static bool Equals(this double value, double compareTo, double decimalPlaces)
     {
         if (decimalPlaces < 0)
@@ -76,7 +75,7 @@ public static class NumericExtensions
     /// so usage in a calculation will result in inaccurate results.</para>
     /// </summary>
     /// <example>Truncating 123.889078 to 2 decimal places will return 123.88.</example>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="ArgumentOutOfRangeException">The decimalPlaces parameter is less than zero.</exception>
     public static double Truncate(this double value, int decimalPlaces)
     {
         if (decimalPlaces < 0)

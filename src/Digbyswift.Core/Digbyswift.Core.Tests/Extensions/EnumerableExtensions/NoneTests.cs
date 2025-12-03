@@ -19,7 +19,7 @@ public class NoneTests
         // Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var result = source.None(x => true);
+            source.None(x => true);
         });
     }
 
@@ -32,7 +32,7 @@ public class NoneTests
         // Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            var result = source.None(null);
+            source.None(null);
         });
     }
 #endif

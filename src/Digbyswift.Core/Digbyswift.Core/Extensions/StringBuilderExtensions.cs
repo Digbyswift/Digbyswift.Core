@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace Digbyswift.Core.Extensions;
 
@@ -41,6 +40,17 @@ public static class StringBuilderExtensions
 
         builder.TrimEnd(character);
         builder.Append(character);
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Truncates a StringBuilder to a maximum length.
+    /// </summary>
+    public static StringBuilder Truncate(this StringBuilder builder, int maxLength)
+    {
+        if (builder.Length > maxLength)
+            builder.Length = maxLength;
 
         return builder;
     }
