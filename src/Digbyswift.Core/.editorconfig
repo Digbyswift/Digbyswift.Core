@@ -340,6 +340,9 @@ dotnet_diagnostic.CS8601.severity = error
 # CS8604: Possible null reference argument
 dotnet_diagnostic.CS8604.severity = error
 
+# CS7035: The specified version string does not conform to the recommended format - major.minor.build.revision
+dotnet_diagnostic.CS7035.severity = silent
+
 
 # S2325: Methods and properties that don't access instance data should be static
 dotnet_diagnostic.S2325.severity = suggestion
