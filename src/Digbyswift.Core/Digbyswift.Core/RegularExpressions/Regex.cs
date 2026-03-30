@@ -12,6 +12,8 @@ public static class Regex
 
     public static readonly Lazy<SysRegex> IsUkPhoneNumber = new(() => new SysRegex(Patterns.Exact.UkPhoneNumber, RegexOptions.IgnoreCase, IsTimeout));
 
+    public static readonly Lazy<SysRegex> IsDecimal = new(() => new SysRegex(Patterns.Exact.Decimal, RegexOptions.IgnoreCase, IsTimeout));
+
     public static readonly Lazy<SysRegex> IsNumeric = new(() => new SysRegex(Patterns.Exact.Numeric, RegexOptions.IgnoreCase, IsTimeout));
 
     public static readonly Lazy<SysRegex> IsWholeNumber = new(() => new SysRegex(Patterns.Exact.WholeNumber, RegexOptions.IgnoreCase, IsTimeout));
@@ -39,6 +41,8 @@ public static class Regex
     public static readonly Lazy<SysRegex> ContainsUkPhoneNumber = new(() => new SysRegex(Patterns.Global.UkPhoneNumber, RegexOptions.IgnoreCase, ContainsTimeout));
 
     public static readonly Lazy<SysRegex> ContainsNumeric = new(() => new SysRegex(Patterns.Global.Numeric, RegexOptions.IgnoreCase, ContainsTimeout));
+
+    public static readonly Lazy<SysRegex> ContainsDecimal = new(() => new SysRegex(Patterns.Global.Decimal, RegexOptions.IgnoreCase, ContainsTimeout));
 
     public static readonly Lazy<SysRegex> ContainsWholeNumber = new(() => new SysRegex(Patterns.Global.WholeNumber, RegexOptions.IgnoreCase, ContainsTimeout));
 

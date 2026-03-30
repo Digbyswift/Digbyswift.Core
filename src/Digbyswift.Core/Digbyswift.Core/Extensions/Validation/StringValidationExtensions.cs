@@ -98,6 +98,9 @@ public static class StringValidationExtensions
 
             case NumericMatchType.Integer:
                 return Regex.IsWholeNumber.Value.IsMatch(value);
+
+            case NumericMatchType.Decimal:
+                return Regex.IsDecimal.Value.IsMatch(value);
         }
 
         throw new ArgumentOutOfRangeException(nameof(matchType));
@@ -133,6 +136,11 @@ public static class StringValidationExtensions
         return value.StartsWith("07") || value.StartsWith("447") || value.StartsWith("+447");
     }
 
+    /// <summary>
+    /// Checks whether the string parameter starts and ends with a tag. It will
+    /// accept single self-closing tags and also markup with leading and trailing
+    /// spaces. It will return false for strings like "text&lt;br /&gt;".
+    /// </summary>
     public static bool IsMarkup(this string value)
     {
         if (String.IsNullOrWhiteSpace(value))
@@ -141,6 +149,10 @@ public static class StringValidationExtensions
         return Regex.IsMarkup.Value.IsMatch(value);
     }
 
+    /// <summary>
+    /// A looser version of IsMarkup(). Checks whether the string parameter contains a tag.
+    /// It will return true for strings like "text&lt;br /&gt;".
+    /// </summary>
     public static bool ContainsMarkup(this string value)
     {
         if (String.IsNullOrWhiteSpace(value))
@@ -151,14 +163,20 @@ public static class StringValidationExtensions
 
     public static bool HasFileExtension(this string value)
     {
+        if (String.IsNullOrWhiteSpace(value))
+            return false;
+
         return Regex.HasFileExtension.Value.IsMatch(value);
     }
 
     /// <summary>
-    /// Matches the format xx-xx, e.g. en-gb or fr-fr.
+    /// Matches the format xx-xx, e.g. en-gb or fr-fr. Case-insensitive.
     /// </summary>
     public static bool IsIsoRegionalLanguage(this string value)
     {
+        if (String.IsNullOrWhiteSpace(value))
+            return false;
+
         return Regex.IsIsoRegionalLanguage.Value.IsMatch(value);
     }
 
@@ -200,6 +218,9 @@ public static class StringValidationExtensions
     /// </summary>
     public static bool IsHexColor(this string value)
     {
+        if (String.IsNullOrWhiteSpace(value))
+            return false;
+
         return Regex.IsHexColour.Value.IsMatch(value);
     }
 }

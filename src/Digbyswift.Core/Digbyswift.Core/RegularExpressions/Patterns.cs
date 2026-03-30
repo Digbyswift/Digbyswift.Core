@@ -8,9 +8,11 @@ public static class Patterns
     {
         public const string Email = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9][\-a-zA-Z0-9]{0,22}[a-zA-Z0-9]))$";
 
-        public const string UkPhoneNumber = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
+        public const string UkPhoneNumber = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4})|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{4})|(?:\d{4}\)?[\s-]?\d{3}[\s-]?\d{3})|(?:\d{5}\)?[\s-]?\d{5}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
 
         public const string Numeric = @"^-?\d+([,\.]\d+)?$";
+
+        public const string Decimal = @"^-?\d+([,\.]\d+)$";
 
         public const string WholeNumber = @"^-?\d+$";
 
@@ -26,7 +28,7 @@ public static class Patterns
         // ReSharper disable once InconsistentNaming
         public const string IPv6 = @"^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$";
 
-        internal const string FileExtension = @"\.([a-zA-Z0-9]+)$";
+        internal const string FileExtension = @"\.([a-zA-Z0-9_\-]+)$";
 
         internal const string Guid = @"^([a-f\d]{4}(?:[a-f\d]{4}-?){4}[a-f\d]{12}|\{[a-f\d]{4}(?:[a-f\d]{4}-?){4}[a-f\d]{12}\})$";
 
@@ -80,6 +82,8 @@ public static class Patterns
         public static readonly string UkPhoneNumber = Exact.UkPhoneNumber.Trim(CharConstants.Hat, CharConstants.Dollar);
 
         public static readonly string Numeric = Exact.Numeric.Trim(CharConstants.Hat, CharConstants.Dollar);
+
+        public static readonly string Decimal = Exact.Decimal.Trim(CharConstants.Hat, CharConstants.Dollar);
 
         public static readonly string WholeNumber = Exact.WholeNumber.Trim(CharConstants.Hat, CharConstants.Dollar);
 
