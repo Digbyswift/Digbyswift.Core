@@ -89,6 +89,7 @@ public static class EnumerableExtensions
     /// large collections since it will potentially iterate over a large number of
     /// items and a list allocation may be better.
     /// </summary>
+    /// <typeparam name="T">The type of the elements in the source collection.</typeparam>
     /// <exception cref="ArgumentNullException">The source parameter is null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">The count parameter is less than zero.</exception>
     public static bool CountIs<T>(this IEnumerable<T> source, int count)
@@ -119,6 +120,7 @@ public static class EnumerableExtensions
     /// large collections since it will potentially iterate over a large number of
     /// items and a list allocation may be better.
     /// </summary>
+    /// <typeparam name="T">The type of the elements in the source collection.</typeparam>
 #if NET48
     /// <exception cref="ArgumentNullException">The source or predicate parameter is null.</exception>
 #endif
