@@ -41,7 +41,8 @@ public static class YouTubeStringExtensions
             query.Set("rel", StringConstants.Zero);
             query.Set("modestbranding", StringConstants.One);
             query.Set("controls", StringConstants.Zero);
-            return $"https://www.youtube-nocookie.com/embed/{videoId}/?{query}";
+
+            return $"https://www.youtube-nocookie.com/embed/{videoId}/?{query.ToQueryString()}";
         }
 
         return fullYouTubeVideoUrl;
