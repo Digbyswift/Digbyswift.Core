@@ -5,14 +5,16 @@ namespace Digbyswift.Core.Extensions;
 
 public static class NumericExtensions
 {
+    private const double ZeroTolerance = 1e-12;
+
     /// <summary>
     /// Since a Double cannot reliably be exactly zero, this determines
-    /// whether the value passed is greater or equal to zero, and less than
-    /// Double.Epsilon. If so, then the value can be treated as zero.
+    /// whether the absolute value passed is within a practical tolerance of
+    /// zero. If so, then the value can be treated as zero.
     /// </summary>
     public static bool IsZero(this double value)
     {
-        return Math.Abs(value) >= NumericConstants.Zero && Math.Abs(value) < Double.Epsilon;
+        return Math.Abs(value) <= ZeroTolerance;
     }
 
     /// <summary>
@@ -44,7 +46,7 @@ public static class NumericExtensions
 
     public static double AsPercentageOf(this double proportion, double total)
     {
-        if (Math.Abs(proportion) < Double.Epsilon || Math.Abs(total) < Double.Epsilon)
+        if (proportion.IsZero() || total.IsZero())
             return NumericConstants.Zero;
 
         return (proportion / total) * NumericConstants.Hundred;
@@ -63,7 +65,11 @@ public static class NumericExtensions
         if (decimalPlaces < 0)
             throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "Decimal places must be non-negative");
 
-        var redundancy = 1 / Math.Pow(10, decimalPlaces);
+        var roundedDecimalPlaces = Math.Round(decimalPlaces);
+        if (Math.Abs(decimalPlaces - roundedDecimalPlaces) > ZeroTolerance)
+            throw new ArgumentException("Decimal places must be a whole number", nameof(decimalPlaces));
+
+        var redundancy = 1 / Math.Pow(10, roundedDecimalPlaces);
 
         return Math.Abs(value - compareTo) <= redundancy;
     }
@@ -81,15 +87,12 @@ public static class NumericExtensions
         if (decimalPlaces < 0)
             throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "Decimal places must be non-negative");
 
-        var numberParts = value.ToString(CultureInfo.InvariantCulture).Split(CharConstants.Period);
-        if (numberParts.Length == 1)
+        if (Double.IsNaN(value) || Double.IsInfinity(value))
             return value;
 
-        var existingDecimalPlaces = numberParts[1].Length;
-        if (decimalPlaces >= existingDecimalPlaces)
+        var divisor = Math.Pow(10, decimalPlaces);
+        if (Double.IsInfinity(divisor))
             return value;
-
-        var divisor = (int)Math.Pow(10, decimalPlaces);
 
         return Math.Truncate(value * divisor) / divisor;
     }

@@ -19,6 +19,18 @@ public class EqualsTests
         Assert.Throws<ArgumentOutOfRangeException>(() => value.Equals(compareTo, decimalPlaces));
     }
 
+    [Test]
+    public void Equals_FractionalDecimalPlaces_ThrowsArgumentException()
+    {
+        // Arrange
+        var value = 123.456789;
+        var compareTo = 123.456789;
+        var decimalPlaces = 2.5;
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => value.Equals(compareTo, decimalPlaces));
+    }
+
     [TestCase(0, 0)]
     [TestCase(0.0, 0.0)]
     [TestCase(123, 123)]
@@ -77,6 +89,8 @@ public class EqualsTests
     [TestCase(123.12, 123.1, 1, true)]
     [TestCase(123.456, 123.4, 1, true)]
     [TestCase(123.456, 123.45, 2, true)]
+    [TestCase(123.45, 123.441, 2, true)]
+    [TestCase(123.45, 123.439, 2, false)]
     [TestCase(123.12, 123, 2, false)]
     [TestCase(123.456, 123.4, 3, false)]
     [TestCase(123.456, 123.45, 10, false)]
