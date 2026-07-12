@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Digbyswift.Core.Constants;
 
@@ -6,43 +7,22 @@ namespace Digbyswift.Core.Extensions;
 
 public static class StringExtensions
 {
-    private static IEnumerable<char> GrammarCharacters
-    {
-        get
-        {
-            yield return CharConstants.Comma;
-            yield return CharConstants.SemiColon;
-            yield return CharConstants.Colon;
-            yield return CharConstants.Exclamation;
-            yield return CharConstants.SingleQuote;
-            yield return CharConstants.DoubleQuote;
-            yield return CharConstants.BackSlash;
-            yield return CharConstants.ForwardSlash;
-            yield return CharConstants.ParenthesesLeft;
-            yield return CharConstants.ParenthesesRight;
-        }
-    }
-
-    private static IEnumerable<char> ReservedRegexChars
-    {
-        get
-        {
-            yield return CharConstants.SquareBracketLeft;
-            yield return CharConstants.BackSlash;
-            yield return CharConstants.Hat;
-            yield return CharConstants.Dollar;
-            yield return CharConstants.Period;
-            yield return CharConstants.Pipe;
-            yield return CharConstants.Asterisk;
-            yield return CharConstants.Plus;
-            yield return CharConstants.QuestionMark;
-            yield return CharConstants.ParenthesesLeft;
-            yield return CharConstants.ParenthesesRight;
-        }
-    }
+    private static readonly char[] GrammarCharacters =
+    [
+        CharConstants.Comma,
+        CharConstants.SemiColon,
+        CharConstants.Colon,
+        CharConstants.Exclamation,
+        CharConstants.SingleQuote,
+        CharConstants.DoubleQuote,
+        CharConstants.BackSlash,
+        CharConstants.ForwardSlash,
+        CharConstants.ParenthesesLeft,
+        CharConstants.ParenthesesRight
+    ];
 
     private static readonly Regex _nonWordCharactersRegex = new(@"([^\w]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(350));
-    private static readonly Regex _singleQuoteRegex = new("([’']+)", RegexOptions.None, TimeSpan.FromMilliseconds(350));
+    private static readonly Regex _markupRegex = new("<.*?>", RegexOptions.None, TimeSpan.FromMilliseconds(350));
 
     public static bool EqualsIgnoreCase(this string value, string toCheck)
     {
@@ -112,9 +92,9 @@ public static class StringExtensions
             return value;
 
 #if NET6_0_OR_GREATER
-        return value.Length <= length ? value : String.Concat(value[..length].Trim(GrammarCharacters.ToArray()), suffix);
+        return value.Length <= length ? value : String.Concat(value[..length].Trim(GrammarCharacters), suffix);
 #else
-        return value.Length <= length ? value : String.Concat(value.Substring(NumericConstants.Zero, length).Trim(GrammarCharacters.ToArray()), suffix);
+        return value.Length <= length ? value : String.Concat(value.Substring(NumericConstants.Zero, length).Trim(GrammarCharacters), suffix);
 #endif
     }
 
@@ -125,22 +105,31 @@ public static class StringExtensions
 
     public static string TruncateAtWord(this string input, int length, string suffix)
     {
-        if (String.IsNullOrWhiteSpace(input) || input.Length < length)
+#if NET7_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfLessThan(length, 0, nameof(length));
+#else
+        if (length < NumericConstants.Zero)
+            throw new ArgumentOutOfRangeException(nameof(length));
+#endif
+        if (String.IsNullOrWhiteSpace(input) || input.Length <= length)
             return input;
 
-        var lastIndexOfSpaceWithinLength = input.LastIndexOf(StringConstants.Space, length, StringComparison.Ordinal);
+        if (length == NumericConstants.Zero)
+            return suffix;
+
+        var lastIndexOfSpaceWithinLength = input.LastIndexOf(StringConstants.Space, length - NumericConstants.One, StringComparison.Ordinal);
 #if NET6_0_OR_GREATER
         var truncatedText = input[..(lastIndexOfSpaceWithinLength > NumericConstants.Zero ? lastIndexOfSpaceWithinLength : length)].Trim();
 #else
         var truncatedText = input.Substring(0, (lastIndexOfSpaceWithinLength > NumericConstants.Zero) ? lastIndexOfSpaceWithinLength : length).Trim();
 #endif
-        if (truncatedText.Last() == CharConstants.Period)
+        if (truncatedText.Length == NumericConstants.Zero)
+            return suffix;
+
+        if (truncatedText[truncatedText.Length - NumericConstants.One] == CharConstants.Period)
             return truncatedText;
 
-        if (truncatedText.Last() == CharConstants.Period)
-            return truncatedText;
-
-        return String.Concat(truncatedText.Trim(GrammarCharacters.ToArray()), suffix);
+        return String.Concat(truncatedText.Trim(GrammarCharacters), suffix);
     }
 
     /// <summary>
@@ -148,7 +137,56 @@ public static class StringExtensions
     /// </summary>
     public static string TrimWithin(this string value)
     {
-        return new Regex(@"\s+", RegexOptions.None, TimeSpan.FromMilliseconds(250)).Replace(value, StringConstants.Space).Trim();
+#if NET48
+        if (value == null)
+            throw new ArgumentNullException(nameof(value));
+#endif
+        if (value.Length == NumericConstants.Zero)
+            return value;
+
+        var start = NumericConstants.Zero;
+        var end = value.Length - NumericConstants.One;
+
+        while (start <= end && Char.IsWhiteSpace(value[start]))
+            start++;
+
+        if (start > end)
+            return String.Empty;
+
+        while (end >= start && Char.IsWhiteSpace(value[end]))
+            end--;
+
+        var previousWasWhitespace = false;
+        StringBuilder? builder = null;
+
+        for (var i = start; i <= end; i++)
+        {
+            var current = value[i];
+            if (Char.IsWhiteSpace(current))
+            {
+                if (previousWasWhitespace)
+                {
+                    builder ??= new StringBuilder(value.Length).Append(value, start, i - start);
+                    continue;
+                }
+
+                current = CharConstants.Space;
+                previousWasWhitespace = true;
+            }
+            else
+            {
+                previousWasWhitespace = false;
+            }
+
+            builder?.Append(current);
+        }
+
+        if (builder != null)
+            return builder.ToString();
+
+        return start == NumericConstants.Zero && end == value.Length - NumericConstants.One
+            ? value
+            : value.Substring(start, end - start + NumericConstants.One);
     }
 
     /// <summary>
@@ -197,9 +235,15 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
+#if NET6_0_OR_GREATER
+        return !String.IsNullOrWhiteSpace(value)
+            ? value.Split(separator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            : [];
+#else
         return !String.IsNullOrWhiteSpace(value)
             ? value.Split(separator).Where(x => !String.IsNullOrWhiteSpace(x)).Select(x => x.Trim())
             : [];
+#endif
     }
 
     public static string RemoveWhitespace(this string value)
@@ -211,9 +255,21 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        return new string(value.ToCharArray()
-            .Where(c => !Char.IsWhiteSpace(c))
-            .ToArray());
+        StringBuilder? builder = null;
+
+        for (var i = NumericConstants.Zero; i < value.Length; i++)
+        {
+            var current = value[i];
+            if (Char.IsWhiteSpace(current))
+            {
+                builder ??= new StringBuilder(value.Length).Append(value, NumericConstants.Zero, i);
+                continue;
+            }
+
+            builder?.Append(current);
+        }
+
+        return builder?.ToString() ?? value;
     }
 
     public static string StripMarkup(this string value)
@@ -225,7 +281,7 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        return Regex.Replace(value, "<.*?>", String.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(350)).TrimWithin();
+        return _markupRegex.Replace(value, String.Empty).TrimWithin();
     }
 
     /// <summary>
@@ -237,8 +293,42 @@ public static class StringExtensions
         if (value == null)
             return null;
 #endif
-        var regexPattern = $"{(ReservedRegexChars.Contains(characterToReplace) ? StringConstants.BackSlash : null)}{characterToReplace}{{{minimumOccurrences},}}";
-        return Regex.Replace(value, regexPattern, characterToReplaceWith.ToString(), RegexOptions.None, TimeSpan.FromMilliseconds(350));
+#if NET7_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfLessThan(minimumOccurrences, 1, nameof(minimumOccurrences));
+#else
+        if (minimumOccurrences < NumericConstants.One)
+            throw new ArgumentOutOfRangeException(nameof(minimumOccurrences));
+#endif
+        if (String.IsNullOrEmpty(value))
+            return value;
+
+        StringBuilder? builder = null;
+
+        for (var i = NumericConstants.Zero; i < value.Length;)
+        {
+            if (value[i] != characterToReplace)
+            {
+                builder?.Append(value[i]);
+                i++;
+                continue;
+            }
+
+            var runStart = i;
+            while (i < value.Length && value[i] == characterToReplace)
+                i++;
+
+            var runLength = i - runStart;
+            if (runLength >= minimumOccurrences)
+            {
+                builder ??= new StringBuilder(value.Length).Append(value, NumericConstants.Zero, runStart);
+                builder.Append(characterToReplaceWith);
+                continue;
+            }
+
+            builder?.Append(value, runStart, runLength);
+        }
+
+        return builder?.ToString() ?? value;
     }
 
     /// <summary>
@@ -339,6 +429,14 @@ public static class StringExtensions
 
     public static string ToUrlFriendly(this string value)
     {
+        return value.ToUrlFriendly(Encoding.ASCII);
+    }
+
+    public static string ToUrlFriendly(this string value, Encoding outputEncoding)
+    {
+        if (outputEncoding == null)
+            throw new ArgumentNullException(nameof(outputEncoding));
+
 #if NET48
         if (value == null)
             return null;
@@ -346,18 +444,131 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
-        var workingString = value.ToLower();
+        return ToUrlFriendlyCore(value, outputEncoding);
+    }
 
-        // Remove quotes so that they aren't replaced by hyphens later.
-        workingString = _singleQuoteRegex.Replace(workingString, String.Empty);
+    private static string ToUrlFriendlyCore(string value, Encoding outputEncoding)
+    {
+        var normalizedValue = value.Normalize(NormalizationForm.FormD);
+        var strictEncoding = GetStrictEncoding(outputEncoding);
+        var singleCharacterBuffer = new char[NumericConstants.One];
+        StringBuilder? builder = null;
+        var hasChanges = !String.Equals(value, normalizedValue, StringComparison.Ordinal);
+        var previousWasSeparator = true;
+        var segmentStart = NumericConstants.Zero;
 
-        // Remove excess whitespace
-        workingString = workingString.TrimWithin();
+        for (var i = NumericConstants.Zero; i < normalizedValue.Length; i++)
+        {
+            var current = normalizedValue[i];
+            var category = CharUnicodeInfo.GetUnicodeCategory(current);
 
-        // Replace non-URL-friendly characters.
-        workingString = _nonWordCharactersRegex.Replace(workingString, StringConstants.Hyphen);
+            if (category == UnicodeCategory.NonSpacingMark ||
+                category == UnicodeCategory.SpacingCombiningMark ||
+                category == UnicodeCategory.EnclosingMark)
+            {
+                hasChanges = true;
+                if (builder == null)
+                    builder = new StringBuilder(normalizedValue.Length).Append(normalizedValue, segmentStart, i - segmentStart);
 
-        return workingString.ReplaceExcess(CharConstants.Hyphen, CharConstants.Hyphen).Trim(CharConstants.Hyphen);
+                segmentStart = i + NumericConstants.One;
+                continue;
+            }
+
+            if (current == CharConstants.SingleQuote || current == '’')
+            {
+                hasChanges = true;
+                if (builder == null)
+                    builder = new StringBuilder(normalizedValue.Length).Append(normalizedValue, segmentStart, i - segmentStart);
+
+                segmentStart = i + NumericConstants.One;
+                continue;
+            }
+
+            var lower = Char.ToLowerInvariant(current);
+            if (lower != current)
+            {
+                hasChanges = true;
+
+                if (builder == null)
+                    builder = new StringBuilder(normalizedValue.Length).Append(normalizedValue, segmentStart, i - segmentStart);
+
+                builder.Append(lower);
+                segmentStart = i + NumericConstants.One;
+                previousWasSeparator = false;
+                continue;
+            }
+
+            if (Char.IsLetterOrDigit(lower) && CanRoundTrip(lower, strictEncoding, singleCharacterBuffer))
+            {
+                if (builder != null)
+                {
+                    builder.Append(lower);
+                    segmentStart = i + NumericConstants.One;
+                }
+
+                previousWasSeparator = false;
+                continue;
+            }
+
+            hasChanges = true;
+            if (builder == null)
+                builder = new StringBuilder(normalizedValue.Length).Append(normalizedValue, segmentStart, i - segmentStart);
+
+            if (!previousWasSeparator)
+            {
+                builder.Append(CharConstants.Hyphen);
+                previousWasSeparator = true;
+            }
+
+            segmentStart = i + NumericConstants.One;
+        }
+
+        if (builder == null)
+            return hasChanges ? normalizedValue.Normalize(NormalizationForm.FormC) : value;
+
+        if (segmentStart < normalizedValue.Length)
+            builder.Append(normalizedValue, segmentStart, normalizedValue.Length - segmentStart);
+
+        if (builder.Length > NumericConstants.Zero &&
+            builder[builder.Length - NumericConstants.One] == CharConstants.Hyphen)
+        {
+            builder.Length--;
+        }
+
+        if (builder.Length == NumericConstants.Zero)
+            return String.Empty;
+
+        return hasChanges ? builder.ToString().Normalize(NormalizationForm.FormC) : value;
+    }
+
+    private static Encoding GetStrictEncoding(Encoding encoding)
+    {
+        var strictEncoding = (Encoding)encoding.Clone();
+        strictEncoding.EncoderFallback = EncoderFallback.ExceptionFallback;
+        strictEncoding.DecoderFallback = DecoderFallback.ExceptionFallback;
+
+        return strictEncoding;
+    }
+
+    private static bool CanRoundTrip(char value, Encoding encoding, char[] singleCharacterBuffer)
+    {
+        singleCharacterBuffer[NumericConstants.Zero] = value;
+
+        try
+        {
+            var bytes = encoding.GetBytes(singleCharacterBuffer);
+            var decodedValue = encoding.GetString(bytes);
+
+            return decodedValue.Length == NumericConstants.One && decodedValue[NumericConstants.Zero] == value;
+        }
+        catch (EncoderFallbackException)
+        {
+            return false;
+        }
+        catch (DecoderFallbackException)
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -370,8 +581,8 @@ public static class StringExtensions
         if (value == null)
             return defaultValue ?? false;
 #endif
-        if (Boolean.TryParse(value, out var actualResult) && actualResult)
-            return true;
+        if (Boolean.TryParse(value, out var actualResult))
+            return actualResult;
 
         return defaultValue ?? false;
     }
@@ -393,10 +604,10 @@ public static class StringExtensions
             if (i > 0) builder.Append(CharConstants.Space);
 
 #if NET6_0_OR_GREATER
-            builder.Append(sourceParts[i][..1].ToUpper());
+            builder.Append(sourceParts[i][..1].ToUpperInvariant());
             builder.Append(sourceParts[i][1..]);
 #else
-            builder.Append(sourceParts[i].Substring(0, 1).ToUpper());
+            builder.Append(sourceParts[i].Substring(0, 1).ToUpperInvariant());
             builder.Append(sourceParts[i].Substring(1));
 #endif
         }
