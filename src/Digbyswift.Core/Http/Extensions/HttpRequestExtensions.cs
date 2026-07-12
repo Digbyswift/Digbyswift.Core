@@ -66,7 +66,17 @@ public static class HttpRequestExtensions
         if (!request.Headers.TryGetValue(HeaderNames.Referer, out var headerValue) || String.IsNullOrWhiteSpace(headerValue))
             return null;
 
-        if (!Uri.TryCreate(headerValue, UriKind.Absolute, out var referringUri))
+        var referrerValue = headerValue.ToString();
+
+        // On Unix, rooted paths can be parsed as absolute file URIs. Referrers should remain web URLs.
+#if NETSTANDARD2_0
+        if (referrerValue.StartsWith(StringConstants.ForwardSlash) && !referrerValue.StartsWith(StringConstants.DoubleForwardSlash))
+#else
+        if (referrerValue.StartsWith(CharConstants.ForwardSlash) && !referrerValue.StartsWith(StringConstants.DoubleForwardSlash))
+#endif
+            return null;
+
+        if (!Uri.TryCreate(referrerValue, UriKind.Absolute, out var referringUri))
             return null;
 
         return referringUri;
