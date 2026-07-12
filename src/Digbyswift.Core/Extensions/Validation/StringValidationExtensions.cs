@@ -166,7 +166,19 @@ public static class StringValidationExtensions
         if (String.IsNullOrWhiteSpace(value))
             return false;
 
-        return Regex.HasFileExtension.Value.IsMatch(value);
+        return value.HasFileExtension(minLength: 1);
+    }
+
+    public static bool HasFileExtension(this string path, int minLength, int maxLength = Int32.MaxValue)
+    {
+        var slashIndex = path.LastIndexOf(CharConstants.ForwardSlash);
+        var dotIndex = path.LastIndexOf(CharConstants.Period);
+
+        if (dotIndex <= slashIndex)
+            return false;
+
+        var length = path.Length - dotIndex - 1;
+        return length >= minLength && length <= maxLength;
     }
 
     /// <summary>

@@ -43,7 +43,7 @@ public class RequestExtensionTests
         _sut.Path = new PathString(path);
 
         // Act
-        var result = _sut.PathHasExtension();
+        var result = _sut.PathHasFileExtension();
 
         // Assert
         Assert.That(result, Is.True);
@@ -66,7 +66,7 @@ public class RequestExtensionTests
         _sut.Path = new PathString(path);
 
         // Act
-        var result = _sut.PathHasExtension();
+        var result = _sut.PathHasFileExtension();
 
         // Assert
         Assert.That(result, Is.False);

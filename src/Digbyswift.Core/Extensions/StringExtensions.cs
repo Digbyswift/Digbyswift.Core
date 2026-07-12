@@ -29,6 +29,16 @@ public static class StringExtensions
         return value.Equals(toCheck, StringComparison.OrdinalIgnoreCase);
     }
 
+    public static bool StartsWithIgnoreCase(this string value, string withValue)
+    {
+        return value.StartsWith(withValue, StringComparison.OrdinalIgnoreCase);
+    }
+
+    public static bool EndsWithIgnoreCase(this string value, string withValue)
+    {
+        return value.EndsWith(withValue, StringComparison.OrdinalIgnoreCase);
+    }
+
     /// <summary>
     /// Returns the value provided when the input is null, empty or whitespace.
     /// </summary>
@@ -284,6 +294,70 @@ public static class StringExtensions
         }
 
         return builder?.ToString() ?? value;
+    }
+
+#if NET6_0_OR_GREATER
+    public static string CollapseSlashes(this string path)
+    {
+        if (String.IsNullOrWhiteSpace(path))
+            return String.Empty;
+
+        var length = 0;
+        var previousWasSlash = false;
+
+        foreach (var c in path)
+        {
+            if (c == CharConstants.ForwardSlash)
+            {
+                if (previousWasSlash)
+                    continue;
+
+                previousWasSlash = true;
+            }
+            else
+            {
+                previousWasSlash = false;
+            }
+
+            length++;
+        }
+
+        return String.Create(length, path, static (destination, source) =>
+        {
+            var index = 0;
+            var previousWasSlash = false;
+
+            foreach (var c in source)
+            {
+                if (c == CharConstants.ForwardSlash)
+                {
+                    if (previousWasSlash)
+                        continue;
+
+                    previousWasSlash = true;
+                }
+                else
+                {
+                    previousWasSlash = false;
+                }
+
+                destination[index++] = c;
+            }
+        });
+    }
+#endif
+
+    public static bool ContainsUppercaseAscii(this string value)
+    {
+#pragma warning disable S3267
+        foreach (var c in value)
+#pragma warning restore S3267
+        {
+            if (c is >= 'A' and <= 'Z')
+                return true;
+        }
+
+        return false;
     }
 
     public static string StripMarkup(this string value)

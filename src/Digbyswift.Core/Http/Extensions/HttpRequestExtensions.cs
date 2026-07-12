@@ -2,6 +2,7 @@ using System.Net;
 using System.Web;
 using Digbyswift.Core.Constants;
 using Digbyswift.Core.Extensions;
+using Digbyswift.Core.Extensions.Validation;
 using Digbyswift.Core.Http.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
@@ -226,6 +227,14 @@ public static class HttpRequestExtensions
         return true;
     }
 
+    public static bool IsInternetExplorer11(this HttpRequest request)
+    {
+        if (!request.Headers.TryGetValue(HeaderNames.UserAgent, out var userAgent))
+            return false;
+
+        return userAgent.ToString().ContainsIgnoreCase("Trident/7.0");
+    }
+
     public static bool AcceptsWebP(this HttpRequest request)
     {
         var acceptHeaderKey = request.Headers.ContainsKey(NonStandardHeaderNames.XForwardedAccept)
@@ -271,12 +280,25 @@ public static class HttpRequestExtensions
 
     #region Path
 
-    public static bool PathHasExtension(this HttpRequest request)
+    public static bool PathHasFileExtension(this HttpRequest request)
     {
         if (String.IsNullOrWhiteSpace(request.Path))
             throw new ArgumentException("Request has no path");
 
-        return RegularExpressions.Regex.HasFileExtension.Value.IsMatch(request.Path);
+        var lastSegment = request.Path.Segments().LastOrDefault();
+        return lastSegment?.HasFileExtension() ?? false;
+    }
+
+    public static string? PathFileExtension(this HttpRequest request)
+    {
+        var lastSegment = request.Path.Segments().LastOrDefault();
+        return lastSegment?.HasFileExtension() ?? false
+#if NETSTANDARD2_0
+            ? lastSegment.Substring(lastSegment.LastIndexOf(CharConstants.Period))
+#else
+            ? lastSegment[lastSegment.LastIndexOf(CharConstants.Period)..]
+#endif
+            : null;
     }
 
     public static bool IsPngOrJpeg(this HttpRequest request)
@@ -364,7 +386,7 @@ public static class HttpRequestExtensions
             : request.Path;
     }
 
-    public static string PathAndQueryOnly(this HttpRequest request, string key, string? defaultValue)
+    public static string PathAndQueryKeyOnly(this HttpRequest request, string key, string? defaultValue)
     {
         if (request.Query.TryGetValue(key, out var value))
             return $"?{key}={value}";
