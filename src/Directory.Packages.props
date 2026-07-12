@@ -18,6 +18,5 @@
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="10.0.9" />
     <PackageVersion Include="System.Reflection.Metadata" Version="10.0.9" />
-    <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
   </ItemGroup>
 </Project>

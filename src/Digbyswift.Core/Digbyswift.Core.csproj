@@ -41,6 +41,5 @@
         <PackageReference Include="Microsoft.Net.Http.Headers" />
         <PackageReference Include="Nager.PublicSuffix" />
         <PackageReference Include="Newtonsoft.Json"/>
-        <PackageReference Include="System.Text.Encodings.Web" Condition="'$(TargetFramework)' != 'net8.0'" />
     </ItemGroup>
 </Project>
