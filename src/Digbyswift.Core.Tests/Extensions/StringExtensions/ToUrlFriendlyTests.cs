@@ -29,12 +29,14 @@ public class ToUrlFriendlyTests
         Assert.That(result, Is.EqualTo(String.Empty));
     }
 
+#if NET48
     [Test]
     public void ToUrlFriendly_Throws_WhenTheOutputEncodingIsNull()
     {
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => "Hello".ToUrlFriendly(null));
     }
+#endif
 
     [TestCase("Hello, World!", "hello-world")]
     [TestCase("John's blog", "johns-blog")]

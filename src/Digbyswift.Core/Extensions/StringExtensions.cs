@@ -174,8 +174,14 @@ public static class StringExtensions
                     continue;
                 }
 
-                current = CharConstants.Space;
                 previousWasWhitespace = true;
+
+                if (current != CharConstants.Space)
+                {
+                    builder ??= new StringBuilder(value.Length).Append(value, start, i - start);
+                    builder.Append(CharConstants.Space);
+                    continue;
+                }
             }
             else
             {

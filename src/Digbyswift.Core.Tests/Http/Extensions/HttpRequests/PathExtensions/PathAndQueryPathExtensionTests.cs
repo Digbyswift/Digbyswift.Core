@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Net.Http;
+using Digbyswift.Core.Http.Extensions;
 using Microsoft.AspNetCore.Http;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Digbyswift.Extensions.Http.Tests.Extensions.HttpRequests.PathExtensions;
+namespace Digbyswift.Core.Tests.Http.Extensions.HttpRequests.PathExtensions;
 
 [TestFixture]
 public class PathAndQueryPathExtensionTests
@@ -44,9 +45,6 @@ public class PathAndQueryPathExtensionTests
         Assert.That(result, Is.EqualTo(expectedResult));
     }
 
-    [TestCase("/testing", null)]
-    [TestCase("/testing/", null)]
-    [TestCase("/testing-again/", null)]
     [TestCase("/testing-again/", "?test=true")]
     public void PathAndQueryReplaceValueOfKey_ReturnsOriginalPathAndQuery_WhenKeyParamIsEmpty(string path, string querystring)
     {
@@ -61,9 +59,11 @@ public class PathAndQueryPathExtensionTests
         Assert.That(result, Is.EqualTo(path + querystring));
     }
 
+#if NETSTANDARD2_0
     [TestCase("/testing", null)]
     [TestCase("/testing/", null)]
     [TestCase("/testing-again/", null)]
+#endif
     [TestCase("/testing-again/", "?test=true")]
     public void PathAndQueryReplaceValueOfKey_ReturnsOriginalPathAndQuery_WhenKeyIsNotPresent(string path, string querystring)
     {

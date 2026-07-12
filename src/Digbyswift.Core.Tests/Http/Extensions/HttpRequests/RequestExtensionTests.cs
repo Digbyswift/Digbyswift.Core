@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using Digbyswift.Core.Http.Extensions;
 using Digbyswift.Extensions.Http.Tests.MockObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
@@ -7,7 +6,7 @@ using Microsoft.Net.Http.Headers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Digbyswift.Extensions.Http.Tests.Extensions.HttpRequests;
+namespace Digbyswift.Core.Tests.Http.Extensions.HttpRequests;
 
 [TestFixture]
 public class RequestExtensionTests
@@ -136,6 +135,7 @@ public class RequestExtensionTests
     [TestCase(null)]
     [TestCase("")]
     [TestCase("   ")]
+#pragma warning disable S4144
     public void GetReferrer_ReturnsNull_WhenReferrerValueIsNullOrWhitespace(string? value)
     {
         // Arrange
@@ -156,6 +156,7 @@ public class RequestExtensionTests
     [TestCase("/index.html")]
     [TestCase("/index.html,/default.html")]
     public void GetReferrer_ReturnsNull_WhenReferrerValueIsNotAbsolute(string? value)
+#pragma warning restore S4144
     {
         // Arrange
         _sut.Headers.Add(HeaderNames.Referer, new StringValues(value));

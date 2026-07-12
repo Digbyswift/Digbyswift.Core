@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
+using Digbyswift.Core.Http.Extensions;
 using Microsoft.AspNetCore.Http;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Digbyswift.Extensions.Http.Tests.Extensions.HttpRequests.PathExtensions;
+namespace Digbyswift.Core.Tests.Http.Extensions.HttpRequests.PathExtensions;
 
 [TestFixture]
 public class IsPngOrJpgPathExtensionTests
@@ -52,6 +53,7 @@ public class IsPngOrJpgPathExtensionTests
     [TestCase("/a/a.jpeg")]
     [TestCase("/a/a.JPEG")]
     [TestCase("/a/a.Jpeg")]
+#pragma warning disable S4144
     public void IsPngOrJpeg_ReturnsTrue_WhenPathEndsWithJpegExtension(string path)
     {
         // Arrange
@@ -71,6 +73,7 @@ public class IsPngOrJpgPathExtensionTests
     [TestCase("/a/a.PNG")]
     [TestCase("/a/a.Png")]
     public void IsPngOrJpeg_ReturnsTrue_WhenPathEndsWithPngExtension(string path)
+#pragma warning restore S4144
     {
         // Arrange
         _sut.Path = new PathString(path);

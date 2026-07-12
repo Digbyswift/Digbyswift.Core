@@ -122,7 +122,17 @@ public class StringExtensionsPerformanceReviewTests
     public void TrimWithin_TrimsAndCollapsesWhitespace()
     {
         // Act
-        var result = " \tabc\r\n  def  ".TrimWithin();
+        var result = " \tabc\n\r  def\n  ".TrimWithin();
+
+        // Assert
+        Assert.That(result, Is.EqualTo("abc def"));
+    }
+
+    [Test]
+    public void TrimWithin_NormalizesSingleNonSpaceWhitespace()
+    {
+        // Act
+        var result = "abc\tdef".TrimWithin();
 
         // Assert
         Assert.That(result, Is.EqualTo("abc def"));
