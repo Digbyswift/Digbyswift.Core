@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: src/Digbyswift.Core/Digbyswift.Core
+        working-directory: src/Digbyswift.Core
 
     steps:
       - name: Check out the code
@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: .package
-          path: src\Digbyswift.Core\Digbyswift.Core\_package
+          path: src\Digbyswift.Core\_package
           retention-days: 5
 
   upload-lib:

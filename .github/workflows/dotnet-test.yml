@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: src/Digbyswift.Core/Digbyswift.Core.Tests
+        working-directory: src/Digbyswift.Core.Tests
 
     steps:
       - name: Check out the code
