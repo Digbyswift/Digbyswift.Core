@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: src/Digbyswift.Core/Digbyswift.Core.Tests
+        working-directory: src/Digbyswift.Core.Tests
 
     steps:
       - name: Check out the code
@@ -27,10 +27,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore --force-evaluate
 
       - name: Build
         run: dotnet build --no-restore
