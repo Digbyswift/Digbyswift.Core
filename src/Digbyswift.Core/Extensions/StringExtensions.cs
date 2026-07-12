@@ -1,5 +1,5 @@
-﻿using System.Text;
-using System.Globalization;
+﻿using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 using Digbyswift.Core.Constants;
 
@@ -7,7 +7,7 @@ namespace Digbyswift.Core.Extensions;
 
 public static class StringExtensions
 {
-    private static readonly char[] GrammarCharacters =
+    private static readonly char[] _grammarCharacters =
     [
         CharConstants.Comma,
         CharConstants.SemiColon,
@@ -92,9 +92,9 @@ public static class StringExtensions
             return value;
 
 #if NET6_0_OR_GREATER
-        return value.Length <= length ? value : String.Concat(value[..length].Trim(GrammarCharacters), suffix);
+        return value.Length <= length ? value : String.Concat(value[..length].Trim(_grammarCharacters), suffix);
 #else
-        return value.Length <= length ? value : String.Concat(value.Substring(NumericConstants.Zero, length).Trim(GrammarCharacters), suffix);
+        return value.Length <= length ? value : String.Concat(value.Substring(NumericConstants.Zero, length).Trim(_grammarCharacters), suffix);
 #endif
     }
 
@@ -129,7 +129,7 @@ public static class StringExtensions
         if (truncatedText[truncatedText.Length - NumericConstants.One] == CharConstants.Period)
             return truncatedText;
 
-        return String.Concat(truncatedText.Trim(GrammarCharacters), suffix);
+        return String.Concat(truncatedText.Trim(_grammarCharacters), suffix);
     }
 
     /// <summary>
@@ -157,7 +157,11 @@ public static class StringExtensions
             end--;
 
         var previousWasWhitespace = false;
+#if NET48
+        StringBuilder builder = null;
+#else
         StringBuilder? builder = null;
+#endif
 
         for (var i = start; i <= end; i++)
         {
@@ -255,7 +259,11 @@ public static class StringExtensions
         if (String.IsNullOrWhiteSpace(value))
             return String.Empty;
 
+#if NET48
+        StringBuilder builder = null;
+#else
         StringBuilder? builder = null;
+#endif
 
         for (var i = NumericConstants.Zero; i < value.Length; i++)
         {
@@ -302,7 +310,11 @@ public static class StringExtensions
         if (String.IsNullOrEmpty(value))
             return value;
 
+#if NET48
+        StringBuilder builder = null;
+#else
         StringBuilder? builder = null;
+#endif
 
         for (var i = NumericConstants.Zero; i < value.Length;)
         {
@@ -434,10 +446,10 @@ public static class StringExtensions
 
     public static string ToUrlFriendly(this string value, Encoding outputEncoding)
     {
+#if NET48
         if (outputEncoding == null)
             throw new ArgumentNullException(nameof(outputEncoding));
 
-#if NET48
         if (value == null)
             return null;
 #endif
@@ -447,15 +459,73 @@ public static class StringExtensions
         return ToUrlFriendlyCore(value, outputEncoding);
     }
 
+    /// <summary>
+    /// Converts a string value to a bool. If the string isn't a valid bool, it
+    /// will return the default value or false if one is not specified.
+    /// </summary>
+    public static bool ToBool(this string value, bool? defaultValue)
+    {
+#if NET48
+        if (value == null)
+            return defaultValue ?? false;
+#endif
+        if (Boolean.TryParse(value, out var actualResult))
+            return actualResult;
+
+        return defaultValue ?? false;
+    }
+
+    public static string CapitalizeWords(this string value)
+    {
+#if NET48
+        if (value == null)
+            return null;
+#endif
+        if (String.IsNullOrWhiteSpace(value))
+            return String.Empty;
+
+        var sourceParts = value.Split([CharConstants.Space], StringSplitOptions.RemoveEmptyEntries);
+        var builder = new StringBuilder();
+
+        for (var i = 0; i < sourceParts.Length; i++)
+        {
+            if (i > 0) builder.Append(CharConstants.Space);
+
+#if NET6_0_OR_GREATER
+            builder.Append(sourceParts[i][..1].ToUpperInvariant());
+            builder.Append(sourceParts[i][1..]);
+#else
+            builder.Append(sourceParts[i].Substring(0, 1).ToUpperInvariant());
+            builder.Append(sourceParts[i].Substring(1));
+#endif
+        }
+
+        return builder.ToString();
+    }
+
+    public static TEnum ToEnum<TEnum>(this string enumDescription) where TEnum : struct, Enum
+    {
+        if (String.IsNullOrEmpty(enumDescription))
+            return (TEnum)Enum.ToObject(typeof(TEnum), NumericConstants.Zero);
+
+        var enumName = enumDescription.Replace(StringConstants.Space, String.Empty);
+        return (TEnum)Enum.Parse(typeof(TEnum), enumName);
+    }
+
     private static string ToUrlFriendlyCore(string value, Encoding outputEncoding)
     {
         var normalizedValue = value.Normalize(NormalizationForm.FormD);
         var strictEncoding = GetStrictEncoding(outputEncoding);
         var singleCharacterBuffer = new char[NumericConstants.One];
-        StringBuilder? builder = null;
         var hasChanges = !String.Equals(value, normalizedValue, StringComparison.Ordinal);
         var previousWasSeparator = true;
         var segmentStart = NumericConstants.Zero;
+
+#if NET48
+        StringBuilder builder = null;
+#else
+        StringBuilder? builder = null;
+#endif
 
         for (var i = NumericConstants.Zero; i < normalizedValue.Length; i++)
         {
@@ -569,58 +639,5 @@ public static class StringExtensions
         {
             return false;
         }
-    }
-
-    /// <summary>
-    /// Converts a string value to a bool. If the string isn't a valid bool, it
-    /// will return the default value or false if one is not specified.
-    /// </summary>
-    public static bool ToBool(this string value, bool? defaultValue)
-    {
-#if NET48
-        if (value == null)
-            return defaultValue ?? false;
-#endif
-        if (Boolean.TryParse(value, out var actualResult))
-            return actualResult;
-
-        return defaultValue ?? false;
-    }
-
-    public static string CapitalizeWords(this string value)
-    {
-#if NET48
-        if (value == null)
-            return null;
-#endif
-        if (String.IsNullOrWhiteSpace(value))
-            return String.Empty;
-
-        var sourceParts = value.Split([CharConstants.Space], StringSplitOptions.RemoveEmptyEntries);
-        var builder = new StringBuilder();
-
-        for (var i = 0; i < sourceParts.Length; i++)
-        {
-            if (i > 0) builder.Append(CharConstants.Space);
-
-#if NET6_0_OR_GREATER
-            builder.Append(sourceParts[i][..1].ToUpperInvariant());
-            builder.Append(sourceParts[i][1..]);
-#else
-            builder.Append(sourceParts[i].Substring(0, 1).ToUpperInvariant());
-            builder.Append(sourceParts[i].Substring(1));
-#endif
-        }
-
-        return builder.ToString();
-    }
-
-    public static TEnum ToEnum<TEnum>(this string enumDescription) where TEnum : struct, Enum
-    {
-        if (String.IsNullOrEmpty(enumDescription))
-            return (TEnum)Enum.ToObject(typeof(TEnum), NumericConstants.Zero);
-
-        var enumName = enumDescription.Replace(StringConstants.Space, String.Empty);
-        return (TEnum)Enum.Parse(typeof(TEnum), enumName);
     }
 }

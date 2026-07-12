@@ -16,9 +16,9 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>package-icon.png</PackageIcon>
         <PackageTags>c# extensions utility</PackageTags>
-        <PackageVersion>2.6.2</PackageVersion>
-        <AssemblyVersion>2.6.2</AssemblyVersion>
-        <FileVersion>2.6.2</FileVersion>
+        <PackageVersion>2.7.0</PackageVersion>
+        <AssemblyVersion>2.7.0</AssemblyVersion>
+        <FileVersion>2.7.0</FileVersion>
         <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
@@ -29,15 +29,17 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <None Include="../../../package-icon.png" Pack="true" PackagePath=""/>
+        <None Include="../../package-icon.png" Pack="true" PackagePath=""/>
+        <None Include="../../LICENSE" Pack="true" PackagePath=""/>
+        <None Include="../../README.md" Pack="true" PackagePath=""/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+        <Compile Remove="Http\**\*" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="../../../LICENSE" Pack="true" PackagePath=""/>
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="../../../README.md" Pack="true" PackagePath=""/>
-    </ItemGroup>
-    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+        <PackageReference Include="Microsoft.Net.Http.Headers" />
+        <PackageReference Include="Nager.PublicSuffix" />
         <PackageReference Include="Newtonsoft.Json"/>
     </ItemGroup>
 </Project>

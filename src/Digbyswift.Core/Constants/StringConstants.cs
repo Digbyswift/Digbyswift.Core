@@ -13,6 +13,8 @@ public static class StringConstants
     public const string CurlyBracketLeft = "{";
     public const string CurlyBracketRight = "}";
     public const string Dollar = "$";
+    public const string DoubleBackSlash = @"\\";
+    public const string DoubleForwardSlash = @"//";
     public const string DoubleQuote = "\"";
     public const string Ellipsis = "…";
     public const string EllipsisAlt = "...";
