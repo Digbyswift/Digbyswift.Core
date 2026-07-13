@@ -59,7 +59,7 @@ public class PathAndQueryPathExtensionTests
         Assert.That(result, Is.EqualTo(path + querystring));
     }
 
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
     [TestCase("/testing", null)]
     [TestCase("/testing/", null)]
     [TestCase("/testing-again/", null)]

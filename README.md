@@ -3,7 +3,7 @@
 [![NuGet version (Digbyswift.Core)](https://img.shields.io/nuget/v/Digbyswift.Core.svg)](https://www.nuget.org/packages/Digbyswift.Core/)
 [![Build and publish package](https://github.com/Digbyswift/Digbyswift.Core/actions/workflows/dotnet-build-publish.yml/badge.svg)](https://github.com/Digbyswift/Digbyswift.Core/actions/workflows/dotnet-build-publish.yml)
 
-A library of general-use classes and extensions for everyday coding.
+A library of general-use classes and extensions for everyday .NET coding.
 
 This includes:
 
@@ -110,8 +110,8 @@ This includes:
 
 - `ContainsKeyAndValue<TKey, TValue>(TKey key, TValue value)`
 - `ContainsKeyAndValue<TKey>(TKey key, string value, StringComparison stringComparison = StringComparison.CurrentCulture)`
-- `GetValueOrDefault<TKey, TValue>(TKey key, TValue defaultValue)` (not available on .NET 6+)
-- `GetValueOrNull<TKey, TValue>(TKey key)` (.NET Framework and .NET Standard)
+- `GetValueOrDefault<TKey, TValue>(TKey key, TValue defaultValue)` (.NET 4.8 only)
+- `GetValueOrNull<TKey, TValue>(TKey key)` (.NET 4.8 only)
 - `Set<TKey, TValue>(TKey key, TValue value)`
 
 ### NameValueCollection
@@ -127,11 +127,11 @@ This includes:
 - `CapitalizeWords()`
 - `Coalesce(string fallback)`
 - `Coalesce(string? optionalFallback, string requiredFallback)`
-- `Contains(string toCheck, StringComparison comp)` (not available on .NET 6+)
+- `Contains(string toCheck, StringComparison comp)` (.NET 4.8 only)
 - `ContainsIgnoreCase(string toCheck)`
 - `ContainsIgnoreCase(IEnumerable<string> value, string toCheck)`
 - `ContainsUppercaseAscii()`
-- `CollapseSlashes()` (.NET 6+)
+- `CollapseSlashes()`
 - `EndsWithIgnoreCase(string withValue)`
 - `EqualsIgnoreCase(string toCheck)`
 - `MaskRight(int numberOfVisibleCharacter, char maskingCharacter = CharConstants.Asterisk)`
@@ -279,7 +279,7 @@ This includes:
 
 ### Enum
 
-- `Parse<T>(string value, T defaultValue = default)` (.NET Framework)
+- `Parse<T>(string value, T defaultValue = default)` (.NET 4.8 only)
 
 ### HttpContent (.NET Standard 2.0 & .NET 8 only)
 

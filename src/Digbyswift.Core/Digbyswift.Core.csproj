@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <!-- Project settings -->
-        <TargetFrameworks>net8.0;netstandard2.0;net48</TargetFrameworks>
+        <TargetFrameworks>net8.0;netstandard2.1;net48</TargetFrameworks>
         <RootNamespace>Digbyswift.Core</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
@@ -16,11 +16,13 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>package-icon.png</PackageIcon>
         <PackageTags>c# extensions utility</PackageTags>
-        <PackageVersion>2.7.1</PackageVersion>
-        <AssemblyVersion>2.7.1</AssemblyVersion>
-        <FileVersion>2.7.1</FileVersion>
+        <PackageVersion>2.7.2</PackageVersion>
+        <AssemblyVersion>2.7.2</AssemblyVersion>
+        <FileVersion>2.7.2</FileVersion>
         <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Core</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net48' ">
         <Nullable>disable</Nullable>

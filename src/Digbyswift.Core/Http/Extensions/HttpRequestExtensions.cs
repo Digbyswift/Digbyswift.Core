@@ -69,11 +69,7 @@ public static class HttpRequestExtensions
         var referrerValue = headerValue.ToString();
 
         // On Unix, rooted paths can be parsed as absolute file URIs. Referrers should remain web URLs.
-#if NETSTANDARD2_0
-        if (referrerValue.StartsWith(StringConstants.ForwardSlash) && !referrerValue.StartsWith(StringConstants.DoubleForwardSlash))
-#else
         if (referrerValue.StartsWith(CharConstants.ForwardSlash) && !referrerValue.StartsWith(StringConstants.DoubleForwardSlash))
-#endif
             return null;
 
         if (!Uri.TryCreate(referrerValue, UriKind.Absolute, out var referringUri))
@@ -303,11 +299,7 @@ public static class HttpRequestExtensions
     {
         var lastSegment = request.Path.Segments().LastOrDefault();
         return lastSegment?.HasFileExtension() ?? false
-#if NETSTANDARD2_0
-            ? lastSegment.Substring(lastSegment.LastIndexOf(CharConstants.Period))
-#else
             ? lastSegment[lastSegment.LastIndexOf(CharConstants.Period)..]
-#endif
             : null;
     }
 
@@ -330,7 +322,7 @@ public static class HttpRequestExtensions
 
         var newQueryString = HttpUtility.ParseQueryString(request.QueryString.ToString());
 
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
         if (newQueryString.AllKeys.WhereNotNull().ContainsIgnoreCase(replaceKey))
 #else
         if (newQueryString.AllKeys.WhereNotNull().Cast<string>().ContainsIgnoreCase(replaceKey))
@@ -360,7 +352,7 @@ public static class HttpRequestExtensions
 
         // this gets all the query string key value pairs as a collection
         var newQueryString = HttpUtility.ParseQueryString(request.QueryString.ToString());
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
         if (!newQueryString.AllKeys.WhereNotNull().ContainsIgnoreCase(excludeKey))
 #else
         if (!newQueryString.AllKeys.WhereNotNull().Cast<string>().ContainsIgnoreCase(excludeKey))

@@ -18,7 +18,7 @@ public static class DateTimeExtensions
 
     public static long ToUnixTimeSeconds(this DateTime value)
     {
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER // API Change with .NET 5
         return (long)value.Subtract(DateTime.UnixEpoch).TotalSeconds;
 #else
         return (long)value.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, value.Kind)).TotalSeconds;

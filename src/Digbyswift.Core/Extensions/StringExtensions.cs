@@ -68,7 +68,7 @@ public static class StringExtensions
     }
 #endif
 
-#if !NET6_0_OR_GREATER
+#if NET48
     public static bool Contains(this string value, string toCheck, StringComparison comp)
     {
         return value.IndexOf(toCheck, comp) >= NumericConstants.Zero;
@@ -92,8 +92,8 @@ public static class StringExtensions
 
     public static string Truncate(this string value, int length, string suffix)
     {
-#if NET7_0_OR_GREATER
-        ArgumentOutOfRangeException.ThrowIfLessThan(length, 0, nameof(length));
+#if NET7_0_OR_GREATER // API Change with .NET 7
+        ArgumentOutOfRangeException.ThrowIfLessThan(length, 0);
 #else
         if (length < NumericConstants.Zero)
             throw new ArgumentOutOfRangeException(nameof(length));
@@ -101,7 +101,7 @@ public static class StringExtensions
         if (String.IsNullOrEmpty(value))
             return value;
 
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER || NETSTANDARD2_1
         return value.Length <= length ? value : String.Concat(value[..length].Trim(_grammarCharacters), suffix);
 #else
         return value.Length <= length ? value : String.Concat(value.Substring(NumericConstants.Zero, length).Trim(_grammarCharacters), suffix);
@@ -115,8 +115,8 @@ public static class StringExtensions
 
     public static string TruncateAtWord(this string input, int length, string suffix)
     {
-#if NET7_0_OR_GREATER
-        ArgumentOutOfRangeException.ThrowIfLessThan(length, 0, nameof(length));
+#if NET7_0_OR_GREATER // API Change with .NET 7
+        ArgumentOutOfRangeException.ThrowIfLessThan(length, 0);
 #else
         if (length < NumericConstants.Zero)
             throw new ArgumentOutOfRangeException(nameof(length));
@@ -128,7 +128,7 @@ public static class StringExtensions
             return suffix;
 
         var lastIndexOfSpaceWithinLength = input.LastIndexOf(StringConstants.Space, length - NumericConstants.One, StringComparison.Ordinal);
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER || NETSTANDARD2_1 // API Change with .NET 5
         var truncatedText = input[..(lastIndexOfSpaceWithinLength > NumericConstants.Zero ? lastIndexOfSpaceWithinLength : length)].Trim();
 #else
         var truncatedText = input.Substring(0, (lastIndexOfSpaceWithinLength > NumericConstants.Zero) ? lastIndexOfSpaceWithinLength : length).Trim();
@@ -255,7 +255,7 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER // API Change with .NET 5 but missing from .NET Standard 2.1
         return !String.IsNullOrWhiteSpace(value)
             ? value.Split(separator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
             : [];
@@ -296,7 +296,7 @@ public static class StringExtensions
         return builder?.ToString() ?? value;
     }
 
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER || NETSTANDARD2_1 // API Change with .NET 5
     public static string CollapseSlashes(this string path)
     {
         if (String.IsNullOrWhiteSpace(path))
@@ -381,7 +381,7 @@ public static class StringExtensions
         if (value == null)
             return null;
 #endif
-#if NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER // API Change with .NET 7
         ArgumentOutOfRangeException.ThrowIfLessThan(minimumOccurrences, 1, nameof(minimumOccurrences));
 #else
         if (minimumOccurrences < NumericConstants.One)
@@ -475,7 +475,7 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
-#if NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER // API Change with .NET 7
         ArgumentOutOfRangeException.ThrowIfLessThan(numberOfVisibleCharacter, 0, nameof(numberOfVisibleCharacter));
 #else
         if (numberOfVisibleCharacter < NumericConstants.Zero)
@@ -504,7 +504,7 @@ public static class StringExtensions
         if (value == null)
             throw new ArgumentNullException(nameof(value));
 #endif
-#if NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER // API Change with .NET 7
         ArgumentOutOfRangeException.ThrowIfLessThan(numberOfVisibleCharacter, 0, nameof(numberOfVisibleCharacter));
 #else
         if (numberOfVisibleCharacter < NumericConstants.Zero)
@@ -571,7 +571,7 @@ public static class StringExtensions
         {
             if (i > 0) builder.Append(CharConstants.Space);
 
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER || NETSTANDARD2_1 // API Change with .NET 5
             builder.Append(sourceParts[i][..1].ToUpperInvariant());
             builder.Append(sourceParts[i][1..]);
 #else
@@ -679,8 +679,7 @@ public static class StringExtensions
         if (segmentStart < normalizedValue.Length)
             builder.Append(normalizedValue, segmentStart, normalizedValue.Length - segmentStart);
 
-        if (builder.Length > NumericConstants.Zero &&
-            builder[builder.Length - NumericConstants.One] == CharConstants.Hyphen)
+        if (builder.Length > NumericConstants.Zero && builder[builder.Length - NumericConstants.One] == CharConstants.Hyphen)
         {
             builder.Length--;
         }

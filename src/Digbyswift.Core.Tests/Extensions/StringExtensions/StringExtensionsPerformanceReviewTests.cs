@@ -145,7 +145,7 @@ public class StringExtensionsPerformanceReviewTests
         var result = " one, two ,, three ".SplitAndTrim(CharConstants.Comma).ToArray();
 
         // Assert
-        Assert.That(result, Is.EqualTo(new[] { "one", "two", "three" }));
+        Assert.That(result, Is.EqualTo(["one", "two", "three"]));
     }
 
     [Test]
@@ -176,7 +176,7 @@ public class StringExtensionsPerformanceReviewTests
         var allocatedBytes = GC.GetAllocatedBytesForCurrentThread() - before;
 
         // Assert
-        Assert.That(allocatedBytes, Is.EqualTo(0));
+        Assert.That(allocatedBytes, Is.Zero);
     }
 #endif
 }
