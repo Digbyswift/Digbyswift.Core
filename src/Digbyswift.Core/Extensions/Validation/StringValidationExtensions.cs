@@ -207,7 +207,7 @@ public static class StringValidationExtensions
 
         var workingValue = value.Trim();
 
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER || NETSTANDARD2_1 // API Changed with .NET 5
         if (!(workingValue.StartsWith('{') && workingValue.EndsWith('}')) && !(workingValue.StartsWith('[') && workingValue.EndsWith(']')))
 #else
         if (!(workingValue.StartsWith("{") && workingValue.EndsWith("}")) && !(workingValue.StartsWith("[") && workingValue.EndsWith("]")))

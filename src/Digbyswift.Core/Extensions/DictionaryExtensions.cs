@@ -19,25 +19,14 @@ public static class DictionaryExtensions
         return dictionary.TryGetValue(key, out var workingValue) && workingValue.Equals(value, stringComparison);
     }
 
-#if !NET6_0_OR_GREATER
+#if NET48
     public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
         where TKey : notnull
     {
         return dictionary.TryGetValue(key, out var workingValue) ? workingValue : defaultValue;
     }
-#endif
 
-#if NET48
     public static TValue GetValueOrNull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
-        where TKey : notnull
-        where TValue : class
-    {
-        return dictionary.TryGetValue(key, out var workingValue) ? workingValue : null;
-    }
-#endif
-
-#if NETSTANDARD2_0
-    public static TValue? GetValueOrNull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
         where TKey : notnull
         where TValue : class
     {

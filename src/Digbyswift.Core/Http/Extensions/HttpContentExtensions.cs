@@ -10,11 +10,7 @@ public static class HttpContentExtensions
     /// <typeparam name="T">The type of object that is being deserialized.</typeparam>
     public static async Task<T?> ReadAsJsonAsync<T>(this HttpContent content, JsonSerializerSettings? options = null)
     {
-#if NETSTANDARD2_0
-        using var stream = await content.ReadAsStreamAsync();
-#else
         await using var stream = await content.ReadAsStreamAsync();
-#endif
         using var streamReader = new StreamReader(stream);
         using var jsonReader = new JsonTextReader(streamReader);
 

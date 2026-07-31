@@ -8,8 +8,8 @@ public class IsZeroTests
 {
     [TestCase(0d)]
     [TestCase(-0d)]
-    [TestCase(double.Epsilon)]
-    [TestCase(-double.Epsilon)]
+    [TestCase(Double.Epsilon)]
+    [TestCase(-Double.Epsilon)]
     [TestCase(0.1d + 0.2d - 0.3d)]
     public void IsZero_WithZeroOrFloatingPointResidue_ReturnsTrue(double value)
     {
@@ -24,9 +24,9 @@ public class IsZeroTests
     [TestCase(-1d)]
     [TestCase(0.00000000001d)]
     [TestCase(-0.00000000001d)]
-    [TestCase(double.NaN)]
-    [TestCase(double.PositiveInfinity)]
-    [TestCase(double.NegativeInfinity)]
+    [TestCase(Double.NaN)]
+    [TestCase(Double.PositiveInfinity)]
+    [TestCase(Double.NegativeInfinity)]
     public void IsZero_WithNonZeroValues_ReturnsFalse(double value)
     {
         // Act

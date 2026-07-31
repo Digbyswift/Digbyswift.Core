@@ -9,7 +9,7 @@ public static class HttpResponseMessageExtensions
         HttpStatusCode.Unauthorized, // 401
         HttpStatusCode.Forbidden, // 403
         HttpStatusCode.RequestTimeout, // 408
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
         (HttpStatusCode)429, // 429
 #else
         HttpStatusCode.TooManyRequests, // 429

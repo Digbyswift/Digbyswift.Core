@@ -1,13 +1,14 @@
 ﻿#pragma warning disable SA1402
+#if NET5_0_OR_GREATER || NETSTANDARD2_1
 using System.Globalization;
-#if NET48 || NETSTANDARD2_0
+#elif NET48
 using System.Runtime.InteropServices;
 using System.Security;
 #endif
 
 namespace Digbyswift.Core.Comparisons;
 
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER || NETSTANDARD2_1 // Possible in .NET 5 without DLL import required in .NET 4.
 
 /// <summary>
 /// Taken from this answer on Stackoverflow https://stackoverflow.com/a/66354540/549820 provided by https://stackoverflow.com/users/98713/thomas-levesque.
@@ -130,7 +131,7 @@ public class NaturalStringComparer : IComparer<string>
         }
     }
 }
-#elif NET48 || NETSTANDARD2_0
+#elif NET48
 [SuppressUnmanagedCodeSecurity]
 public sealed class NaturalStringComparer : IComparer<string>
 {

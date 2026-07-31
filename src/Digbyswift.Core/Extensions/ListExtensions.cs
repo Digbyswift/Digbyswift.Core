@@ -16,7 +16,7 @@ public static class ListExtensions
         if (source == null)
             throw new ArgumentNullException(nameof(source));
 #endif
-#if NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER // API Change with .NET 7
         ArgumentOutOfRangeException.ThrowIfLessThan(source.Count, toSize, nameof(source));
 #else
         if (source.Count < toSize)

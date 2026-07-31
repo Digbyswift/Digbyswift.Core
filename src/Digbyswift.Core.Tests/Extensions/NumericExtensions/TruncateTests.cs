@@ -130,9 +130,9 @@ public class TruncateTests
         Assert.That(result, Is.EqualTo(value).Within(0.000000000000001d));
     }
 
-    [TestCase(double.NaN)]
-    [TestCase(double.PositiveInfinity)]
-    [TestCase(double.NegativeInfinity)]
+    [TestCase(Double.NaN)]
+    [TestCase(Double.PositiveInfinity)]
+    [TestCase(Double.NegativeInfinity)]
     public void Truncate_WithNonFiniteValue_ReturnsInput(double value)
     {
         // Act

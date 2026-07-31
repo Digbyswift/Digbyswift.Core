@@ -10,7 +10,7 @@ public class IsEvenTests
     [TestCase(2)]
     [TestCase(-2)]
     [TestCase(100)]
-    [TestCase(int.MinValue)]
+    [TestCase(Int32.MinValue)]
     public void IsEven_WithEvenValues_ReturnsTrue(int value)
     {
         // Act
@@ -23,7 +23,7 @@ public class IsEvenTests
     [TestCase(1)]
     [TestCase(-1)]
     [TestCase(99)]
-    [TestCase(int.MaxValue)]
+    [TestCase(Int32.MaxValue)]
     public void IsEven_WithOddValues_ReturnsFalse(int value)
     {
         // Act
