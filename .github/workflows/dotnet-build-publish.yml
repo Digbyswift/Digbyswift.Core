@@ -43,6 +43,9 @@ jobs:
     runs-on: 'windows-latest'
 
     needs: build-lib
+    
+    permissions:
+      id-token: write
 
     steps:
       - name: Download artifact from build job
@@ -50,7 +53,11 @@ jobs:
         with:
           name: .package
 
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: digbyswift
+      
       - name: Publish package to nuget
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push *.nupkg --api-key "${env:NUGET_API_KEY}" --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push *.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
