@@ -1,6 +1,7 @@
 ﻿#pragma warning disable SA1202
 
 using System.Collections;
+using System.Text;
 using Digbyswift.Core.Constants;
 
 namespace Digbyswift.Core.Extensions;
@@ -23,6 +24,49 @@ public static class EnumerableExtensions
             throw new ArgumentNullException(nameof(source));
 #endif
         return !source.Any();
+    }
+
+    /// <summary>
+    /// Converts the sequence to a comma-delimited string.
+    /// </summary>
+    /// <param name="source">The sequence of strings to convert.</param>
+    /// <param name="includeSpaceAfterDelimiter">
+    /// <see langword="true" /> to separate values with a comma and a space; otherwise, <see langword="false" />.
+    /// </param>
+    /// <returns>A comma-delimited string, or <see langword="null" /> when the sequence is empty.</returns>
+    /// <exception cref="ArgumentNullException">The source parameter is null.</exception>
+#if NET48
+    public static string ToCsv(this IEnumerable<string> source, bool includeSpaceAfterDelimiter = false)
+#else
+    public static string? ToCsv(this IEnumerable<string> source, bool includeSpaceAfterDelimiter = false)
+#endif
+    {
+#if NET8_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(source);
+#else
+        if (source == null)
+            throw new ArgumentNullException(nameof(source));
+#endif
+
+        using var enumerator = source.GetEnumerator();
+        if (!enumerator.MoveNext())
+            return null;
+
+        var firstValue = enumerator.Current;
+        if (!enumerator.MoveNext())
+            return firstValue;
+
+        var delimiter = includeSpaceAfterDelimiter ? ", " : StringConstants.Comma;
+        var builder = new StringBuilder(firstValue);
+
+        do
+        {
+            builder.Append(delimiter);
+            builder.Append(enumerator.Current);
+        }
+        while (enumerator.MoveNext());
+
+        return builder.ToString();
     }
 
     public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source)
