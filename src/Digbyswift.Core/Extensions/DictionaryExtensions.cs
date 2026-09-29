@@ -1,4 +1,4 @@
-﻿namespace Digbyswift.Core.Extensions;
+namespace Digbyswift.Core.Extensions;
 
 public static class DictionaryExtensions
 {
@@ -9,15 +9,17 @@ public static class DictionaryExtensions
         return dictionary;
     }
 
+#if !NET48
     public static bool ContainsKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
     {
-        return dictionary.TryGetValue(key, out var workingValue) && workingValue!.Equals(value);
+        return dictionary.TryGetValue(key, out var workingValue) && (workingValue?.Equals(value) ?? false);
     }
 
     public static bool ContainsKeyAndValue<TKey>(this IDictionary<TKey, string> dictionary, TKey key, string value, StringComparison stringComparison = StringComparison.CurrentCulture)
     {
         return dictionary.TryGetValue(key, out var workingValue) && workingValue.Equals(value, stringComparison);
     }
+#endif
 
 #if NET48
     public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)

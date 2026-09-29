@@ -7,6 +7,7 @@ using Digbyswift.Core.Http.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using Nager.PublicSuffix;
+using Nager.PublicSuffix.RuleProviders;
 
 namespace Digbyswift.Core.Http.Extensions;
 
@@ -124,9 +125,10 @@ public static class HttpRequestExtensions
 
         var currentDomainInfo = request.GetDomainInfo();
         var refererDomainInfo = referringUri.GetDomainInfo();
+        if (currentDomainInfo?.RegistrableDomain == null || refererDomainInfo?.RegistrableDomain == null)
+            return null;
 
-        return currentDomainInfo.RegistrableDomain?.Equals(refererDomainInfo.RegistrableDomain,
-            StringComparison.OrdinalIgnoreCase) ?? false
+        return currentDomainInfo.RegistrableDomain.EqualsIgnoreCase(refererDomainInfo.RegistrableDomain)
             ? referringUri
             : null;
     }
@@ -266,27 +268,34 @@ public static class HttpRequestExtensions
     /// <summary>
     /// Request-caches Nager.PublicPrefix.DomainParser.
     /// </summary>
-    public static DomainInfo GetDomainInfo(this HttpRequest request)
+    public static DomainInfo? GetDomainInfo(this HttpRequest request)
     {
         const string domainInfoKey = "Digbyswift.Core.Http.DomainInfo";
 
-        var domainParser = new DomainParser(new WebTldRuleProvider());
-
         if (request.HttpContext == null)
-            return domainParser.Parse(request.GetAbsoluteBaseUri());
+            return GetDomainInfoImpl(request);
 
-        if (request.HttpContext.Items[domainInfoKey] is DomainInfo domainInfo)
-            return domainInfo;
+        if (request.HttpContext.Items[domainInfoKey] is DomainInfo cachedDomainInfo)
+            return cachedDomainInfo;
 
-        domainInfo = domainParser.Parse(request.GetAbsoluteBaseUri());
+        var domainInfo = GetDomainInfoImpl(request);
         request.HttpContext.Items[domainInfoKey] = domainInfo;
 
         return domainInfo;
     }
 
+    private static DomainInfo? GetDomainInfoImpl(HttpRequest request)
+    {
+        using var ruleProvider = new SimpleHttpRuleProvider();
+        var domainParser = new DomainParser(ruleProvider);
+        return domainParser.Parse(request.GetAbsoluteBaseUri());
+    }
+
     #region Path
 
+#pragma warning disable SA1202
     public static bool PathHasFileExtension(this HttpRequest request)
+#pragma warning restore SA1202
     {
         if (String.IsNullOrWhiteSpace(request.Path))
             throw new ArgumentException("Request has no path");
