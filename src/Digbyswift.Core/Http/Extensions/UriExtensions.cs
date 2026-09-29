@@ -1,5 +1,6 @@
 using Digbyswift.Core.Constants;
 using Nager.PublicSuffix;
+using Nager.PublicSuffix.RuleProviders;
 
 namespace Digbyswift.Core.Http.Extensions;
 
@@ -42,12 +43,13 @@ public static class UriExtensions
             : uri.ToBareUri().PathAndQuery;
     }
 
-    public static DomainInfo GetDomainInfo(this Uri uri)
+    public static DomainInfo? GetDomainInfo(this Uri uri)
     {
         if (!uri.IsAbsoluteUri)
             throw new ArgumentException("Uri must be absolute", nameof(uri));
 
-        var domainParser = new DomainParser(new WebTldRuleProvider());
+        using var ruleProvider = new SimpleHttpRuleProvider();
+        var domainParser = new DomainParser(ruleProvider);
         return domainParser.Parse(uri);
     }
 }

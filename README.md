@@ -99,6 +99,7 @@ This includes:
 - `None<T>(Func<T, bool> func)`
 - `NotContains<T>(T item)`
 - `SkipLast<T>()`
+- `ToCsv(bool includeSpaceAfterDelimiter = false)`
 - `WhereNotNull<T>()`
 
 ### List

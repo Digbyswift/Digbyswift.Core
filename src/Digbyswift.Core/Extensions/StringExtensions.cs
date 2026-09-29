@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Digbyswift.Core.Constants;
@@ -45,7 +45,7 @@ public static class StringExtensions
 #if NET48
     public static string Coalesce(this string value, string valueWhenNullOrEmpty)
     {
-        return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value!;
+        return String.IsNullOrWhiteSpace(value) ? valueWhenNullOrEmpty : value;
     }
 #else
     public static string Coalesce(this string? value, string fallback)
@@ -62,9 +62,9 @@ public static class StringExtensions
     public static string Coalesce(this string? value, string? optionalFallback, string requiredFallback)
     {
         if (!String.IsNullOrWhiteSpace(value))
-            return value!;
+            return value;
 
-        return !String.IsNullOrWhiteSpace(optionalFallback) ? optionalFallback! : requiredFallback;
+        return !String.IsNullOrWhiteSpace(optionalFallback) ? optionalFallback : requiredFallback;
     }
 #endif
 

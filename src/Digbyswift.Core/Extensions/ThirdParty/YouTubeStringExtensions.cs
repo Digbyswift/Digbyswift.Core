@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using Digbyswift.Core.Constants;
 
@@ -62,7 +62,7 @@ public static class YouTubeStringExtensions
         if (String.IsNullOrWhiteSpace(youtubeUri?.Query))
             return nvc;
 
-        foreach (var item in youtubeUri!.Query.Replace(StringConstants.QuestionMark, String.Empty).SplitAndTrim(CharConstants.Ampersand))
+        foreach (var item in youtubeUri.Query.Replace(StringConstants.QuestionMark, String.Empty).SplitAndTrim(CharConstants.Ampersand))
         {
             var itemParts = item.SplitAndTrim(CharConstants.Equal).ToArray();
             if (itemParts.Length != 2)
